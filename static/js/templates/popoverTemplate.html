@@ -1,0 +1,17 @@
+<div class="arrow"></div>
+<h3 class="popover-title">Edit Element</h3>
+<div class="popover-content">
+	<% if(options){ %>
+	<label><input type="text" value="<%= label %>" id="editLabel"></label>
+	<label><input type="text" value="<%= options %>" id="editOptions"></label>
+	<% } else if(label){ %>
+	<label><input type="text" value="<%= label %>" id="editLabel"></label>
+	<label><input type="checkbox" id="requiredField"<% if(required){ %> checked<% } %>> Required Field?</label>
+	<% } else if(legend){ %>
+	<input type="text" value="<%= legend %>" id="editLegend">
+	<% } else if(submit){ %>
+	<input type="text" value="<%= submit %>" id="editSubmit">
+	<% } else if(paragraph){ %>
+	<input type="text" value="<%= paragraph %>" id="editParagraph">
+	<% } %>
+</div>

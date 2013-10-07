@@ -1,0 +1,742 @@
+::selection {
+	background: @main;
+	color: #fff;
+}
+::-moz-selection {
+	background: @main;
+	color: #fff;
+}
+
+/*-----------------------------------
+| Logged Out view
+------------------------------------*/
+
+.branding{
+	font: 2em @headingsFontFamily;
+	color: @main;
+	.pull-left;
+	&:hover{
+		color: @main;
+		text-decoration: none;
+	}
+}
+
+.grey{
+	color: #999;
+}
+
+.formerHero{
+	margin: 30px 0 0;
+	position: relative;
+	min-height: 680px;
+	header{
+		.clearfix;
+	}
+	nav{
+		.pull-right;
+		li{
+			display: inline-block;
+			margin: 5px 0 0 5px;
+		}
+		a{
+			border: 1px solid @main;
+			font-size: 1.2em;
+			padding: 5px 10px;
+			.border-radius (5px);
+			color: @main;
+			&:hover{
+				text-decoration: none;
+				color: #fff;
+				background: @main;
+			}
+		}
+	}
+}
+
+#screenshot{
+	background: url(../img/screenshot.png);
+	width: 943px;
+	height: 431px;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	margin-left: -470px;
+}
+
+.frontInfo{
+	background: #fff;
+	padding: 25px 0;
+	> ul{
+		list-style: none;
+		margin: 0;
+		li{
+			margin: 0;
+			padding: 25px 0 0;
+			border-bottom: 1px solid #eee;
+		}
+	}
+}
+
+.moduleText{
+	width: 500px;
+}
+
+.embedModuleText{
+	margin: 30px 0 0;
+}
+
+.dragModuleText{
+	margin: 25px 0 0;
+}
+
+.resultsModuleText{
+	margin: 25px 0 0;
+}
+
+.readyPanel{
+	border: 0 !important;
+	padding: 80px 0 55px !important;
+	a{
+		.pull-left;
+		margin: 5px 0 0 25px;
+	}
+	.container{
+		width: 600px;
+	}
+}
+
+.sublime{
+	background: url(../img/sublime.png);
+	width: 405px;
+	height: 233px;
+	> span{
+		width: 375px;
+		color: #fff;
+		font: 1em/1.8 Consolas, 'Lucida Console', 'DejaVu Sans Mono', monospace;
+		display: block;
+		margin: 70px 15px 5px;
+		word-wrap: break-word;
+		.text{
+			width: 375px;
+		}
+		.typer{
+			float: none;
+			display: inline-block;
+		}
+	}
+}
+
+.eyepanel{
+	background: url(../img/entries.png);
+	width: 405px;
+	height: 233px;
+}
+
+.dragpanel{
+	background: url(../img/elements.png);
+	width: 405px;
+	height: 233px;
+	border: 1px solid #eee;
+	border-bottom: none;
+}
+
+.tagline{
+	color: #999;
+	text-align: center;
+	margin: 50px 0 0;
+}
+
+.cta-btn{
+	width: 155px;
+	margin: 25px auto;
+	display: block;
+}
+
+#frontFooter{
+	background: @main;
+	color: #fff;
+	padding: 50px 0;
+}
+
+/*-----------------------------------
+| Misc
+------------------------------------*/
+
+.topPadding{
+	margin-top: 20px;
+}
+
+.relative{
+	position: relative;
+}
+
+.noForms{
+	color: #999;
+	text-align: center;
+}
+
+.noFormsHome{
+	padding: 100px 0;
+}
+
+/*-----------------------------------
+| Form Builder
+------------------------------------*/
+
+.formBuilder, .contentArea{
+	background: #fff;
+	width: 685px;
+	&.full{
+		width: 940px;
+	}
+	.box-shadow (0 1px 2px rgba(0,0,0,.15));
+	h1{
+		color: #ccc;
+		padding: 80px 0;
+	}
+	header{
+		background: #fafafa;
+		border-bottom: 1px solid #eee;
+		padding: 15px;
+		input{
+			margin: 0;
+		}
+		.btn{
+			margin: 5px 0 0
+		}
+	}
+}
+
+#forms{
+	list-style: none;
+	margin: 0;
+	padding: 15px;
+	font-size: 1.5em;
+	> li{
+		border-bottom: 1px solid #eee;
+		padding: 15px 0;
+		color: #999;
+	}
+}
+
+#canvas{
+	padding: 15px;
+	border: 5px solid #fff;
+	.box-sizing (border-box);
+}
+
+#canvasElements > div{
+	padding: 5px 0;
+	&:hover{
+		background: #fafafa;
+		cursor: pointer;
+	}
+}
+
+#canvasElements .form-actions{
+	padding: 19px 20px 20px;
+	padding-left: 180px;
+}
+
+.draghover{
+	border: 5px dashed #ccc !important;
+}
+
+#formOptions,
+#blogPosts{
+	list-style: none;
+	margin: 0;
+	.box-shadow (0 1px 2px rgba(0,0,0,.15));
+	.optionTitle{
+		background: #fafafa;
+		font: 1.2em @headingsFontFamily;
+		padding: 10px;
+		border-bottom: 2px solid #eee;
+		border-top: 1px solid #eee;
+		color: #999;
+	}
+	ul{
+		background: #fff;
+		list-style: none;
+		width: 235px;
+		margin: 0;
+		li{
+			margin: 0;
+			padding: 10px;
+			border-bottom: 1px solid #eee;
+			font-size: 1.15em;
+			&:hover, &.active{
+				background: #fafafa;
+			}
+		}
+	}
+	input{
+		width: 200px;
+		margin: 0;
+	}
+}
+
+#elements li{
+	cursor: move;
+	cursor: -moz-grab; 
+	cursor: -webkit-grab; 
+	cursor: grab;
+	i{
+		margin: 0 15px 0 0;
+	}
+}
+
+.component{
+	position: relative;
+}
+
+.deleteBtn{
+	color: #ccc;
+	position: absolute;
+	top: 50%;
+	margin-top: -14px;
+	right: 10px;
+	&:hover{
+		color: @main;
+		text-decoration: none;
+	}
+}
+
+.popover{
+	display: block;
+	left: -276px;
+}
+
+.popover-title{
+	padding: 6px 14px 3px;
+}
+
+.required{
+	color: red;
+}
+
+/*-----------------------------------
+| Form List
+------------------------------------*/
+
+#forms{
+	li{
+		.clearfix;
+	}
+	ul{
+		.pull-right;
+		list-style: none;
+		margin: 0;
+		li{
+			padding: 0;
+			font-size: 0.8em;
+			display: inline-block;
+		}
+	}
+	a{
+		color: #999;
+		&:hover{
+			color: @main;
+			text-decoration: none;
+		}
+	}
+}
+
+#pageFooter{
+	color: #999;
+	margin: 50px auto 0;
+	padding: 15px 0;
+	border-top: 1px solid #ccc;
+	a{
+		margin: 0 0 0 15px;
+	}
+}
+
+.deleteForm{
+	position: relative;
+}
+
+/*-----------------------------------
+| Tipsy
+------------------------------------*/
+
+.tipsy { padding: 5px; font-size: 10px; position: absolute; z-index: 100000; }
+  .tipsy-inner { padding: 5px 8px 4px 8px; background-color: black; color: white; max-width: 200px; text-align: center; }
+  .tipsy-inner { border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; }
+  .tipsy-arrow { position: absolute; background: url('../js/components/tipsy/src/images/tipsy.gif') no-repeat top left; width: 9px; height: 5px; }
+  .tipsy-n .tipsy-arrow { top: 0; left: 50%; margin-left: -4px; }
+    .tipsy-nw .tipsy-arrow { top: 0; left: 10px; }
+    .tipsy-ne .tipsy-arrow { top: 0; right: 10px; }
+  .tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -4px; background-position: bottom left; }
+    .tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; background-position: bottom left; }
+    .tipsy-se .tipsy-arrow { bottom: 0; right: 10px; background-position: bottom left; }
+  .tipsy-e .tipsy-arrow { top: 50%; margin-top: -4px; right: 0; width: 5px; height: 9px; background-position: top right; }
+  .tipsy-w .tipsy-arrow { top: 50%; margin-top: -4px; left: 0; width: 5px; height: 9px; }
+
+ /*-----------------------------------
+ | Show Form
+ ------------------------------------*/
+
+ #formerForm{
+ 	margin: 20px auto;
+ 	h4{
+ 		color: #999;
+ 	}
+ }
+
+ #formFields{
+ 	padding: 15px 15px 1px;
+ }
+
+ .formerLogo{
+ 	width: 58px;
+ 	margin: 15px auto;
+ 	a{
+ 		color: @main;
+ 	}
+ }
+
+ /*-----------------------------------
+ | Modal
+ ------------------------------------*/
+
+ .overlay{
+ 	background: rgba(0,0,0,.5);
+ 	width: 100%;
+ 	height: 100%;
+ 	position: fixed;
+ 	top:0;
+ 	left:0;
+ 	.box-shadow (inset 0 0 150px rgba(0,0,0,.5));
+ }
+
+ /*-----------------------------------
+ | Register
+ ------------------------------------*/
+
+ .orange{
+ 	color: @main;
+ }
+
+ .registerContainer{
+ 	width: 300px;
+ 	position: absolute;
+ 	top: 22%;
+ 	left: 50%;
+ 	margin-left: -150px;
+ 	input[type=email],
+ 	input[type=password]{
+ 		.box-shadow (none);
+ 		width: 280px;
+ 		padding: 10px;
+ 		font-size: 1.5em;
+ 		height: 100%;
+ 		line-height: normal;
+ 	}
+ 	input[type=submit]{
+		display: block;
+		width: 302px;
+ 		padding: 10px;
+ 		font-size: 1.5em;
+ 		margin: 20px 0;
+ 	}
+ }
+
+ .already{
+ 	background: #fff;
+ 	position: absolute;
+ 	bottom: 0;
+ 	text-align: center;
+ 	width: 100%;
+ 	font-size: 1.3em;
+ 	color: #666;
+ 	padding: 25px 0;
+ 	border-top: 1px solid #ccc;
+ }
+
+ /*-----------------------------------
+ | Typer.js
+ ------------------------------------*/
+
+ /*
+* Styles for Typer.js
+* It works best with a fixed width container
+*/
+
+.typerjs:after{
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.typerjs{
+	zoom: 1;
+}
+
+.typerjs .text{
+	float: left;
+}
+
+.typerjs .typer{
+	background: #007dbe;
+	display: block;
+	width: 2px;
+	height: 1em;
+	margin: 2px 0 0 5px;
+	float: left;
+}
+
+.typerjs .animate{
+	-webkit-animation: flash 1s infinite;
+	-moz-animation: flash 1s infinite;
+	-ms-animation: flash 1s infinite;
+	-o-animation: flash 1s infinite;
+}
+
+@-webkit-keyframes flash {
+  0% {
+	opacity: 1;
+  }
+  49.99% {
+	opacity: 1;
+  }
+  50% {
+	opacity: 0;
+  }
+  99.99% {
+	opacity: 0;
+  }
+}
+
+@-moz-keyframes flash {
+  0% {
+	opacity: 1;
+  }
+  49.99% {
+	opacity: 1;
+  }
+  50% {
+	opacity: 0;
+  }
+  99.99% {
+	opacity: 0;
+  }
+}
+
+@-ms-keyframes flash {
+  0% {
+	opacity: 1;
+  }
+  49.99% {
+	opacity: 1;
+  }
+  50% {
+	opacity: 0;
+  }
+  99.99% {
+	opacity: 0;
+  }
+}
+
+@-o-keyframes flash {
+  0% {
+	opacity: 1;
+  }
+  49.99% {
+	opacity: 1;
+  }
+  50% {
+	opacity: 0;
+  }
+  99.99% {
+	opacity: 0;
+  }
+}
+
+@keyframes flash {
+  0% {
+	opacity: 1;
+  }
+  49.99% {
+	opacity: 1;
+  }
+  50% {
+	opacity: 0;
+  }
+  99.99% {
+	opacity: 0;
+  }
+}
+
+/*-----------------------------------
+| Form Entries
+------------------------------------*/
+
+.formStats{
+	padding: 15px 0;
+	border-bottom: 1px solid #eee;
+	.box-shadow (0 1px 1px rgba(0,0,0,.05));
+	.clearfix;
+	width: 940px;
+}
+
+.statModule{
+	font: 2em @headingsFontFamily;
+	color: #999;
+	display: table-cell;
+	width: 30%;
+	text-align: center;
+	span{
+		color: @main;
+	}
+	border-right: 1px solid #eee;
+	padding: 10px 15px;
+	&:last-child{
+		border: none;
+	}
+}
+
+.entriesCont{
+	max-width: 940px;
+	overflow-x: auto;
+}
+
+/*-----------------------------------
+| Roadmap
+------------------------------------*/
+
+.roadmap{
+	position: relative;
+	margin: 15px 0 0;
+	.timeline{
+		background: @main;
+		width: 2px;
+		height: 99%;
+		position: absolute;
+		left:47px;
+		top: 0;
+	}
+	h2{
+		background: @main;
+		color: #fff;
+		font-size: 1em;
+		display: inline-block;
+		padding: 5px;
+		.border-radius (5px);
+		position: relative;
+		width: 85px;
+		text-align: center;
+		margin: 0;
+	}
+	li{
+		list-style: none;
+		.clearfix;
+		margin: 0 0 15px;
+	}
+	.status{
+		display: block;
+		background: url(../img/status.png) no-repeat top;
+		.size (16px, 16px);
+		position: relative;
+		z-index: 5;
+		margin: 3px 0 0;
+		float: left;
+	}
+	ul{
+		margin: 10px 0 0 40px;
+	}
+	.status.complete{
+		background-position: bottom;
+	}
+	.text{
+		float: left;
+		margin: 0 0 0 15px;
+	}
+}
+
+.roadmapContainer{
+	margin: 25px 0 0;
+}
+
+/*-----------------------------------
+| Blog
+------------------------------------*/
+
+.blog .navbar-inner{
+	background: none;
+}
+
+.blog .navbar .nav > li > a{
+	color: #999;
+	&:hover{
+		color: @main;
+	}
+}
+
+.blog .brand{
+	color: @main;
+}
+
+#blogPosts ul li{
+	padding: 0;
+}
+
+#blogPosts a{
+	padding: 10px;
+	display: block;
+	color: #999;
+	text-decoration: none;
+}
+
+.blog #pageFooter{
+	display: none;
+}
+
+#postCanvas{
+	width: 640px;
+	.pull-right;
+	h2:first-of-type{
+		margin-top: 0;
+	}
+}
+
+.postContent{
+	font-size: 1.2em;
+	line-height: 1.7;
+	margin: 30px 0 80px;
+}
+
+.postContent p{
+  margin: 0 0 25px;
+}
+
+/*-----------------------------------
+| Show Form
+------------------------------------*/
+
+@media screen and (max-width: 685px){
+	.showForm{
+		#formerForm{
+			width: 95%;
+			margin: 12px auto;
+		}
+	}
+}
+
+@media screen and (max-width: 435px){
+	.showForm .form-horizontal{
+		.control-label{
+			float: none;
+			text-align: left;
+			width: auto;
+		}
+		.controls{
+			margin: 10px 0 0;
+		}
+		.form-actions{
+			padding-left: 20px;
+		}
+	}
+}

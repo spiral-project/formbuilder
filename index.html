@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Former - New Form</title>
+	<link rel="stylesheet" href="/static/css/bootstrap.css">
+	<script type="text/javascript" src="/static/js/components/requirejs/require.js" data-main="/static/js/main-build"></script>
+	<script type="text/javascript" src="//use.typekit.net/fed7kbk.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body class="">
+
+	<div class="navbar navbar-static-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="/">daybed-former</a>
+								<ul class="nav pull-right">
+					<li>
+						<a href="/logout" class="tipped" title="Logout"><i class="icon-large icon-signout"></i></a>
+					</li>
+				</ul>
+            </div>
+		</div>
+	</div>
+
+	<div class="container topPadding">
+		
+		<div class="clearfix relative">
+
+<ul id="formOptions" class="pull-left">
+	
+	<li class="optionTitle">Elements</li>
+	<li>
+		<ul id="elements">
+			<li data-type="legend" draggable="true"><i class="icon-font"></i> Legend</li>
+			<li data-type="text" draggable="true"><i class="icon-align-right"></i> Paragraph of text</li>
+			<li data-type="textbox" draggable="true"><i class="icon-text-width"></i> Single-line text box</li>
+			<li data-type="textarea" draggable="true"><i class="icon-text-height"></i> Multi-line textarea</li>
+			<li data-type="select" draggable="true"><i class="icon-menu"></i> Dropdown</li>
+			<li data-type="checkbox" draggable="true"><i class="icon-checkbox-checked"></i> Checkboxes</li>
+			<li data-type="radio" draggable="true"><i class="icon-radio-checked"></i> Radio Buttons</li>
+			<li data-type="submit" draggable="true"><i class="icon-hand-up"></i> Submit Form</li>
+		</ul>
+	</li>
+
+</ul>
+
+<div class="formBuilder pull-right">
+	
+	<header class="clearfix">
+		<input type="text" value="New Form" id="formName">
+		<button class="btn btn-success pull-right" id="saveForm">Save Form</button>
+	</header>
+
+	<div id="canvas">
+		<div id="canvasElements" class="form-horizontal"></div>
+		<h1 class="text-center">Add elements to begin</h1>
+	</div>
+
+	<input type="hidden" id="build" value="[]">
+
+</div>
+
+</div>
+	</div>
+
+	<footer class="container" id="pageFooter">
+		Copyright &copy;2013 Cocoon
+		<a href="/blog" class="pull-right">Blog</a>
+		<a href="/roadmap" class="pull-right">Roadmap</a>
+		<a href="http://formerapp.com/f/ZbTEKZu4EU34abRN" target="_blank" class="pull-right">Feedback</a>
+		<a href="http://twitter.com/formerapp" target="_blank" class="pull-right">Twitter</a>
+		<a href="https://www.gittip.com/steve228uk/" target="_blank" class="pull-right">Donate</a>
+	</footer>
+</body>
+</html>
