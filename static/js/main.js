@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: "/assets/js",
+    baseUrl: "/static/js",
     paths: {
         "jquery": "components/jquery/jquery",
         "jquery-ui": "components/jquery-ui/ui/jquery-ui.custom",
