@@ -1,26 +1,36 @@
 define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
         'models/form'],
-        function(Backbone, vent, popoverTemplate, FormModel){
+        function (Backbone, vent, popoverTemplate, formModel) {
 
   "use strict";
 
+  /*-----------------------------------
+    | Module
+    ------------------------------------*/
+
   var Module = Backbone.View.extend({
-    initialize: function(){
-      new Polyfill();
-      new BodyView();
-      window.c = new CanvasView();
-      new ElementsView();
-      new CanvasElements();
-      new SaveFormView();
-      new WindowView();
+    initialize: function () {
+      new polyfill();
+      new body();
+      window.c = new canvas();
+      new elements();
+      new canvasElements();
+      new saveForm();
+      new w();
     }
   });
 
-  var WindowView = Backbone.View.extend({
+  /*-----------------------------------
+    | Window
+    ------------------------------------*/
+
+  var w = Backbone.View.extend({
     el: window,
-    events:{'scroll': 'sideBarFollow'},
-    sideBarFollow: function(){
-      if(this.$el.scrollTop() > 85){
+    events: {
+      'scroll': 'sideBarFollow'
+    },
+    sideBarFollow: function (e) {
+      if (this.$el.scrollTop() > 85) {
         $('#formOptions').css({
           position: 'fixed',
           top: '15px',
@@ -38,68 +48,82 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     }
   });
 
-  /**
-   * Polyfill for array move.
-   *
-   * XXX Remove this from here since it's not a view?
-   **/
-  var Polyfill = Backbone.View.extend({
-    initialize: function(){
-      Array.prototype.move = function (oldIndex, newIndex) {
-        while (oldIndex < 0) {
-          oldIndex += this.length;
+  /*-----------------------------------
+    | Polyfill for array move
+    ------------------------------------*/
+
+  var polyfill = Backbone.View.extend({
+    initialize: function () {
+      Array.prototype.move = function (old_index, new_index) {
+        while (old_index < 0) {
+          old_index += this.length;
         }
-        while (newIndex < 0) {
-          newIndex += this.length;
+        while (new_index < 0) {
+          new_index += this.length;
         }
-        if (newIndex >= this.length) {
-          var k = newIndex - this.length;
+        if (new_index >= this.length) {
+          var k = new_index - this.length;
           while ((k--) + 1) {
             this.push(undefined);
           }
         }
-        this.splice(newIndex, 0, this.splice(oldIndex, 1)[0]);
+        this.splice(new_index, 0, this.splice(old_index, 1)[0]);
       };
     }
   });
 
-  var BodyView = Backbone.View.extend({
+  /*-----------------------------------
+    | Body
+    ------------------------------------*/
+
+  var body = Backbone.View.extend({
     el: document,
     events: {
-      'click' : 'click'
+      'click': 'click'
     },
-    click: function(){
+    click: function () {
       vent.trigger('close:popover');
     }
   });
 
-  var ElementsView = Backbone.View.extend({
-      el: '#elements',
-      events:{
-        'dragstart li': '_dragStartEvent',
-        'click li': 'click'
-      },
-      _dragStartEvent: function(e){
-        window._backboneDragDropObject = $(e.currentTarget);
-      },
-      click: function(e){
-        this._dragStartEvent(e);
-        window.c.drop(window._backboneDragDropObject, e);
-      }
-    });
+  /*-----------------------------------
+    | Elements
+    ------------------------------------*/
 
-  var CanvasView = Backbone.View.extend({
-    el: '#Canvas',
-    events:{
+  var elements = Backbone.View.extend({
+    el: '#elements',
+    events: {
+      'dragstart li': '_dragStartEvent',
+      'click li': 'click'
+    },
+    _dragStartEvent: function (e) {
+      window._backboneDragDropObject = $(e.currentTarget);
+    },
+    click: function (e) {
+      this._dragStartEvent(e);
+      window.c.drop(window._backboneDragDropObject, e);
+    }
+  });
+
+  /*-----------------------------------
+    | Canvas
+    ------------------------------------*/
+
+  var canvas = Backbone.View.extend({
+    el: '#canvas',
+    events: {
       'dragover': '_dragOverEvent',
       'dragenter': '_dragEnterEvent',
       'dragleave': '_dragLeaveEvent',
       'drop': '_dropEvent'
     },
     _draghoverClassAdded: false,
+
     _dragOverEvent: function (e) {
-      if (e.originalEvent) e = e.originalEvent;
+      if (e.originalEvent)
+        e = e.originalEvent;
       var data = this._getCurrentDragData(e);
+
       if (this.dragOver(data, e.dataTransfer, e) !== false) {
         if (e.preventDefault)
           e.preventDefault();
@@ -110,115 +134,124 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     _dragEnterEvent: function (e) {
       if (e.originalEvent)
         e = e.originalEvent;
+
       if (e.preventDefault)
         e.preventDefault();
     },
 
     _dragLeaveEvent: function (e) {
-      if (e.originalEvent) e = e.originalEvent;
+      if (e.originalEvent)
+        e = e.originalEvent;
       var data = this._getCurrentDragData(e);
       this.dragLeave(data, e.dataTransfer, e);
     },
 
     _dropEvent: function (e) {
-      if (e.originalEvent)
-        e = e.originalEvent;
-      if (e.preventDefault)
-        e.preventDefault();
-      if (e.stopPropagation)
-        e.stopPropagation();
+
+      if (e.originalEvent) e = e.originalEvent;
+      if (e.preventDefault) e.preventDefault();
+      if (e.stopPropagation) e.stopPropagation();
 
       var data = window._backboneDragDropObject;
-      if (this._draghoverClassAdded)
-        this.$el.removeClass("draghover");
 
+      if (this._draghoverClassAdded) this.$el.removeClass("draghover");
       this.drop(data, e);
     },
 
-    _getCurrentDragData: function () {
+    _getCurrentDragData: function (e) {
       var data = null;
-      if (window._backboneDragDropObject)
-        data = window._backboneDragDropObject;
+      if (window._backboneDragDropObject) data = window._backboneDragDropObject;
       return data;
     },
 
-    dragOver: function () {
+    dragOver: function (data, dataTransfer, e) {
       this.$el.addClass("draghover");
       this._draghoverClassAdded = true;
     },
 
-    dragLeave: function () {
+    dragLeave: function (data, dataTransfer, e) {
       if (this._draghoverClassAdded)
         this.$el.removeClass("draghover");
     },
 
-    getElement: function(type){
-      var element,
-      boilerplate = _.template([
-        '<div class="control-group component">',
-        '  <label class="control-label">Label</label>',
-        '  <div class="controls"><%= element %></div>',
-        '</div>'
-      ].join(''));
+    getElement: function (type) {
 
-      switch(type){
-        case 'textbox':
-          element = '<input type="text"></input>';
-          return boilerplate({element: element});
-        case 'textarea':
-          element = '<textarea></textarea>';
-          return boilerplate({element: element});
-        case 'submit':
-          return [
-            '<div class="form-actions component">',
-            '<button class="btn btn-primary">Label</button></div>'
-          ].join('');
-        case 'legend':
-          return '<div class="component"><legend>Label</legend></div>';
-        case 'select':
-          element = [
-            '<select class="dropdown">',
-            '  <option>Option 1</option>',
-            '  <option>Option 2</option>',
-            '  <option>Option 3</option>',
-            '</select>'
-          ].join('');
-          return boilerplate({element: element});
-        case 'checkbox':
-          element = [
-            '<label class="checkbox">',
-            '  <input type="checkbox">Option 1',
-            '</label>',
-            '<label class="checkbox">',
-            '  <input type="checkbox">Option 2',
-            '</label>',
-            '<label class="checkbox">',
-            '  <input type="checkbox">Option 3',
-            '</label>'
-          ].join('');
-          return boilerplate({element: element});
-        case 'radio':
-          element = [
-            '<label class="radio">',
-            '  <input type="radio"> Option 1',
-            '</label>',
-            '<label class="radio">',
-            '  <input type="radio"> Option 2',
-            '</label>',
-            '<label class="radio">',
-            '  <input type="radio"> Option 3',
-            '</label>'
-          ].join('');
-          return boilerplate({element: element});
-        case 'text':
-          return '<div class="component"><p>Label</p></div>';
+      var element,
+        boilerplate = _.template([
+          '<div class="control-group component">',
+          '<label class="control-label">Label</label>',
+          '<div class="controls"><%= element %></div>',
+          '</div>'
+        ].join(''));
+
+      switch (type) {
+      case 'textbox':
+        element = '<input type="text"></input>';
+        return boilerplate({
+          element: element
+        });
+      case 'textarea':
+        element = '<textarea></textarea>';
+        return boilerplate({
+          element: element
+        });
+      case 'submit':
+        return [
+          '<div class="form-actions component">',
+          '  <button class="btn btn-primary">Label</button>',
+          '</div>'
+        ].join('');
+      case 'legend':
+        return '<div class="component"><legend>Label</legend></div>';
+      case 'select':
+        element = [
+          '<select class="dropdown">',
+          '  <option>Option 1</option>',
+          '  <option>Option 2</option>',
+          '  <option>Option 3</option>',
+          '</select>'
+        ].join('');
+        return boilerplate({
+          element: element
+        });
+      case 'checkbox':
+        element = [
+          '<label class="checkbox">',
+          '  <input type="checkbox"> Option 1',
+          '</label>',
+          '<label class="checkbox">',
+          '  <input type="checkbox"> Option 2',
+          '</label>',
+          '<label class="checkbox">',
+          '  <input type="checkbox"> Option 3',
+          '</label>'
+        ].join('');
+        return boilerplate({
+          element: element
+        });
+      case 'radio':
+        element = [
+          '<label class="radio">',
+          '  <input type="radio"> Option 1',
+          '</label>',
+          '<label class="radio">',
+          '  <input type="radio"> Option 2',
+          '</label>',
+          '<label class="radio">',
+          '  <input type="radio"> Option 3',
+          '</label>'
+        ].join('');
+        return boilerplate({
+          element: element
+        });
+      case 'text':
+        return '<div class="component"><p>Label</p></div>';
       }
     },
 
-    drop: function (data) {
+    drop: function (data, e) {
       // Remove the H1
       this.$('h1').remove();
-
       // Add our markup
       this.$('#canvasElements').append(this.getElement(data.data('type')));
       this.$('#canvasElements .component:last').click();
@@ -235,125 +268,141 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     }
   });
 
+  /*-----------------------------------
+    | Edit Card
+    ------------------------------------*/
 
-  var EditCardView = Backbone.View.extend({
+  var editCard = Backbone.View.extend({
     tagName: 'div',
     className: 'popover left',
     template: _.template(popoverTemplate),
-    events:{
-      'click' : 'stopProp',
+    events: {
+      'click': 'stopProp',
       'keypress input': 'filterKey'
     },
-    initialize: function(){
+
+    initialize: function () {
       this.render();
       vent.on('close:popover', this.close, this);
     },
-    stopProp: function(e){
+
+    stopProp: function (e) {
       e.stopPropagation();
     },
-    filterKey: function(e){
-      if(e.which === 13)
+
+    filterKey: function (e) {
+      if (e.which === 13)
         this.close();
     },
 
-    close: function(){
+    close: function () {
+
       // Set the options we just edited
       var label;
       if (this.$('#requiredField').is(':checked')) {
         label = this.$('#editLabel').val() + ' <span class="required">*</span>';
       } else {
-        label = this.$('#editLabel').val();
+        this.$('#editLabel').val();
       }
       this.options.editable.label.html(label);
       this.options.editable.legend.text(this.$('#editLegend').val());
       this.options.editable.submit.text(this.$('#editSubmit').val());
       this.options.editable.paragraph.text(this.$('#editParagraph').val());
 
-      if(this.$('#editOptions').length > 0){
-        var p = this.$('#editOptions').val().split(','), o = [];
-        _.each(p, function(option){
+      if (this.$('#editOptions').length > 0) {
+        var p = this.$('#editOptions').val().split(','),
+          o = [];
+        _.each(p, function (option) {
           o.push($.trim(option));
         });
 
         this.html = '';
 
-        if (this.options.editable.select.length > 0){
-          _.each(o, function(option){
-            this.html = this.html+'<option>'+option+'</option>';
+        if (this.options.editable.select.length > 0) {
+
+          _.each(o, function (option) {
+            this.html = this.html + '<option>' + option + '</option>';
           }, this);
           this.options.editable.select.html(this.html);
-        } else if($(this.options.editable.element)
-                  .find('.checkbox').length > 0){
-          _.each(o, function(option){
+
+        } else if ($(this.options.editable.element)
+                   .find('.checkbox').length > 0) {
+
+          _.each(o, function (option) {
             this.html = this.html +
                         '<label class="checkbox"><input type="checkbox"> ' +
-                        option + '</label>';
+                        option +
+                        '</label>';
           }, this);
-
           $(this.options.editable.element)
             .children('.controls')
             .html(this.html);
 
-        } else if($(this.options.editable.element).find('.radio').length > 0){
-          _.each(o, function(option){
+        } else if ($(this.options.editable.element).find('.radio').length > 0) {
+
+          _.each(o, function (option) {
             this.html = this.html +
                         '<label class="radio"><input type="radio"> ' +
-                        option +'</label>';
+                        option +
+                        '</label>';
           }, this);
+
           $(this.options.editable.element)
             .children('.controls')
             .html(this.html);
         }
       }
+
       // Add it to the JSON
       var index = this.$el.parent().index();
-      if(index > -1){
-        var required, options;
+      if (index > -1) {
         var text, json = $.parseJSON($('#build').val());
-        switch(json[index].type){
-          case 'legend':
-            text = this.$('#editLegend').val();
-            required = false;
-            options = false;
-            break;
-          case 'submit':
-            text = this.$('#editSubmit').val();
-            required = false;
-            options = false;
-            break;
-          case 'text':
-            text = this.$('#editParagraph').val();
-            required = false;
-            options = false;
-            break;
-          case 'select':
-            text = this.$('#editLabel').val();
-            required = false;
-            options = this.$('#editOptions').val().split(',');
-            break;
-          case 'radio':
-            text = this.$('#editLabel').val();
-            required = false;
-            options = this.$('#editOptions').val().split(',');
-            break;
-          case 'checkbox':
-            text = this.$('#editLabel').val();
-            required = false;
-            options = this.$('#editOptions').val().split(',');
-            break;
-          default:
-            text = this.$('#editLabel').val();
-            required = (this.$('#requiredField').is(':checked')) ? true : false;
-            options = false;
-            break;
+        var required, options;
+
+        switch (json[index].type) {
+        case 'legend':
+          text = this.$('#editLegend').val();
+          required = false;
+          options = false;
+          break;
+        case 'submit':
+          text = this.$('#editSubmit').val();
+          required = false;
+          options = false;
+          break;
+        case 'text':
+          text = this.$('#editParagraph').val();
+          required = false;
+          options = false;
+          break;
+        case 'select':
+          text = this.$('#editLabel').val();
+          required = false;
+          options = this.$('#editOptions').val().split(',');
+          break;
+        case 'radio':
+          text = this.$('#editLabel').val();
+          required = false;
+          options = this.$('#editOptions').val().split(',');
+          break;
+        case 'checkbox':
+          text = this.$('#editLabel').val();
+          required = false;
+          options = this.$('#editOptions').val().split(',');
+          break;
+        default:
+          text = this.$('#editLabel').val();
+          required = (this.$('#requiredField').is(':checked')) ? true : false;
+          options = false;
+          break;
         }
+
         json[index] = ({
           type: json[index].type,
           text: text,
           required: required,
           options: options
         });
-
         $('#build').val(JSON.stringify(json));
       }
 
@@ -362,28 +411,29 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
       this.unbind();
     },
 
-    render: function(){
+    render: function () {
+
       var label = this.options.editable.label,
-      required = (label.children('.required').length > 0) ? true : false,
-      options;
+        required = (label.children('.required').length > 0) ? true : false,
+        options;
 
-      if(required)
-        label.children('.required').remove();
+      if (required) label.children('.required').remove();
 
-      if(this.options.editable.select.length > 0){
+      if (this.options.editable.select.length > 0) {
         options = '';
-        this.options.editable.select.children('option').each(function(){
-          options = options + $(this).val()+', ';
+        this.options.editable.select.children('option').each(function () {
+          options = options + $(this).val() + ', ';
         });
-      } else if($(this.options.editable.element).find('.radio').length > 0){
+      } else if ($(this.options.editable.element).find('.radio').length > 0) {
         options = '';
-        $(this.options.editable.element).find('.radio').each(function(){
-          options = options + $(this).text()+', ';
+        $(this.options.editable.element).find('.radio').each(function () {
+          options = options + $(this).text() + ', ';
         });
-      } else if($(this.options.editable.element).find('.checkbox').length > 0){
+      } else if ($(this.options.editable.element)
+                 .find('.checkbox').length > 0) {
         options = '';
-        $(this.options.editable.element).find('.checkbox').each(function(){
-          options = options + $(this).text()+', ';
+        $(this.options.editable.element).find('.checkbox').each(function () {
+          options = options + $(this).text() + ', ';
         });
       }
 
@@ -404,8 +454,11 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     }
   });
 
+  /*-----------------------------------
+    | Canvas Elements
+    ------------------------------------*/
 
-  var CanvasElements = Backbone.View.extend({
+  var canvasElements = Backbone.View.extend({
     el: '#canvasElements',
     events: {
       'click .component': 'edit',
@@ -413,12 +466,13 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
       'mouseleave .component': 'hideDelete',
       'click .deleteBtn': 'deleteElement'
     },
-    initialize: function(){
+
+    initialize: function () {
       this.$el.sortable({
-        start: function(e, ui){
+        start: function (e, ui) {
           this.oldIndex = $(ui.item).index();
         },
-        stop: function(e, ui){
+        stop: function (e, ui) {
           this.newIndex = $(ui.item).index();
           var json = $.parseJSON($('#build').val());
           json.move(this.oldIndex, this.newIndex);
@@ -427,12 +481,13 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
       });
     },
 
-    edit: function(e){
+    edit: function (e) {
+
       e.stopPropagation();
       vent.trigger('close:popover');
 
-      var view = new EditCardView({
-        editable:{
+      var view = new editCard({
+        editable: {
           label: $(e.currentTarget).children('label'),
           legend: $(e.currentTarget).children('legend'),
           submit: $(e.currentTarget).children('button'),
@@ -445,6 +500,7 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
       $(e.currentTarget).append(view.el);
 
       // Set the correct position
+
       var offset = $(e.currentTarget).offset();
       var height = this.$('.popover').height();
       var top = offset.top - (height - 8);
@@ -453,62 +509,80 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
       this.$('.popover').css('top', top);
 
       // Focus!!
+
       this.$('.popover input:first').focus();
+
     },
-    showDelete: function(e){
+
+    showDelete: function (e) {
       $(e.currentTarget).append([
         '<button class="btn btn-link deleteBtn">',
         '  <i class="icon-remove"></i>',
         '</button>'
       ].join(''));
     },
-    hideDelete: function(e){
+
+    hideDelete: function (e) {
       $(e.currentTarget).children('.deleteBtn').remove();
     },
 
-    deleteElement: function(e){
+    deleteElement: function (e) {
       e.stopPropagation();
       var c = $(e.currentTarget).parents('.component'),
-      i = c.index(),
+        i = c.index(),
 
-      // Remove from JSON
-      json = $.parseJSON($('#build').val());
+        // Remove from JSON
+        json = $.parseJSON($('#build').val());
       json.splice(i, 1);
       $('#build').val(JSON.stringify(json));
 
       // Remove the element
-      c.slideUp(function(){
+      c.slideUp(function () {
         $(this).remove();
       });
     }
   });
 
-  var SaveFormView = Backbone.View.extend({
-    el: '#saveForm',
-    events: {'click': 'save'},
-    save: function(e){
-      vent.trigger('close:popover');
-      if($(e.currentTarget).text() !== 'Saving...') {
-        $(e.currentTarget).addClass('disabled').text('Saving...');
+  /*-----------------------------------
+    | Save Form
+    ------------------------------------*/
 
-        var model = new FormModel({
+  var saveForm = Backbone.View.extend({
+    el: '#saveForm',
+    events: {
+      'click': 'save'
+    },
+    save: function (e) {
+
+      vent.trigger('close:popover');
+
+      if ($(e.currentTarget).text() !== 'Saving...') {
+        $(e.currentTarget).addClass('disabled').text('Saving...');
+        var model = new formModel({
           name: $('#formName').val(),
           fields: $('#build').val()
         });
 
-        if($(e.currentTarget).data('id'))
+        if ($(e.currentTarget).data('id'))
           model.id = $(e.currentTarget).data('id');
 
-        model.save(null, {wait: true, success: function(model){
-          var id = model.get('id');
-          this.$el.removeClass('disabled').text('Save Form');
-          this.$el.data('id', id);
-          window.history.replaceState({},
-            "Former - Edit Form", "/forms/"+id+"/edit");
-        }.bind(this)});
+        model.save(null, {
+          wait: true,
+          success: function (model) {
+
+            var id = model.get('id');
+
+            this.$el.removeClass('disabled').text('Save Form');
+            this.$el.data('id', id);
+            window.history.replaceState({},
+              "Former - Edit Form", "/forms/" + id + "/edit");
+
+          }.bind(this)
+        });
       }
     }
   });
 
   return Module;
+
 });
