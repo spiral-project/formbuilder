@@ -1,6 +1,6 @@
 define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
         'models/form'],
-        function (Backbone, vent, popoverTemplate, formModel) {
+        function (Backbone, vent, popoverTemplate, FormModel) {
 
   "use strict";
 
@@ -10,13 +10,13 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
 
   var Module = Backbone.View.extend({
     initialize: function () {
-      new polyfill();
-      new body();
-      window.c = new canvas();
-      new elements();
-      new canvasElements();
-      new saveForm();
-      new w();
+      new Polyfill();
+      new BodyView();
+      window.c = new CanvasView();
+      new ElementsView();
+      new CanvasElementsView();
+      new SaveFormView();
+      new WindowView();
     }
   });
 
@@ -24,12 +24,12 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     | Window
     ------------------------------------*/
 
-  var w = Backbone.View.extend({
+  var WindowView = Backbone.View.extend({
     el: window,
     events: {
       'scroll': 'sideBarFollow'
     },
-    sideBarFollow: function (e) {
+    sideBarFollow: function () {
       if (this.$el.scrollTop() > 85) {
         $('#formOptions').css({
           position: 'fixed',
@@ -48,35 +48,32 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     }
   });
 
-  /*-----------------------------------
-    | Polyfill for array move
-    ------------------------------------*/
-
-  var polyfill = Backbone.View.extend({
+  /**
+   * Polyfill for array move
+   *
+   * XXX move this to util.
+   **/
+  var Polyfill = Backbone.View.extend({
     initialize: function () {
-      Array.prototype.move = function (old_index, new_index) {
-        while (old_index < 0) {
-          old_index += this.length;
+      Array.prototype.move = function (oldIndex, newIndex) {
+        while (oldIndex < 0) {
+          oldIndex += this.length;
         }
-        while (new_index < 0) {
-          new_index += this.length;
+        while (newIndex < 0) {
+          newIndex += this.length;
         }
-        if (new_index >= this.length) {
-          var k = new_index - this.length;
+        if (newIndex >= this.length) {
+          var k = newIndex - this.length;
           while ((k--) + 1) {
             this.push(undefined);
           }
         }
-        this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+        this.splice(newIndex, 0, this.splice(oldIndex, 1)[0]);
       };
     }
   });
 
-  /*-----------------------------------
-    | Body
-    ------------------------------------*/
-
-  var body = Backbone.View.extend({
+  var BodyView = Backbone.View.extend({
     el: document,
     events: {
       'click': 'click'
@@ -86,11 +83,7 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     }
   });
 
-  /*-----------------------------------
-    | Elements
-    ------------------------------------*/
-
-  var elements = Backbone.View.extend({
+  var ElementsView = Backbone.View.extend({
     el: '#elements',
     events: {
       'dragstart li': '_dragStartEvent',
@@ -105,11 +98,7 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     }
   });
 
-  /*-----------------------------------
-    | Canvas
-    ------------------------------------*/
-
-  var canvas = Backbone.View.extend({
+  var CanvasView = Backbone.View.extend({
     el: '#canvas',
     events: {
       'dragover': '_dragOverEvent',
@@ -158,18 +147,18 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
       this.drop(data, e);
     },
 
-    _getCurrentDragData: function (e) {
+    _getCurrentDragData: function () {
       var data = null;
       if (window._backboneDragDropObject) data = window._backboneDragDropObject;
       return data;
     },
 
-    dragOver: function (data, dataTransfer, e) {
+    dragOver: function () {
       this.$el.addClass("draghover");
       this._draghoverClassAdded = true;
     },
 
-    dragLeave: function (data, dataTransfer, e) {
+    dragLeave: function () {
       if (this._draghoverClassAdded)
         this.$el.removeClass("draghover");
     },
@@ -249,7 +238,7 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
       }
     },
 
-    drop: function (data, e) {
+    drop: function (data) {
       // Remove the H1
       this.$('h1').remove();
       // Add our markup
@@ -268,11 +257,7 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     }
   });
 
-  /*-----------------------------------
-    | Edit Card
-    ------------------------------------*/
-
-  var editCard = Backbone.View.extend({
+  var EditCardView = Backbone.View.extend({
     tagName: 'div',
     className: 'popover left',
     template: _.template(popoverTemplate),
@@ -454,11 +439,8 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     }
   });
 
-  /*-----------------------------------
-    | Canvas Elements
-    ------------------------------------*/
 
-  var canvasElements = Backbone.View.extend({
+  var CanvasElementsView = Backbone.View.extend({
     el: '#canvasElements',
     events: {
       'click .component': 'edit',
@@ -486,7 +468,7 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
       e.stopPropagation();
       vent.trigger('close:popover');
 
-      var view = new editCard({
+      var view = new EditCardView({
         editable: {
           label: $(e.currentTarget).children('label'),
           legend: $(e.currentTarget).children('legend'),
@@ -547,7 +529,7 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
     | Save Form
     ------------------------------------*/
 
-  var saveForm = Backbone.View.extend({
+  var SaveFormView = Backbone.View.extend({
     el: '#saveForm',
     events: {
       'click': 'save'
@@ -558,7 +540,7 @@ define(['backbone', 'vent', 'text!templates/popoverTemplate.html',
 
       if ($(e.currentTarget).text() !== 'Saving...') {
         $(e.currentTarget).addClass('disabled').text('Saving...');
-        var model = new formModel({
+        var model = new FormModel({
           name: $('#formName').val(),
           fields: $('#build').val()
         });
