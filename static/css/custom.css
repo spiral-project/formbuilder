@@ -1,6 +1,7 @@
 .topPadding {
   margin-top: 100px;
 }
+
 .noForms {
   color: #999;
   position: absolute;
@@ -8,15 +9,18 @@
   left: 50%;
   margin-left: -291px;
 }
+
 /*-----------------------------------
 | Form Builder
 ------------------------------------*/
 .formBuilder {
   background: #fff;
 }
+
 #canvas {
   width: 685px;
 }
+
 .draghover {
   border: 5px dashed #ccc;
 }
