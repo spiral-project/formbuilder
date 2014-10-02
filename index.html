@@ -1,0 +1,77 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <title>React example</title>
+
+  <script src="http://fb.me/react-0.11.1.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
+</head>
+<body>
+
+<div id="react-component"></div>
+
+<script type="text/jsx">
+  /**
+   * @jsx React.DOM
+   */
+  var TextInputWidget = React.createClass({
+    render: function() {
+      return (
+      <div>
+        <input type="text" name="name" placeholder="Name" />
+        <input type="text" name="label" placeholder="Label" />
+        <input type="text" name="description" placeholder="description" />
+        <button onClick={this.addField}>Add this field</button>
+      </div>
+      );
+    }
+  });
+
+  var TextAreaWidget = React.createClass({
+    render: function() {
+      return <p>{this.props.name}</p>
+    }
+  });
+
+  var FormContainer = React.createClass({
+    render: function() {
+      return <div>{this.props.children}</div>;
+    }
+  });
+
+  var WidgetList = React.createClass({
+    getInitialState: function() {
+      return {
+        displayedWidgets: []
+      };
+    },
+    render: function() {
+      var list = React.Children.map(this.props.children, function(widget) {
+        return <li onClick={this.handleOnClick(widget)}>{widget.props.name}</li>;
+      }.bind(this));
+      return (
+      <div>
+        <ul>{list}</ul>
+        <FormContainer>{this.state.displayedWidgets}</FormContainer>
+      </div>
+      );
+    },
+    handleOnClick: function(widget) {
+      return function(event) {
+        this.setState({
+          displayedWidgets: this.state.displayedWidgets.concat([widget])
+        });
+      }.bind(this);
+    }
+  });
+  React.renderComponent(
+    <WidgetList>
+      <TextInputWidget name="Text Input" />
+      <TextAreaWidget name="Text Area" />
+    </WidgetList>,
+    document.getElementById('react-component')
+  );
+</script>
+</body>
+</html>
