@@ -14,7 +14,7 @@ var FieldList = React.createClass({
     return <div id="formlist">
       <ul>{
         this.props.fields.map(function(field, key) {
-          return <li onClick={this.props.addItem}>{field}</li>
+          return <li onClick={this.props.addFormElement}>{field}</li>;
         }.bind(this))
       }</ul>
     </div>;

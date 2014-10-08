@@ -4,22 +4,28 @@
 
 var React = require("react");
 
+var Fields = require("./Fields");
+
 var FormElement = React.createClass({
 
   getInitialState: function() {
     return {
-      editor: this.props.editor,
-      renderer: this.props.rendered
+      editor: undefined,
+      renderer: undefined,
       rendered: false,
-      data={}
+      data:{}
     };
   },
 
   render: function() {
+    var classes = Fields.getFieldClasses(name, this.state.data);
+    this.state.editor = classes.editor;
+    this.state.renderer = classes.renderer;
+
     if (this.state.rendered === false) {
-      return <{this.state.renderer} data=this.state.data/>;
+      return this.state.editor;
     } else {
-      return <{this.state.editor} data=this.state.data/>;
+      return this.state.renderer;
     }
   }
 });

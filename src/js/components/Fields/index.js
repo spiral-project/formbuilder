@@ -6,10 +6,10 @@ var TextAreaRenderer = require("./TextAreaRenderer");
 var TextAreaEditor = require("./TextAreaEditor");
 
 // TODO Change this to return classes dynamically.
-var getFieldClasses = function(name) {
+var getFieldClasses = function(name, data) {
   return {
-    renderer: TextAreaRenderer,
-    editor: TextAreaEditor
+    renderer: <TextAreaRenderer data={data} />,
+    editor: <TextAreaEditor data={data} />
   };
 }
 
