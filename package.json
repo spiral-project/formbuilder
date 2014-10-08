@@ -1,0 +1,45 @@
+{
+  "name": "daybed-formbuilder",
+  "version": "0.0.1",
+  "description": "A tool to build forms on the web",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gulp deploy",
+    "dist": "gulp dist",
+    "lint": "jsxhint -c .jshintrc src/js",
+    "start": "gulp",
+    "test": "jest --config jest-config.json && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spiral-project/daybed-formbuilder"
+  },
+  "keywords": [
+    "react",
+    "daybed",
+    "form"
+  ],
+  "author": "Spiral Project <spiral-project@lolnet.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spiral-project/daybed-formbuilder/issues"
+  },
+  "homepage": "https://github.com/spiral-project/daybed-formbuilder",
+  "dependencies": {
+    "gulp": "^3.8.*",
+    "gulp-gh-pages": "^0.3.*",
+    "gulp-uglify": "^0.3.*",
+    "react": "^0.10.*",
+    "react-bootstrap": "^0.10.*",
+    "reactify": "^0.13.*",
+    "vinyl-source-stream": "^0.1.*",
+    "watchify": "^1.0.6",
+    "browserify": "^6.0.2",
+    "gulp-webserver": "^0.8.3"
+  },
+  "devDependencies": {
+    "jest-cli": "latest",
+    "jsxhint": "latest",
+    "react-tools": "latest"
+  }
+}

@@ -1,0 +1,105 @@
+body {
+  padding-top: 1em;
+}
+
+.done {
+  color: #777;
+  text-decoration: line-through;
+}
+
+.todo-item-label {
+  margin-left: .5em;
+}
+
+.kept-default button {
+  margin-left: .35em;
+}
+
+.kept-list {
+  height: 100%;
+}
+  @media (max-width: 768px) {
+    .kept-list {
+      -webkit-columns: 1;
+      -moz-columns: 1;
+      columns: 1;
+    }
+  }
+  @media (min-width: 768px) {
+    .kept-list {
+      -webkit-columns: 2;
+      -moz-columns: 2;
+      columns: 2;
+    }
+  }
+  @media (min-width: 992px) {
+    .kept-list {
+      -webkit-columns: 3;
+      -moz-columns: 3;
+      columns: 3;
+    }
+  }
+  @media (min-width: 1200px) {
+    .kept-list {
+      -webkit-columns: 4;
+      -moz-columns: 4;
+      columns: 4;
+    }
+  }
+  @media (min-width: 1400px) {
+    .kept-list {
+      -webkit-columns: 5;
+      -moz-columns: 5;
+      columns: 5;
+    }
+  }
+
+.kept-panel {
+  /* FF hack to emulate "break-inside: avoid;" behavior */
+  display: table;
+  width: 100%;
+  /* Webkit "break-inside: avoid;" hack */
+  -webkit-column-break-after: avoid;
+  -webkit-column-break-before: avoid;
+  -webkit-column-break-inside: avoid;
+  /* Standard */
+  -webkit-break-inside: avoid;
+  -moz-break-inside: avoid;
+  break-inside: avoid;
+}
+  .kept-panel .panel-heading {
+    cursor: move;
+  }
+    .kept-modal .kept-panel .panel-heading {
+      cursor: default;
+    }
+    .kept-panel h3 a {
+      display: block;
+      float: right;
+      margin-left: .5em;
+    }
+
+.targetted {
+  border: 1px dashed #333;
+}
+
+.modal {
+  background: rgba(0, 0, 0, .65);
+  min-width: 320px;
+}
+
+.modal-body {
+  padding-bottom: 0;
+}
+
+.todo-form li input[type="text"] {
+  width: 445px;
+}
+  @media (max-width: 768px) {
+    .todo-form li .form-control {
+      display: inline;
+    }
+    .todo-form li input[type="text"] {
+      width: 145px;
+    }
+  }
