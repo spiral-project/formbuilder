@@ -5,16 +5,23 @@
 var React = require("react");
 var FieldList = require("./FieldList");
 var FormContainer = require("./FormContainer");
+var Fields = require("./Fields");
 
 var FormBuilderApp = React.createClass({
 
   getInitialState: function() {
-    return {items: []};
+    return {formElements: []};
   },
 
-  addItem: function(item) {
+  addFormElement: function(name) {
+    var classes = Fields.getFieldClasses(name);
+    var element = <FormElement
+      editor={classes.editor}
+      rendered={classes.rendered} />;
+
+    // XXX need to add the element rather than replacing everything.
     this.setState({
-      items: [item]
+      formElements: [element]
     });
   },
 
@@ -23,10 +30,10 @@ var FormBuilderApp = React.createClass({
       <div>
         <FieldList
           fields={["string", "text"]}
-          addItem={this.addItem}
+          addFormElement={this.addFormElement}
         />
         <FormContainer
-          items={this.state.items}
+          items={this.state.formElements}
         />
       </div>
     );
