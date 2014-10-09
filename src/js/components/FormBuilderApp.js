@@ -6,6 +6,7 @@ var React = require("react");
 var FieldList = require("./FieldList");
 var FormContainer = require("./FormContainer");
 var FormElement = require("./FormElement");
+var Fields = require("./Fields");
 
 var FormBuilderApp = React.createClass({
 
@@ -14,7 +15,13 @@ var FormBuilderApp = React.createClass({
   },
 
   addFormElement: function(name) {
-    var element = <FormElement name={name} />;
+
+    var editor = Fields[name].editor;
+    var renderer = Fields[name].renderer;
+
+    var element = <FormElement name={name}
+                               editor={editor}
+                               renderer={renderer} />;
 
     this.setState({
       'formElements': this.state.formElements.concat([element])
@@ -25,7 +32,7 @@ var FormBuilderApp = React.createClass({
     return (
       <div>
         <FieldList
-          fields={["string", "text"]}
+          fields={Fields}
           addFormElement={this.addFormElement}
         />
         <FormContainer

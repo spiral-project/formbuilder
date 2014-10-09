@@ -31,6 +31,7 @@ var elements = {
   },
   'submit': {
     name: 'Submit Form'
+  }
 };
 
 module.exports = elements;
