@@ -18,9 +18,8 @@ var FormElement = React.createClass({
   },
 
   render: function() {
-    var classes = Fields.getFieldClasses(name, this.state.data);
-    this.state.editor = classes.editor;
-    this.state.renderer = classes.renderer;
+    this.state.editor = Fields[name].editor(data=this.state.data);
+    this.state.renderer = Fields[name].renderer(data=this.state.data);
 
     if (this.state.rendered === false) {
       return this.state.editor;

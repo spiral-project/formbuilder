@@ -16,7 +16,6 @@ var FormBuilderApp = React.createClass({
   addFormElement: function(name) {
     var element = <FormElement name={name} />;
 
-    // XXX need to add the element rather than replacing everything.
     this.setState({
       'formElements': this.state.formElements.concat([element])
     });

@@ -5,14 +5,32 @@
 var TextAreaRenderer = require("./TextAreaRenderer");
 var TextAreaEditor = require("./TextAreaEditor");
 
-// TODO Change this to return classes dynamically.
-var getFieldClasses = function(name, data) {
-  return {
-    renderer: <TextAreaRenderer data={data} />,
-    editor: <TextAreaEditor data={data} />
-  };
-}
-
-module.exports = {
-  'getFieldClasses': getFieldClasses
+var elements = {
+  'legend': {
+    name: 'Legend',
+  },
+  'paragraph': {
+    name: 'Paragraph of text'
+  },
+  'single-line-text': {
+    name: 'Single-line text-box'
+  },
+  'multi-line-text': {
+    name: 'Multi-line text area',
+    renderer: TextAreaRenderer,
+    editor: TextAreaEditor
+  },
+  'dropdown': {
+    name: 'Dropdown'
+  },
+  'checkboxes': {
+    name: 'Checkboxes'
+  },
+  'radio-buttons': {
+    name: 'RadioButtons'
+  },
+  'submit': {
+    name: 'Submit Form'
 };
+
+module.exports = elements;
