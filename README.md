@@ -17,8 +17,8 @@ a clear and nice way.
 If you want to work with the formbuilder, or hack on it, then you'll need to
 install it. To do so, it's easy:
 
-  npm install
-  npm start
+    $ npm install
+    $ npm start
 
 … and you should see your favorite browser open with the app running there for
 you.
