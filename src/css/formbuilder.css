@@ -1,105 +1,42 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 1em;
+  padding-top: 50px;
 }
 
-.done {
-  color: #777;
-  text-decoration: line-through;
+.sidebar {
+  position: fixed;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  background-color: #f5f5f5;
+  border-right: 1px solid #eee;
 }
 
-.todo-item-label {
-  margin-left: .5em;
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
 }
 
-.kept-default button {
-  margin-left: .35em;
+.main {
+  padding: 20px 40px;
 }
 
-.kept-list {
-  height: 100%;
+#formcontainer {
+  padding-top: 30px;
 }
-  @media (max-width: 768px) {
-    .kept-list {
-      -webkit-columns: 1;
-      -moz-columns: 1;
-      columns: 1;
-    }
-  }
-  @media (min-width: 768px) {
-    .kept-list {
-      -webkit-columns: 2;
-      -moz-columns: 2;
-      columns: 2;
-    }
-  }
-  @media (min-width: 992px) {
-    .kept-list {
-      -webkit-columns: 3;
-      -moz-columns: 3;
-      columns: 3;
-    }
-  }
-  @media (min-width: 1200px) {
-    .kept-list {
-      -webkit-columns: 4;
-      -moz-columns: 4;
-      columns: 4;
-    }
-  }
-  @media (min-width: 1400px) {
-    .kept-list {
-      -webkit-columns: 5;
-      -moz-columns: 5;
-      columns: 5;
-    }
-  }
-
-.kept-panel {
-  /* FF hack to emulate "break-inside: avoid;" behavior */
-  display: table;
-  width: 100%;
-  /* Webkit "break-inside: avoid;" hack */
-  -webkit-column-break-after: avoid;
-  -webkit-column-break-before: avoid;
-  -webkit-column-break-inside: avoid;
-  /* Standard */
-  -webkit-break-inside: avoid;
-  -moz-break-inside: avoid;
-  break-inside: avoid;
-}
-  .kept-panel .panel-heading {
-    cursor: move;
-  }
-    .kept-modal .kept-panel .panel-heading {
-      cursor: default;
-    }
-    .kept-panel h3 a {
-      display: block;
-      float: right;
-      margin-left: .5em;
-    }
-
-.targetted {
-  border: 1px dashed #333;
-}
-
-.modal {
-  background: rgba(0, 0, 0, .65);
-  min-width: 320px;
-}
-
-.modal-body {
-  padding-bottom: 0;
-}
-
-.todo-form li input[type="text"] {
-  width: 445px;
-}
-  @media (max-width: 768px) {
-    .todo-form li .form-control {
-      display: inline;
-    }
-    .todo-form li input[type="text"] {
-      width: 145px;
-    }
-  }

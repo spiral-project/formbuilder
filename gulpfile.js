@@ -17,7 +17,7 @@ var opt = {
     host: "localhost",
     port: 4000,
     livereload: true,
-    open:true
+    open:false
   },
 
   cssAssets: [
@@ -132,8 +132,6 @@ gulp.task("watchify", function(){
   return updateBundle(watcher);
 
 });
-
-
 
 
 /**

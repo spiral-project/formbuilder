@@ -6,11 +6,6 @@ var React = require("react");
 var FormElement = require("./FormElement");
 
 var FormContainer = React.createClass({
-  getInitialState: function() {
-    return {
-      items: this.props.items
-    };
-  },
 
   render: function() {
     var elements = this.props.items.map(function(element) {

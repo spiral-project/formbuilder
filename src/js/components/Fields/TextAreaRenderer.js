@@ -6,7 +6,19 @@ var React = require("react");
 
 var TextAreaRenderer = React.createClass({
   render: function() {
-    return <div id="textarea-renderer" />;
+    return <form className="form-horizontal" role="form">
+      <div className="form-group">
+        <label htmlFor="label" className="col-sm-2 control-label">
+          {this.props.data.label || "Label"}
+        </label>
+        <div className="col-sm-10">
+          <input type="text"
+                 className="form-control"
+                 id={this.props.data.name || "Label"}
+                 placeholder={this.props.data.placeholder} />
+        </div>
+      </div>
+    </form>
   }
 });
 

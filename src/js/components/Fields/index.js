@@ -17,6 +17,7 @@ var elements = {
   },
   'multi-line-text': {
     name: 'Multi-line text area',
+    glyphicon: "text-height",
     renderer: TextAreaRenderer,
     editor: TextAreaEditor
   },

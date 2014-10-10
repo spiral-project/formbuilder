@@ -3,22 +3,27 @@
 "use strict";
 
 var React = require("react");
+var OverlayTrigger = require('react-bootstrap/OverlayTrigger');
+var Popover = require('react-bootstrap/Popover');
+var Button = require('react-bootstrap/Button');
 
 var FormElement = React.createClass({
 
   getInitialState: function() {
     return {
-      rendered: false,
       data:{}
     };
   },
 
   render: function() {
-    if (this.state.rendered === false) {
-      return this.props.editor({data: this.state.data});
-    } else {
-      return this.props.renderer({data: this.state.data});
-    }
+    return (
+      <OverlayTrigger trigger="click" placement="bottom" overlay={
+        <Popover><div className="field-editor">
+          {this.props.editor({data: this.state.data})}
+        </div></Popover>
+      }>
+        <div>{this.props.renderer({data: this.state.data})}</div>
+      </OverlayTrigger>);
   }
 });
 
