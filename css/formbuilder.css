@@ -45,11 +45,17 @@ body {
 
 #form-container {
   background: none repeat scroll 0% 0% #FFF;
+  margin: 0;
+  padding: 0;
 }
 
 #form-container header {
   background: none repeat scroll 0% 0% #FAFAFA;
   border-bottom: 1px solid #EEE;
+  padding: 15px;
+}
+
+#form-elements {
   padding: 15px;
 }
 
@@ -61,6 +67,10 @@ body {
   background: none repeat scroll 0% 0% #FAFAFA;
 }
 
-#form-elements {
-  padding: 15px;
+.form-element a.delete-link {
+  display: none;
+}
+
+.form-element:hover .delete-link {
+  display: inline;
 }
