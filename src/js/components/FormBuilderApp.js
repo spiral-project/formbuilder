@@ -31,11 +31,11 @@ var FormBuilderApp = React.createClass({
 
   render: function() {
     return (
-      <div className="row">
-        <div className="col-sm-3 col-md-2 sidebar">
+      <div className="row row-offcanvas row-offcanvas-right">
+        <div className="col-xs-6 col-sm-3 sidebar-offcanvas">
           <FieldList fields={Fields} addFormElement={this.addFormElement} />
         </div>
-        <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div className="col-xs-12 col-sm-9">
           <FormContainer items={this.state.formElements} />
         </div>
       </div>

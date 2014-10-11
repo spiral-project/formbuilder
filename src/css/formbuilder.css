@@ -1,42 +1,47 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
+  margin: 0;
+  font-family: "proxima-nova", "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ededeb;
 }
 
-.sidebar {
-  position: fixed;
-  top: 51px;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  display: block;
-  padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  background-color: #f5f5f5;
-  border-right: 1px solid #eee;
+#field-list {
+    list-style: outside none none;
+    margin: 0px;
 }
 
-.nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
-}
-.nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-  color: #fff;
-  background-color: #428bca;
+#field-list .optionTitle {
+  background: none repeat scroll 0% 0% #FAFAFA;
+  border-bottom: 2px solid #EEE;
+  border-top: 1px solid #EEE;
+  color: #999;
+  font: 1.2em "jubilat";
+  padding: 10px;
 }
 
-.main {
-  padding: 20px 40px;
+#field-list ul li {
+  margin: 0px;
+  padding: 10px;
+  border-bottom: 1px solid #EEE;
+  font-size: 1.15em;
+  cursor: grab;
 }
 
-#formcontainer {
-  padding-top: 30px;
+#field-list ul li:hover {
+  background: none repeat scroll 0% 0% #FAFAFA;
+  cursor: ;
+}
+
+#field-list ul {
+  background: none repeat scroll 0% 0% #FFF;
+  margin: 0px;
+  padding: 0px;
+  list-style: outside none none;
+}
+
+#form-container {
+  background: none repeat scroll 0% 0% #FFF;
 }

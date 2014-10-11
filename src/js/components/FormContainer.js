@@ -16,7 +16,15 @@ var FormContainer = React.createClass({
                 renderer={element.renderer} />;
     });
 
-    return <div id="formcontainer">{elements}</div>;
+    return (
+      <div id="form-container">
+      <header>
+        <input id="formName" type="text" />
+        <button id="save-form" className="btn btn-success pull-right">Save form</button>
+      </header>
+      {elements}
+      </div>
+    );
   }
 });
 

@@ -17,8 +17,8 @@ var FormElement = React.createClass({
 
   render: function() {
     return (
-      <OverlayTrigger trigger="click" placement="bottom" overlay={
-        <Popover><div className="field-editor">
+      <OverlayTrigger trigger="click" placement="left" overlay={
+        <Popover title="Edit element"><div className="field-editor">
           {this.props.editor({data: this.state.data})}
         </div></Popover>
       }>
