@@ -17,13 +17,16 @@ var FormElement = React.createClass({
 
   render: function() {
     return (
-      <OverlayTrigger trigger="click" placement="left" overlay={
-        <Popover title="Edit element"><div className="field-editor">
-          {this.props.editor({data: this.state.data})}
-        </div></Popover>
-      }>
-        <div>{this.props.renderer({data: this.state.data})}</div>
-      </OverlayTrigger>);
+      <div className="form-element">
+        <OverlayTrigger trigger="click" placement="left" overlay={
+          <Popover title="Edit element"><div className="field-editor">
+            {this.props.editor({data: this.state.data})}
+          </div></Popover>
+        }>
+          <div>{this.props.renderer({data: this.state.data})}</div>
+        </OverlayTrigger>
+      </div>
+    );
   }
 });
 

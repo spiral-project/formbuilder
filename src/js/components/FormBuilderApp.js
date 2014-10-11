@@ -35,7 +35,7 @@ var FormBuilderApp = React.createClass({
         <div className="col-xs-6 col-sm-3 sidebar-offcanvas">
           <FieldList fields={Fields} addFormElement={this.addFormElement} />
         </div>
-        <div className="col-xs-12 col-sm-9">
+        <div className="col-xs-12 col-sm-8">
           <FormContainer items={this.state.formElements} />
         </div>
       </div>

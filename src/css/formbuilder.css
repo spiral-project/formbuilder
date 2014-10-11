@@ -45,3 +45,17 @@ body {
 #form-container {
   background: none repeat scroll 0% 0% #FFF;
 }
+
+#form-container header {
+  background: none repeat scroll 0% 0% #FAFAFA;
+  border-bottom: 1px solid #EEE;
+  padding: 15px;
+}
+
+.form-element {
+  padding: 20px;
+}
+
+.form-element:hover {
+  background: none repeat scroll 0% 0% #FAFAFA;
+}
