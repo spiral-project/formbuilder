@@ -155,7 +155,7 @@ gulp.task("dist", ["assets", "js"], function() {
  */
 gulp.task("deploy", ["dist"], function() {
   gulp.src("./build/**/*")
-    .pipe(deploy("git@github.com:spiral-project/daybed-formbuilder.git"));
+    .pipe(deploy("git@github.com:spiral-project/formbuilder.git"));
 });
 
 gulp.task("default", ["server", "watch"]);
