@@ -1,50 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Daybed - Create a new form</title>
-	<link rel="stylesheet" href="/static/css/bootstrap.css">
-	<script type="text/javascript" src="/static/js/components/requirejs/require.js" data-main="/static/js/main-build"></script>
-	<script type="text/javascript" src="//use.typekit.net/fed7kbk.js"></script>
-	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-	<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+  <meta charset="utf-8">
+  <title>Daybed Formbuilder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/formbuilder.css">
 </head>
 <body>
-<div class="container topPadding">
-  <div class="clearfix relative">
-    <ul id="formOptions" class="pull-left">
-      <li class="optionTitle">Elements</li>
-      <li>
-        <ul id="elements">
-          <li data-type="legend" draggable="true"><i class="icon-font"></i> Legend</li>
-          <li data-type="text" draggable="true"><i class="icon-align-right"></i> Paragraph of text</li>
-          <li data-type="textbox" draggable="true"><i class="icon-text-width"></i> Single-line text box</li>
-          <li data-type="textarea" draggable="true"><i class="icon-text-height"></i> Multi-line textarea</li>
-          <li data-type="select" draggable="true"><i class="icon-menu"></i> Dropdown</li>
-          <li data-type="checkbox" draggable="true"><i class="icon-checkbox-checked"></i> Checkboxes</li>
-          <li data-type="radio" draggable="true"><i class="icon-radio-checked"></i> Radio Buttons</li>
-          <li data-type="submit" draggable="true"><i class="icon-hand-up"></i> Submit Form</li>
-        </ul>
-      </li>
-    </ul>
-
-    <div class="formBuilder pull-right">
-      <header class="clearfix">
-        <input type="text" value="New Form" id="formName" placeholder="The name of your new form">
-        <button class="btn btn-success pull-right" id="saveForm">Save Form</button>
-      </header>
-
-      <div id="canvas">
-     	  <div id="canvasElements" class="form-horizontal"></div>
-        <h1 class="text-center">Add elements to begin</h1>
+    <div class="navbar navbar-default navbar-static-top" role="navigation"> 
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Daybed formbuilder</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Daybed ?</a></li>
+            <li><a href="#">Our values</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
       </div>
-
-      <input type="hidden" id="build" value="[]">
-
     </div>
+    <div id="formbuilder"></div>
   </div>
-</div>
+  <script src="js/vendors.js"></script>
+  <script src="js/formbuilder.js"></script>
 </body>
 </html>

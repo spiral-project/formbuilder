@@ -1,0 +1,61 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  margin: 0;
+  font-family: "proxima-nova", "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ededeb;
+}
+
+#field-list {
+    list-style: outside none none;
+    margin: 0px;
+}
+
+#field-list .optionTitle {
+  background: none repeat scroll 0% 0% #FAFAFA;
+  border-bottom: 2px solid #EEE;
+  border-top: 1px solid #EEE;
+  color: #999;
+  font: 1.2em "jubilat";
+  padding: 10px;
+}
+
+#field-list ul li {
+  margin: 0px;
+  padding: 10px;
+  border-bottom: 1px solid #EEE;
+  font-size: 1.15em;
+  cursor: grab;
+}
+
+#field-list ul li:hover {
+  background: none repeat scroll 0% 0% #FAFAFA;
+  cursor: ;
+}
+
+#field-list ul {
+  background: none repeat scroll 0% 0% #FFF;
+  margin: 0px;
+  padding: 0px;
+  list-style: outside none none;
+}
+
+#form-container {
+  background: none repeat scroll 0% 0% #FFF;
+}
+
+#form-container header {
+  background: none repeat scroll 0% 0% #FAFAFA;
+  border-bottom: 1px solid #EEE;
+  padding: 15px;
+}
+
+.form-element {
+  padding: 20px;
+}
+
+.form-element:hover {
+  background: none repeat scroll 0% 0% #FAFAFA;
+}
