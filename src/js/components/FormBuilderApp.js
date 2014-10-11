@@ -24,7 +24,7 @@ var FormBuilderApp = React.createClass({
   },
 
   submitForm: function() {
-
+    console.log(this.state.formElements);
   },
 
   addFormElement: function(fieldType) {

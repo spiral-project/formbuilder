@@ -12,7 +12,7 @@ var FormHeader = React.createClass({
       <button
         id="save-form"
         className="btn btn-success pull-right"
-        onSubmit={this.props.submitForm} >
+        onClick={this.props.submitForm} >
         Save form
       </button>
     </header>
