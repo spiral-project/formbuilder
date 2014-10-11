@@ -11,6 +11,7 @@ body {
 #field-list {
     list-style: outside none none;
     margin: 0px;
+    padding: 0px;
 }
 
 #field-list .optionTitle {
@@ -58,4 +59,8 @@ body {
 
 .form-element:hover {
   background: none repeat scroll 0% 0% #FAFAFA;
+}
+
+#form-elements {
+  padding: 15px;
 }
