@@ -17,6 +17,7 @@ var FormElement = React.createClass({
     var element = this.props.element;
     element.data = data;
     this.getFlux().actions.updateFormElement(element);
+    this.refs.overlay.hide();
   },
 
   deleteFormElement: function() {
@@ -28,13 +29,14 @@ var FormElement = React.createClass({
       <div className="form-element container-fluid">
         <div className="row">
           <div className="col-md-10">
-            <OverlayTrigger trigger="click" placement="left" overlay={
-              <Popover title="Edit element"><div className="field-editor">
-                {this.props.editor({
-                  data: this.props.element.data,
-                  updateFormElement: this.updateFormElement
-                })}
-              </div></Popover>
+            <OverlayTrigger ref="overlay" trigger="click" placement="left"
+              overlay={
+                <Popover title="Edit element"><div className="field-editor">
+                  {this.props.editor({
+                    data: this.props.element.data,
+                    updateFormElement: this.updateFormElement
+                  })}
+                </div></Popover>
             }>
               <div>{this.props.renderer({data: this.props.element.data})}</div>
             </OverlayTrigger>
