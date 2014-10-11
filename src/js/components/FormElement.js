@@ -30,7 +30,10 @@ var FormElement = React.createClass({
           <div className="col-md-10">
             <OverlayTrigger trigger="click" placement="left" overlay={
               <Popover title="Edit element"><div className="field-editor">
-                {this.props.editor({data: this.props.element.data})}
+                {this.props.editor({
+                  data: this.props.element.data,
+                  updateFormElement: this.updateFormElement
+                })}
               </div></Popover>
             }>
               <div>{this.props.renderer({data: this.props.element.data})}</div>

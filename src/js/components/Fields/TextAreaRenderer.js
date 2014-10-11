@@ -15,7 +15,7 @@ var TextAreaRenderer = React.createClass({
           <input type="text"
                  className="form-control"
                  id={this.props.data.name || "Label"}
-                 placeholder={this.props.data.placeholder} />
+                 placeholder={this.props.data.description} />
         </div>
       </div>
     </form>
