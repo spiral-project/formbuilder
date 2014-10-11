@@ -20,6 +20,7 @@ var FormContainer = React.createClass({
         <div id="form-elements">{
           this.props.elements.map(function(element) {
             return <FormElement
+                      key={element.id}
                       element={element}
                       editor={Fields[element.fieldType].editor}
                       renderer={Fields[element.fieldType].renderer} />;

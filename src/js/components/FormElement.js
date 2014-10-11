@@ -19,16 +19,27 @@ var FormElement = React.createClass({
     this.getFlux().actions.updateFormElement(element);
   },
 
+  deleteFormElement: function() {
+    this.getFlux().actions.deleteFormElement(this.props.element.id);
+  },
+
   render: function() {
     return (
-      <div className="form-element">
-        <OverlayTrigger trigger="click" placement="left" overlay={
-          <Popover title="Edit element"><div className="field-editor">
-            {this.props.editor({data: this.props.element.data})}
-          </div></Popover>
-        }>
-          <div>{this.props.renderer({data: this.props.element.data})}</div>
-        </OverlayTrigger>
+      <div className="form-element container-fluid">
+        <div className="row">
+          <div className="col-md-10">
+            <OverlayTrigger trigger="click" placement="left" overlay={
+              <Popover title="Edit element"><div className="field-editor">
+                {this.props.editor({data: this.props.element.data})}
+              </div></Popover>
+            }>
+              <div>{this.props.renderer({data: this.props.element.data})}</div>
+            </OverlayTrigger>
+          </div>
+          <div className="col-md-2">
+            <a className="delete-link" onClick={this.deleteFormElement}>delete</a>
+          </div>
+        </div>
       </div>
     );
   }

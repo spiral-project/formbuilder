@@ -38,7 +38,7 @@ var FormElementStore = Fluxxor.createStore({
 
   onDelete: function(id) {
     this.elements = this.elements.filter(function(el) {
-      el.id !== id;
+      return el.id !== id;
     });
     this.emit("change");
   },
