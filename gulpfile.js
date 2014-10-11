@@ -22,6 +22,7 @@ var opt = {
 
   cssAssets: [
     "src/css/bootstrap.min.css",
+    "src/css/font-awesome.min.css",
     "src/css/formbuilder.css"
   ],
 

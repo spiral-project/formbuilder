@@ -17,7 +17,7 @@ var elements = {
   },
   'multi-line-text': {
     name: 'Multi-line text area',
-    glyphicon: "text-height",
+    icon: "fa-align-justify",
     renderer: TextAreaRenderer,
     editor: TextAreaEditor
   },
@@ -25,7 +25,7 @@ var elements = {
     name: 'Dropdown'
   },
   'checkboxes': {
-    name: 'Checkboxes'
+    name: 'Checkboxes',
   },
   'radio-buttons': {
     name: 'RadioButtons'
