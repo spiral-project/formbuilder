@@ -3,14 +3,22 @@
 "use strict";
 
 var React = require("react");
-var FormElement = require("./FormElement");
 
 var FormHeader = React.createClass({
+
+  setFormName: function(e) {
+    this.props.setFormName(this.refs.formName.getDOMNode().value);
+  },
+
   render: function() {
     return <header>
-      <input id="formName" type="text" placeholder="Form name" />
+      <input
+        ref="formName"
+        placeholder="Form Name"
+        id="formName"
+        type="text"
+        onChange={this.setFormName} />
       <button
-        id="save-form"
         className="btn btn-success pull-right"
         onClick={this.props.submitForm} >
         Save form

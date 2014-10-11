@@ -34,6 +34,7 @@ Here is an overview of how the react components work together:
 
     <FormBuilderApp>
       <FieldList />
+      <FormHeader />
       <FormContainer>
         <FormElement>
           <TextAreaEditor />
