@@ -27,16 +27,17 @@
   },
   "homepage": "https://github.com/spiral-project/formbuilder",
   "dependencies": {
+    "browserify": "^6.0.2",
+    "fluxxor": "1.4.2",
     "gulp": "^3.8.*",
     "gulp-gh-pages": "^0.3.*",
     "gulp-uglify": "^0.3.*",
+    "gulp-webserver": "^0.8.3",
     "react": "^0.10.*",
     "react-bootstrap": "^0.10.*",
     "reactify": "^0.13.*",
     "vinyl-source-stream": "^0.1.*",
-    "watchify": "^1.0.6",
-    "browserify": "^6.0.2",
-    "gulp-webserver": "^0.8.3"
+    "watchify": "^1.0.6"
   },
   "devDependencies": {
     "jest-cli": "latest",

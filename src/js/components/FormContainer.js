@@ -3,33 +3,28 @@
 "use strict";
 
 var React = require("react");
+var Fluxxor = require("fluxxor");
+var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+
 var FormElement = require("./FormElement");
+var FormHeader = require("./FormHeader");
+var Fields = require("./Fields");
+
 
 var FormContainer = React.createClass({
-
+  mixins: [FluxChildMixin],
   render: function() {
-    var elements = this.props.items.map(function(element) {
-      return <FormElement
-                key={element.key}
-                name={element.name}
-                editor={element.editor}
-                renderer={element.renderer} />;
-    });
-
     return (
       <div id="form-container">
-        <header>
-          <input id="formName" type="text" />
-          <button
-            id="save-form"
-            className="btn btn-success pull-right"
-            onSubmit={this.props.submitForm} >
-            Save form
-          </button>
-        </header>
-        <div id="form-elements">
-          {elements}
-        </div>
+        <FormHeader submitForm={this.props.submitForm} />
+        <div id="form-elements">{
+          this.props.elements.map(function(element) {
+            return <FormElement
+                      element={element}
+                      editor={Fields[element.fieldType].editor}
+                      renderer={Fields[element.fieldType].renderer} />;
+          })
+        }</div>
       </div>
     );
   }

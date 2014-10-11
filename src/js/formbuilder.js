@@ -4,6 +4,7 @@
 
 var React = require("react");
 var FormBuilderApp = require("./components/FormBuilderApp");
+var flux = require("./flux").flux;
 
-React.renderComponent(<FormBuilderApp />,
+React.renderComponent(<FormBuilderApp flux={flux} />,
                       document.getElementById('formbuilder'));

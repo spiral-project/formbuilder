@@ -4,29 +4,31 @@
 var randomBytes = require("crypto").randomBytes;
 
 var React = require("react");
+var Fluxxor = require("fluxxor");
+var FluxMixin = Fluxxor.FluxMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var FieldList = require("./FieldList");
 var FormContainer = require("./FormContainer");
 var Fields = require("./Fields");
 
-var FormBuilderApp = React.createClass({
 
-  getInitialState: function() {
-    return {formElements: []};
+var FormBuilderApp = React.createClass({
+  mixins: [FluxMixin, StoreWatchMixin("FieldElementsStore")],
+
+  getStateFromFlux: function() {
+    var flux = this.getFlux();
+    return {
+      formElements: flux.store("FieldElementsStore").getState().elements
+    };
   },
 
-  addFormElement: function(name) {
-    var editor = Fields[name].editor;
-    var renderer = Fields[name].renderer;
+  submitForm: function() {
 
-    this.setState({
-      'formElements': this.state.formElements.concat([{
-        key: randomBytes(8).toString('hex'),
-        name: name,
-        editor: editor,
-        renderer: renderer
-      }])
-    });
+  },
+
+  addFormElement: function(fieldType) {
+    this.getFlux().actions.addFormElement(fieldType);
   },
 
   render: function() {
@@ -34,10 +36,13 @@ var FormBuilderApp = React.createClass({
       <div className="row">
         <div className="col-xs-1 col-sm-1"></div>
         <div className="col-xs-3 col-sm-3 ">
-          <FieldList fields={Fields} addFormElement={this.addFormElement} />
+          <FieldList fields={Fields}
+                     addFormElement={this.addFormElement} />
         </div>
         <div className="col-xs-7 col-sm-7">
-          <FormContainer items={this.state.formElements} />
+          <FormContainer
+            elements={this.state.formElements}
+            submitForm={this.submitForm} />
         </div>
       </div>
     );

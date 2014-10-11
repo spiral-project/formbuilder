@@ -24,6 +24,37 @@ install it. To do so, it's easy:
 you.
 
 
+## Design
+
+Here are some notes about the overall design we're using for this form builder.
+
+### How the components work together?
+
+Here is an overview of how the react components work together:
+
+    <FormBuilderApp>
+      <FieldList />
+      <FormContainer>
+        <FormElement>
+          <TextAreaEditor />
+          <TextAreaRenderer />
+        </FormElement>
+        <FormElement>
+          <CheckboxesEditor />
+          <CheckboxesRenderer />
+        </FormElement>
+      </FormContainer>
+    </FormBuilderApp>
+
+### What's the data flow?
+
+We're using Flux to dispatch the actions, meaning that the FormBuilderApp
+contains a reference to a store where we store all the form elements that
+had been added / configured to the app.
+
+When an action takes place, any of the elements can trigger it and it will
+update the data, and the elements will be re-rendered.
+
 ## Credits
 
 The theme was provided by Cocoon Development Ltd, which released the code
