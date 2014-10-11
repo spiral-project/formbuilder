@@ -11,6 +11,7 @@ body {
 #field-list {
     list-style: outside none none;
     margin: 0px;
+    padding: 0px;
 }
 
 #field-list .optionTitle {

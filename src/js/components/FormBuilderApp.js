@@ -32,7 +32,8 @@ var FormBuilderApp = React.createClass({
   render: function() {
     return (
       <div className="row">
-        <div className="col-xs-4 col-sm-4 ">
+        <div className="col-xs-1 col-sm-1"></div>
+        <div className="col-xs-3 col-sm-3 ">
           <FieldList fields={Fields} addFormElement={this.addFormElement} />
         </div>
         <div className="col-xs-7 col-sm-7">
