@@ -18,11 +18,18 @@ var FormContainer = React.createClass({
 
     return (
       <div id="form-container">
-      <header>
-        <input id="formName" type="text" />
-        <button id="save-form" className="btn btn-success pull-right">Save form</button>
-      </header>
-      {elements}
+        <header>
+          <input id="formName" type="text" />
+          <button
+            id="save-form"
+            className="btn btn-success pull-right"
+            onSubmit={this.props.submitForm} >
+            Save form
+          </button>
+        </header>
+        <div id="form-elements">
+          {elements}
+        </div>
       </div>
     );
   }

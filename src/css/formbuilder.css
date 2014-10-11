@@ -60,3 +60,7 @@ body {
 .form-element:hover {
   background: none repeat scroll 0% 0% #FAFAFA;
 }
+
+#form-elements {
+  padding: 15px;
+}
