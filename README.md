@@ -22,3 +22,12 @@ install it. To do so, it's easy:
 
 … and you should see your favorite browser open with the app running there for
 you.
+
+
+## Credits
+
+The theme was provided by Cocoon Development Ltd, which released the code
+behind http://www.former.io/ code under an MIT licence.
+
+We rewrote all the logic behind the code to use react in order to have
+something easier to maintain.
