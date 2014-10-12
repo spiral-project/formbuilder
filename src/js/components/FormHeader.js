@@ -23,7 +23,7 @@ var FormHeader = React.createClass({
         onClick={this.props.submitForm} >
         Save form
       </button>
-    </header>
+    </header>;
   }
 });
 

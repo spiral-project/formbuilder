@@ -53,17 +53,17 @@ var CheckboxesRenderer = React.createClass({
             <label>
               <input type="checkbox" />{value}
             </label>
-          </div>
+          </div>;
           })
         }
         </div>
       </div>
-    </form>
+    </form>;
   }
 });
 
 module.exports = {
   Editor: CheckboxesEditor,
   Renderer: CheckboxesRenderer
-}
+};
 

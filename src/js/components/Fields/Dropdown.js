@@ -16,17 +16,16 @@ var DropdownRenderer = React.createClass({
         <div className="col-sm-8">
         <select className="form-control">
         { values.map(function(value, i) {
-          return <option key={i}>{value}</option>
+          return <option key={i}>{value}</option>;
         })}
         </select>
         </div>
       </div>
-    </form>
+    </form>;
   }
 });
 
 module.exports = {
   Editor: CheckboxesEditor,
   Renderer: DropdownRenderer
-}
-
+};

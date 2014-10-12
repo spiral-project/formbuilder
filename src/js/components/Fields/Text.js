@@ -20,7 +20,7 @@ var TextRenderer = React.createClass({
                  placeholder={this.props.data.description} />
         </div>
       </div>
-    </form>
+    </form>;
   }
 });
 

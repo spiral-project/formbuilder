@@ -7,7 +7,6 @@ var TestUtils = require('react/addons').addons.TestUtils;
 jest.dontMock('../FormBuilderApp');
 
 var FormBuilderApp = require('../FormBuilderApp');
-var Fields = require('../Fields');
 
 describe("FormBuilderApp", function() {
   var comp;

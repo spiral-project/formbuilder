@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 "use strict";
-var randomBytes = require("crypto").randomBytes;
 
 var React = require("react");
 var Fluxxor = require("fluxxor");

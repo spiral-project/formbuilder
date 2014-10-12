@@ -8,7 +8,6 @@ var FluxChildMixin = Fluxxor.FluxChildMixin(React);
 
 var OverlayTrigger = require('react-bootstrap/OverlayTrigger');
 var Popover = require('react-bootstrap/Popover');
-var Button = require('react-bootstrap/Button');
 
 var FormElement = React.createClass({
   mixins: [FluxChildMixin],

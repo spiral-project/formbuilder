@@ -25,7 +25,7 @@ var TitleEditor = React.createClass({
 
 var TitleRenderer = React.createClass({
   render: function() {
-    return <h2>{this.props.data.label}</h2>
+    return <h2>{this.props.data.label}</h2>;
   }
 });
 

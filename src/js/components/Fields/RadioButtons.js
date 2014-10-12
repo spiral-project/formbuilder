@@ -19,17 +19,16 @@ var RadioButtonsRenderer = React.createClass({
             <label>
               <input type="radio" /> {value}
             </label>
-          </div>
+          </div>;
           })
         }
         </div>
       </div>
-    </form>
+    </form>;
   }
 });
 
 module.exports = {
   Editor: CheckboxesEditor,
   Renderer: RadioButtonsRenderer
-}
-
+};
