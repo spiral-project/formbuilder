@@ -31,7 +31,9 @@ var FormBuilderApp = React.createClass({
   },
 
   addFormElement: function(fieldType) {
-    this.getFlux().actions.addFormElement(fieldType);
+    var defaultData = JSON.parse(JSON.stringify(
+      Fields[fieldType].defaultData));
+    this.getFlux().actions.addFormElement(fieldType, defaultData);
   },
 
   setFormName: function(formName) {

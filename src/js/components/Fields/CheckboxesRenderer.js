@@ -4,22 +4,27 @@
 
 var React = require("react");
 
-var TextAreaRenderer = React.createClass({
+var CheckboxesRenderer = React.createClass({
   render: function() {
+    var values = this.props.data.values || [];
     return <form className="form-horizontal" role="form">
       <div className="form-group">
         <label htmlFor="label" className="col-sm-4 control-label">
           {this.props.data.label || "Label"}
         </label>
         <div className="col-sm-8">
-          <input type="text"
-                 className="form-control"
-                 id={this.props.data.name || "Label"}
-                 placeholder={this.props.data.description} />
+        { values.map(function(value, i) {
+          return <div key={i} className="checkbox">
+            <label>
+              <input type="checkbox" />{value}
+            </label>
+          </div>
+          })
+        }
         </div>
       </div>
     </form>
   }
 });
 
-module.exports = TextAreaRenderer;
+module.exports = CheckboxesRenderer;

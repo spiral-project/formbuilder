@@ -17,11 +17,11 @@ var FormElementStore = Fluxxor.createStore({
     );
   },
 
-  onAdd: function(fieldType){
+  onAdd: function(payload){
     this.elements.push({
       id: randomBytes(8).toString('hex'),
-      fieldType: fieldType,
-      data: {}
+      fieldType: payload.fieldType,
+      data: payload.defaultData
     });
     this.emit("change");
   },
@@ -51,8 +51,11 @@ var FormElementStore = Fluxxor.createStore({
 });
 
 var actions = {
-  addFormElement: function(fieldType) {
-    this.dispatch(constants.ADD_FORM_ELEMENT, fieldType);
+  addFormElement: function(fieldType, defaultData) {
+    this.dispatch(constants.ADD_FORM_ELEMENT, {
+      fieldType: fieldType,
+      defaultData: defaultData
+    });
   },
   updateFormElement: function(element) {
     this.dispatch(constants.UPDATE_FORM_ELEMENT, {element: element});

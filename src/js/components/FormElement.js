@@ -42,7 +42,7 @@ var FormElement = React.createClass({
             </OverlayTrigger>
           </div>
           <div className="col-md-2">
-            <a className="delete-link" onClick={this.deleteFormElement}>delete</a>
+            <a className="fa-close fa fa-1x delete-link" onClick={this.deleteFormElement}></a>
           </div>
         </div>
       </div>

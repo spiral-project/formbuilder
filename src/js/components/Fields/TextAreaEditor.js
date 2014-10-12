@@ -9,10 +9,7 @@ var TextAreaEditor = React.createClass({
   mixins: [LinkedStateMixin],
 
   getInitialState: function() {
-    return this.props.data || {
-      label: 'Label',
-      description: 'Description'
-    };
+    return this.props.data;
   },
   handleSubmit: function(e) {
     e.preventDefault();

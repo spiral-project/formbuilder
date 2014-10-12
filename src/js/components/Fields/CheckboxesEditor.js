@@ -5,14 +5,11 @@
 var React = require("react");
 var LinkedStateMixin = require("react/addons").addons.LinkedStateMixin;
 
-var TextAreaEditor = React.createClass({
+var CheckboxesEditor = React.createClass({
   mixins: [LinkedStateMixin],
 
   getInitialState: function() {
-    return this.props.data || {
-      label: 'Label',
-      description: 'Description'
-    };
+    return this.props.data
   },
   handleSubmit: function(e) {
     e.preventDefault();
@@ -25,25 +22,35 @@ var TextAreaEditor = React.createClass({
     }
   },
 
+  updateValues: function() {
+    var value = this.refs.values.getDOMNode().value;
+    this.setState({
+      values: value.split(', ')
+    });
+  },
+
   render: function() {
     return (
       <form onSubmit={this.handleSubmit}
             onKeyDown={this.handleKeyDown}
             className="form" role="form">
+
         <input valueLink={this.linkState('label')}
                className="form-control input-sm"
                type="text"
                id="label"
                placeholder="Label" />
 
-        <input valueLink={this.linkState('description')}
+        <input ref="values"
+               onChange={this.updateValues}
                className="form-control input-sm"
                type="text"
-               id="description"
-               placeholder="Put your description here" />
+               id="values"
+               value={this.state.values.join(', ')} />
+
       </form>);
   }
 });
 
-module.exports = TextAreaEditor;
+module.exports = CheckboxesEditor;
 
