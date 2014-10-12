@@ -4,23 +4,10 @@
 
 var React = require("react");
 var LinkedStateMixin = require("react/addons").addons.LinkedStateMixin;
+var EditorMixin = require("./EditorMixin");
 
 var TextAreaEditor = React.createClass({
-  mixins: [LinkedStateMixin],
-
-  getInitialState: function() {
-    return this.props.data;
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    this.props.updateFormElement(this.state);
-  },
-
-  handleKeyDown: function(e) {
-    if (e.key === 'Enter'){
-      this.handleSubmit(e);
-    }
-  },
+  mixins: [LinkedStateMixin, EditorMixin],
 
   render: function() {
     return (
