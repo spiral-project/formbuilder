@@ -36,6 +36,7 @@
     "react": "^0.10.*",
     "react-bootstrap": "^0.10.*",
     "reactify": "^0.13.*",
+    "string": "2.1.0",
     "vinyl-source-stream": "^0.1.*",
     "watchify": "^1.0.6"
   },

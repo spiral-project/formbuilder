@@ -30,7 +30,7 @@ var elements = {
       label: 'Some explanation text',
     }
   },
-  'single-line-text': {
+  'singlelinetext': {
     name: 'Single-line text-box',
     icon: 'fa-text-width',
     renderer: Text.Renderer,
@@ -40,7 +40,7 @@ var elements = {
       description: 'description'
     }
   },
-  'multi-line-text': {
+  'multilinetext': {
     name: 'Multi-line text area',
     icon: 'fa-align-justify',
     renderer: TextArea.Renderer,
@@ -70,7 +70,7 @@ var elements = {
       values: ['Option 1', 'Option 2']
     }
   },
-  'radio-buttons': {
+  'radiobuttons': {
     name: 'RadioButtons',
     icon: 'fa-dot-circle-o',
     renderer: RadioButtons.Renderer,
