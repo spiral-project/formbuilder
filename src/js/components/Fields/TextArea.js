@@ -37,7 +37,7 @@ var TextAreaRenderer = React.createClass({
           {this.props.data.label || "Label"}
         </label>
         <div className="col-sm-8">
-          <input type="text"
+          <textarea
                  className="form-control"
                  id={this.props.data.name || "Label"}
                  placeholder={this.props.data.description} />

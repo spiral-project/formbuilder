@@ -2,10 +2,11 @@
 
 "use strict";
 
-var TextAreaRenderer = require("./TextAreaRenderer");
-var TextAreaEditor = require("./TextAreaEditor");
-var CheckboxesRenderer = require("./CheckboxesRenderer");
-var CheckboxesEditor = require("./CheckboxesEditor");
+var Text = require("./Text");
+var TextArea = require("./TextArea");
+var Checkboxes = require("./Checkboxes");
+var Dropdown = require("./Dropdown");
+var RadioButtons = require("./RadioButtons");
 
 var elements = {
   'legend': {
@@ -15,36 +16,58 @@ var elements = {
     name: 'Paragraph of text'
   },
   'single-line-text': {
-    name: 'Single-line text-box'
+    name: 'Single-line text-box',
+    icon: 'fa-text-width',
+    renderer: Text.Renderer,
+    editor: Text.Editor,
+    defaultData: {
+      label: 'Label',
+      description: 'description'
+    }
   },
   'multi-line-text': {
     name: 'Multi-line text area',
     icon: 'fa-align-justify',
-    renderer: TextAreaRenderer,
-    editor: TextAreaEditor,
+    renderer: TextArea.Renderer,
+    editor: TextArea.Editor,
     defaultData: {
       label: 'Label',
       description: 'description'
     }
   },
   'dropdown': {
-    name: 'Dropdown'
+    name: 'Dropdown',
+    icon: 'fa-caret-down',
+    renderer: Dropdown.Renderer,
+    editor: Dropdown.Editor,
+    defaultData: {
+      label: 'Label',
+      values: ['Option 1', 'Option 2']
+    }
   },
   'checkboxes': {
     name: 'Checkboxes',
-    icon: 'fa-check-square',
-    renderer: CheckboxesRenderer,
-    editor: CheckboxesEditor,
+    icon: 'fa-check-square-o',
+    renderer: Checkboxes.Renderer,
+    editor: Checkboxes.Editor,
     defaultData: {
       label: 'Label',
       values: ['Option 1', 'Option 2']
     }
   },
   'radio-buttons': {
-    name: 'RadioButtons'
+    name: 'RadioButtons',
+    icon: 'fa-dot-circle-o',
+    renderer: RadioButtons.Renderer,
+    editor: RadioButtons.Editor,
+    defaultData: {
+      label: 'Label',
+      values: ['Option 1', 'Option 2']
+    }
   },
   'submit': {
-    name: 'Submit Form'
+    name: 'Submit Form',
+    icon: 'fa-hand-o-right'
   }
 };
 
