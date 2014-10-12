@@ -1,3 +1,5 @@
+"use strict";
+
 var Fluxxor = require("fluxxor");
 var randomBytes = require("crypto").randomBytes;
 

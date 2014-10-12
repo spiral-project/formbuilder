@@ -5,11 +5,7 @@
 var React = require("react");
 var FormBuilderApp = require("./components/FormBuilderApp");
 var flux = require("./flux").flux;
+var serializer = require("./daybed");
 
-var serialize = function(data){
-  console.log("name", data.formName);
-  console.log("elements", data.formElements);
-};
-
-React.renderComponent(<FormBuilderApp flux={flux} serializer={serialize} />,
+React.renderComponent(<FormBuilderApp flux={flux} serializer={serializer} />,
                       document.getElementById('formbuilder'));
