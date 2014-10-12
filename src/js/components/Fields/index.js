@@ -7,13 +7,28 @@ var TextArea = require("./TextArea");
 var Checkboxes = require("./Checkboxes");
 var Dropdown = require("./Dropdown");
 var RadioButtons = require("./RadioButtons");
+var Title = require("./Title");
+var Paragraph = require("./Paragraph");
+var Submit = require("./Submit");
 
 var elements = {
-  'legend': {
-    name: 'Legend',
+  'title': {
+    name: 'Title',
+    icon: 'fa-font',
+    renderer: Title.Renderer,
+    editor: Title.Editor,
+    defaultData: {
+      label: 'Title',
+    }
   },
   'paragraph': {
-    name: 'Paragraph of text'
+    name: 'Paragraph of text',
+    icon: 'fa-paragraph',
+    renderer: Paragraph.Renderer,
+    editor: Paragraph.Editor,
+    defaultData: {
+      label: 'Some explanation text',
+    }
   },
   'single-line-text': {
     name: 'Single-line text-box',
@@ -67,7 +82,12 @@ var elements = {
   },
   'submit': {
     name: 'Submit Form',
-    icon: 'fa-hand-o-right'
+    icon: 'fa-hand-o-right',
+    renderer: Submit.Renderer,
+    editor: Submit.Editor,
+    defaultData: {
+      label: "Let's go!",
+    }
   }
 };
 
