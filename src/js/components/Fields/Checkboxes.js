@@ -5,6 +5,7 @@
 var React = require("react");
 var LinkedStateMixin = require("react/addons").addons.LinkedStateMixin;
 var EditorMixin = require("./EditorMixin");
+var RendererMixin = require("./RendererMixin");
 
 var CheckboxesEditor = React.createClass({
   mixins: [LinkedStateMixin, EditorMixin],
@@ -35,17 +36,22 @@ var CheckboxesEditor = React.createClass({
                id="values"
                value={this.state.values.join(', ')} />
 
+        {this.getRequired()}
+
       </form>);
   }
 });
 
 var CheckboxesRenderer = React.createClass({
+  mixins: [RendererMixin],
   render: function() {
     var values = this.props.data.values || [];
+
     return <form className="form-horizontal" role="form">
       <div className="form-group">
         <label htmlFor="label" className="col-sm-4 control-label">
-          {this.props.data.label || "Label"}
+          {this.props.data.label}{this.required()}
+
         </label>
         <div className="col-sm-8">
         { values.map(function(value, i) {

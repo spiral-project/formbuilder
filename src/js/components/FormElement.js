@@ -12,11 +12,18 @@ var Popover = require('react-bootstrap/Popover');
 var FormElement = React.createClass({
   mixins: [FluxChildMixin],
 
-  updateFormElement: function(data) {
+  updateFormElement: function(data, hideOverlay) {
+    if (hideOverlay === undefined) {
+      hideOverlay = true;
+    }
+
     var element = this.props.element;
     element.data = data;
     this.getFlux().actions.updateFormElement(element);
-    this.refs.overlay.hide();
+
+    if (hideOverlay) {
+      this.refs.overlay.hide();
+    }
   },
 
   deleteFormElement: function() {

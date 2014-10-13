@@ -56,6 +56,11 @@ had been added / configured to the app.
 When an action takes place, any of the elements can trigger it and it will
 update the data, and the elements will be re-rendered.
 
+              ———| Action |<——— triggers ———
+     updates |                              |
+              ——>| Store | — updates ——> | App |
+
+
 ## Credits
 
 The theme was provided by Cocoon Development Ltd, which released the code

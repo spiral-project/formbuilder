@@ -5,6 +5,7 @@
 var React = require("react");
 var LinkedStateMixin = require("react/addons").addons.LinkedStateMixin;
 var EditorMixin = require("./EditorMixin");
+var RendererMixin = require("./RendererMixin");
 
 var TextAreaEditor = React.createClass({
   mixins: [LinkedStateMixin, EditorMixin],
@@ -25,16 +26,19 @@ var TextAreaEditor = React.createClass({
                type="text"
                id="description"
                placeholder="Put your description here" />
+
+        {this.getRequired()}
       </form>);
   }
 });
 
 var TextAreaRenderer = React.createClass({
+  mixins: [RendererMixin],
   render: function() {
     return <form className="form-horizontal" role="form">
       <div className="form-group">
         <label htmlFor="label" className="col-sm-4 control-label">
-          {this.props.data.label || "Label"}
+          {this.props.data.label}{this.required()}
         </label>
         <div className="col-sm-8">
           <textarea

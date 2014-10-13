@@ -37,7 +37,8 @@ var elements = {
     editor: Text.Editor,
     defaultData: {
       label: 'Label',
-      description: 'description'
+      description: 'description',
+      required: false
     }
   },
   'multilinetext': {
@@ -47,7 +48,8 @@ var elements = {
     editor: TextArea.Editor,
     defaultData: {
       label: 'Label',
-      description: 'description'
+      description: 'description',
+      required: false
     }
   },
   'dropdown': {
@@ -57,7 +59,8 @@ var elements = {
     editor: Dropdown.Editor,
     defaultData: {
       label: 'Label',
-      values: ['Option 1', 'Option 2']
+      values: ['Option 1', 'Option 2'],
+      required: false
     }
   },
   'checkboxes': {
@@ -67,7 +70,8 @@ var elements = {
     editor: Checkboxes.Editor,
     defaultData: {
       label: 'Label',
-      values: ['Option 1', 'Option 2']
+      values: ['Option 1', 'Option 2'],
+      required: false
     }
   },
   'radiobuttons': {
@@ -77,7 +81,8 @@ var elements = {
     editor: RadioButtons.Editor,
     defaultData: {
       label: 'Label',
-      values: ['Option 1', 'Option 2']
+      values: ['Option 1', 'Option 2'],
+      required: false
     }
   },
   'submit': {
