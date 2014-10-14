@@ -58,8 +58,9 @@ update the data, and the elements will be re-rendered.
 
               ———| Action |<——— triggers ———
      updates |                              |
-              ——>| Store | — updates ——> | App |
-
+              ——>| Store | — updates ——> | App | ——> | Component2 |
+                                            |
+                                             ——————> | Component2 |
 
 ## Credits
 

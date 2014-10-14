@@ -7,10 +7,7 @@ var FormBuilderApp = require("./components/FormBuilderApp");
 var flux = require("./flux").flux;
 var DaybedBackend = require("./backends/daybed").Backend;
 
-var serializer = function(data) {
-  var backend = new DaybedBackend();
-  backend.store(data);
-};
+var daybed = new DaybedBackend();
 
-React.renderComponent(<FormBuilderApp flux={flux} serializer={serializer} />,
+React.renderComponent(<FormBuilderApp flux={flux} serializer={daybed.store} />,
                       document.getElementById('formbuilder'));

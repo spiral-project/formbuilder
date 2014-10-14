@@ -23,12 +23,12 @@ describe("Daybed", function() {
       };
       var serialized = serializer.serialize(toSerialize);
 
-      expect(serialized.title).toEqual("super-form-name");
+      expect(serialized.title).toEqual("Super form name");
       expect(serialized.description).toEqual(toSerialize.formName);
     });
 
     it("should call the 'serialize'+fieldType method", function() {
-      serializer.serializeSupertype = jest.genMockFunction();
+      serializer.__proto__.serializeSupertype = jest.genMockFunction();
       serializer.serialize({
         formName: 'Super form name',
         formElements: [{
@@ -37,15 +37,16 @@ describe("Daybed", function() {
         }]
       });
 
-      expect(serializer.serializeSupertype).toBeCalledWith('some data');
+      expect(serializer.__proto__.serializeSupertype)
+        .toBeCalledWith('some data');
 
     });
 
-    it("should call the defaultSerializer when no fieldtype serializer " +
+    it("should call the metadataSerializer when no fieldtype serializer " +
        "exists", function() {
       var mock = jest.genMockFunction();
       var fieldType;
-      serializer.defaultSerializer = function(type) {
+      serializer.metadataSerializer = function(type) {
         fieldType = type;
         return mock;
       };

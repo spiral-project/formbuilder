@@ -14,7 +14,7 @@ var opt = {
   outputFolder: "build",
 
   server: {
-    host: "localhost",
+    host: "0.0.0.0",
     port: 4000,
     livereload: true,
     open:false

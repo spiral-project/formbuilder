@@ -7,7 +7,7 @@ var DaybedSerializer = function() {};
 DaybedSerializer.prototype = {
   serialize: function(inputData) {
     var outputData = {
-      title: S(inputData.formName || '').slugify().s,
+      title: inputData.formName,
       description: inputData.formName,
       fields: []
     };
@@ -18,7 +18,7 @@ DaybedSerializer.prototype = {
       if (DaybedSerializer.prototype.hasOwnProperty(serializerName)) {
         serializer = this[serializerName].bind(this);
       } else {
-        serializer = this.defaultSerializer(element.fieldType);
+        serializer = this.metadataSerializer(element.fieldType);
       }
       outputData.fields.push(serializer(element.data));
     }.bind(this));
@@ -26,12 +26,11 @@ DaybedSerializer.prototype = {
     return outputData;
   },
 
-  defaultSerializer: function(type) {
+  metadataSerializer: function(type) {
     return function(data) {
       return {
+        type: "metadata",
         value: data.label,
-        type: type,
-        metadata: true
       };
     };
   },
