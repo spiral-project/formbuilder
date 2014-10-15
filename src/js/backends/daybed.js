@@ -5,6 +5,23 @@ var S = require('string');
 var DaybedSerializer = function() {};
 
 DaybedSerializer.prototype = {
+
+  deserialize: function(inputData) {
+    var outputData = {
+      formName: inputData.title,
+      formElements: []
+    };
+
+    inputData.fields.forEach(function(field) {
+      var deserializerName = "deserialize"+S(field.type).capitalize().s;
+      if (DaybedSerializer.prototype.hasOwnProperty(deserializerName)) {
+        outputData.formElements.push(this[deserializerName](field));
+      }
+    }.bind(this));
+
+    return outputData;
+  },
+
   serialize: function(inputData) {
     var outputData = {
       title: inputData.formName,
@@ -26,6 +43,8 @@ DaybedSerializer.prototype = {
     return outputData;
   },
 
+  // Serialisation methods.
+
   metadataSerializer: function(type) {
     return function(data) {
       return {
@@ -36,12 +55,14 @@ DaybedSerializer.prototype = {
     };
   },
 
-  serializeList: function(type, data) {
+  serializeList: function(daybedType, formbuilderType, data) {
     return {
       name: S(data.label).slugify().s,
       label: data.label,
-      type: type,
-      choices: data.values
+      type: daybedType,
+      formbuilderType: formbuilderType,
+      choices: data.values,
+      required: data.required
     };
   },
 
@@ -49,20 +70,22 @@ DaybedSerializer.prototype = {
     return {
       name: S(data.label).slugify().s,
       label: data.label,
+      hint: data.description,
       type: type,
+      required: data.required
     };
   },
 
   serializeCheckboxes: function(data) {
-    return this.serializeList("choices", data);
+    return this.serializeList("choices", "checkboxes", data);
   },
 
   serializeDropdown: function(data) {
-    return this.serializeList("enum", data);
+    return this.serializeList("enum", "dropdown", data);
   },
 
   serializeRadiobuttons: function(data) {
-    return this.serializeList("enum", data);
+    return this.serializeList("enum", "radiobuttons", data);
   },
 
   serializeSinglelinetext: function(data) {
@@ -71,6 +94,60 @@ DaybedSerializer.prototype = {
 
   serializeMultilinetext: function(data) {
     return this.serializeText("text", data);
+  },
+
+  // Deserialisation.
+  deserializeMetadata: function(data) {
+    return {
+      data: {
+        label: data.label
+      },
+      fieldType: data.metadataType
+    };
+  },
+
+  deserializeChoices: function(data) {
+    return {
+      data: {
+        label: data.label,
+        values: data.choices,
+        required: data.required
+      },
+      fieldType: "checkboxes"
+    };
+  },
+
+  deserializeEnum: function(data) {
+    return {
+      data: {
+        label: data.label,
+        values: data.choices,
+        required: data.required
+      },
+      fieldType: data.formbuilderType || "radiobuttons"
+    };
+  },
+
+  deserializeString: function(data) {
+    return {
+      data: {
+        label: data.label,
+        description: data.hint,
+        required: data.required
+      },
+      fieldType: "singlelinetext"
+    };
+  },
+
+  deserializeText: function(data) {
+    return {
+      data: {
+        label: data.label,
+        description: data.hint,
+        required: data.required
+      },
+      fieldType: "multilinetext"
+    };
   }
 };
 
@@ -80,7 +157,9 @@ var DaybedBackend = function() {
 
 DaybedBackend.prototype = {
   store: function(data) {
-    console.log(this.serializer.serialize(data));
+    var ser = new DaybedSerializer();
+    console.log('input', JSON.stringify(data));
+    console.log('output', JSON.stringify(ser.serialize(data)));
   }
 };
 

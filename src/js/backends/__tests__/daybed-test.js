@@ -62,71 +62,84 @@ describe("Daybed", function() {
       expect(mock).toBeCalledWith('some data');
     });
 
-    it("should be able to serialize checkboxes data", function() {
+    it.only("should be able to serialize checkboxes data", function() {
       var serialized = serializer.serializeCheckboxes({
         label: "Some choices",
-        values: ["Option 1", "Option 2"]
+        values: ["Option 1", "Option 2"],
+        required: true
       });
 
       expect(serialized).toEqual({
         name: "some-choices",
         label: "Some choices",
         type: "choices",
-        choices: ["Option 1", "Option 2"]
+        choices: ["Option 1", "Option 2"],
+        formbuilderType: "checkboxes",
+        required: true
       });
     });
 
     it("should be able to serialize dropdown data", function() {
       var serialized = serializer.serializeDropdown({
         label: "Some choices",
-        values: ["Option 1", "Option 2"]
+        values: ["Option 1", "Option 2"],
+        required: true
       });
 
       expect(serialized).toEqual({
         name: "some-choices",
         label: "Some choices",
         type: "enum",
-        choices: ["Option 1", "Option 2"]
+        choices: ["Option 1", "Option 2"],
+        formbuilderType: "dropdown",
+        required: true
       });
     });
 
     it("should be able to serialize radiobuttons data", function() {
       var serialized = serializer.serializeRadiobuttons({
         label: "Some choices",
-        values: ["Option 1", "Option 2"]
+        values: ["Option 1", "Option 2"],
+        required: true
       });
 
       expect(serialized).toEqual({
         name: "some-choices",
         label: "Some choices",
         type: "enum",
-        choices: ["Option 1", "Option 2"]
+        choices: ["Option 1", "Option 2"],
+        formbuilderType: "radiobuttons",
+        required: true
       });
     });
 
     it("should be able to serialize singleline-text data", function() {
       var serialized = serializer.serializeSinglelinetext({
         label: "Single line text",
-        value: "my text"
+        value: "my text",
+        required: true
       });
 
       expect(serialized).toEqual({
         name: "single-line-text",
         label: "Single line text",
-        type: "string"
+        type: "string",
+        required: true
       });
     });
 
     it("should be able to serialize mutliline-text data", function() {
       var serialized = serializer.serializeMultilinetext({
         label: "Multi line text",
-        value: "my text"
+        value: "my text",
+        required: true
       });
 
       expect(serialized).toEqual({
         name: "multi-line-text",
         label: "Multi line text",
-        type: "text"
+        type: "text",
+        required: true
       });
     });
 
@@ -140,6 +153,34 @@ describe("Daybed", function() {
         type: "metadata",
         metadataType: "myType"
       });
+    });
+
+    it("should be able to do a roundtrip", function() {
+      var inputData = {
+        "formName":"mushrooms",
+        "formElements":[
+          {"fieldType":"title","data":{"label":"Mushrooms"}},
+          {"fieldType":"paragraph","data":{"label":"Some explanation text"}},
+          {"fieldType":"singlelinetext","data":{
+            "label":"Label","description":"description","required":false}
+          },
+          {"fieldType":"multilinetext","data":{
+            "label":"Label","description":"description","required":false}
+          },
+          {"fieldType":"dropdown","data":{
+            "label":"Label","values":["Option 1","Option 2"],"required":false}
+          },
+          {"fieldType":"checkboxes","data":{
+            "label":"Label","values":["Option 1","Option 2"],"required":false}
+          },
+          {"fieldType":"radiobuttons","data":{
+            "label":"Label","values":["Option 1","Option 2"],"required":false}
+          },
+          {"fieldType":"submit","data":{"label":"Let's go!"}}]
+      };
+
+      expect(serializer.deserialize(serializer.serialize(inputData)))
+        .toEqual(inputData);
     });
   });
 });
