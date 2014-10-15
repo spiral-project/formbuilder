@@ -129,5 +129,17 @@ describe("Daybed", function() {
         type: "text"
       });
     });
+
+    it("should be able to serialize metadata information", function() {
+      var serialized = serializer.metadataSerializer("myType")({
+        label: "Multi line text",
+      });
+
+      expect(serialized).toEqual({
+        label: "Multi line text",
+        type: "metadata",
+        metadataType: "myType"
+      });
+    });
   });
 });

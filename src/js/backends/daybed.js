@@ -30,7 +30,8 @@ DaybedSerializer.prototype = {
     return function(data) {
       return {
         type: "metadata",
-        value: data.label,
+        label:data.label,
+        metadataType: type
       };
     };
   },
