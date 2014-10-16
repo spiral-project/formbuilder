@@ -29,7 +29,7 @@
   "dependencies": {
     "browserify": "^6.0.2",
     "daybed.js": "0.1.3",
-    "fluxxor": "1.4.2",
+    "fluxxor": "1.5.0",
     "gulp": "^3.8.*",
     "gulp-gh-pages": "^0.3.*",
     "gulp-rename": "1.2.0",

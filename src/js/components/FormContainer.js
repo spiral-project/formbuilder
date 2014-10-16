@@ -4,14 +4,14 @@
 
 var React = require("react");
 var Fluxxor = require("fluxxor");
-var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+var FluxMixin = Fluxxor.FluxMixin(React);
 
 var FormElement = require("./FormElement");
 var Fields = require("./Fields");
 
 
 var FormContainer = React.createClass({
-  mixins: [FluxChildMixin],
+  mixins: [FluxMixin],
   render: function() {
     return (
         <div id="form-elements">{

@@ -4,13 +4,13 @@
 
 var React = require("react");
 var Fluxxor = require("fluxxor");
-var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+var FluxMixin = Fluxxor.FluxMixin(React);
 
 var OverlayTrigger = require('react-bootstrap/OverlayTrigger');
 var Popover = require('react-bootstrap/Popover');
 
 var FormElement = React.createClass({
-  mixins: [FluxChildMixin],
+  mixins: [FluxMixin],
 
   updateFormElement: function(data, hideOverlay) {
     if (hideOverlay === undefined) {

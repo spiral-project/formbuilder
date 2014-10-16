@@ -4,10 +4,10 @@
 
 var React = require("react");
 var Fluxxor = require("fluxxor");
-var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+var FluxMixin = Fluxxor.FluxMixin(React);
 
 var FormHeader = React.createClass({
-  mixins: [FluxChildMixin],
+  mixins: [FluxMixin],
 
   getInitialState: function() {
     return {
