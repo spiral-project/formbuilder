@@ -9,6 +9,7 @@ var source = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
 var webserver = require("gulp-webserver");
 var deploy = require("gulp-gh-pages");
+var rename = require("gulp-rename");
 
 var opt = {
   outputFolder: "build",
@@ -18,6 +19,11 @@ var opt = {
     port: 4000,
     livereload: true,
     open:false
+  },
+
+  config: {
+    dev: "src/config/dev.js",
+    prod: "src/config/prod.js"
   },
 
   cssAssets: [
@@ -134,18 +140,34 @@ gulp.task("watchify", function(){
 
 });
 
+/**
+ * Copy the right configuration file into js/config.js.
+ **/
+gulp.task("config-dev", function() {
+  return gulp.src(opt.config.dev)
+    .pipe(rename("config.js"))
+    .pipe(gulp.dest(opt.outputFolder + "/js/"));
+});
+
+gulp.task("config-prod", function() {
+  return gulp.src(opt.config.prod)
+    .pipe(rename("config.js"))
+    .pipe(gulp.dest(opt.outputFolder + "/js/"));
+});
+
 
 /**
  * Watch task
  * Launch a server with livereload
  */
-gulp.task("watch", ["assets","js:vendors", "watchify"], function() {
-  gulp.watch(opt.cssAssets,  ["assets:css"]);
-  gulp.watch(opt.fontAssets, ["assets:fonts"]);
-  gulp.watch(opt.htmlAssets, ["assets:html"]);
+gulp.task("watch", ["assets","js:vendors", "config-dev", "watchify"],
+  function() {
+    gulp.watch(opt.cssAssets,  ["assets:css"]);
+    gulp.watch(opt.fontAssets, ["assets:fonts"]);
+    gulp.watch(opt.htmlAssets, ["assets:html"]);
 });
 
-gulp.task("dist", ["assets", "js"], function() {
+gulp.task("dist", ["assets", "js", "config-prod"], function() {
   return gulp.src(opt.outputFolder + "/js/*.js")
     .pipe(uglify())
     .pipe(gulp.dest(opt.outputFolder + "/js"));

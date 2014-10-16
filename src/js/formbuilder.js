@@ -7,7 +7,6 @@ var FormBuilderApp = require("./components/FormBuilderApp");
 var flux = require("./flux").flux;
 var DaybedBackend = require("./backends/daybed").Backend;
 
-
 var backend = new DaybedBackend();
 
 var getSession = function() {
@@ -25,7 +24,7 @@ var setSession = function(session) {
   window.location.hash = session;
 };
 
-backend.initialize("http://localhost:8000", getSession, setSession)
+backend.initialize(document.formbuilder.config, getSession, setSession)
 .then(function() {
   backend.load("superform")
     .then(function(data) {

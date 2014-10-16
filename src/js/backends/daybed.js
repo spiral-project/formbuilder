@@ -166,7 +166,9 @@ function deserialize(data) {
 var DaybedBackend = function() {};
 
 DaybedBackend.prototype = {
-  initialize: function(host, getSession, setSession) {
+  initialize: function(config, getSession, setSession) {
+    var host = config.daybedHost;
+
     var configureSession = function (session) {
       this.session = session;
       setSession(session.token);
