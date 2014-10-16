@@ -6,22 +6,45 @@ var randomBytes = require("crypto").randomBytes;
 var constants = {
   ADD_FORM_ELEMENT: "ADD_FORM_ELEMENT",
   UPDATE_FORM_ELEMENT: "UPDATE_FORM_ELEMENT",
-  DELETE_FORM_ELEMENT: "DELETE_FORM_ELEMENT"
+  DELETE_FORM_ELEMENT: "DELETE_FORM_ELEMENT",
+  SET_INITIAL_DATA: "SET_INITIAL_DATA",
+  SET_FORM_NAME: "SET_FORM_NAME"
 };
 
 var FormElementStore = Fluxxor.createStore({
   initialize: function() {
     this.elements = [];
+    this.formName;
+
+    // XXX. Make this evolve, it's a pain.
     this.bindActions(
       constants.ADD_FORM_ELEMENT, this.onAdd,
       constants.UPDATE_FORM_ELEMENT, this.onUpdate,
-      constants.DELETE_FORM_ELEMENT, this.onDelete
+      constants.DELETE_FORM_ELEMENT, this.onDelete,
+      constants.SET_INITIAL_DATA, this.setInitialData,
+      constants.SET_FORM_NAME, this.setFormName
     );
+  },
+
+  setInitialData: function(payload) {
+    this.formName = payload.formName;
+    this.elements = payload.formElements;
+
+    // The elements in react need to all have an id.
+    this.elements.forEach(function(element, id) {
+      element.id = id
+    });
+    this.emit("change");
+  },
+
+  setFormName: function(payload) {
+    this.formName = payload;
+    this.emit("change");
   },
 
   onAdd: function(payload){
     this.elements.push({
-      id: randomBytes(8).toString('hex'),
+      id: this.elements.length,
       fieldType: payload.fieldType,
       data: payload.defaultData
     });
@@ -47,7 +70,8 @@ var FormElementStore = Fluxxor.createStore({
 
   getState: function() {
     return {
-      elements: this.elements
+      formElements: this.elements,
+      formName: this.formName
     };
   }
 });
@@ -64,6 +88,12 @@ var actions = {
   },
   deleteFormElement: function(id) {
     this.dispatch(constants.DELETE_FORM_ELEMENT, id);
+  },
+  setInitialData: function(data) {
+    this.dispatch(constants.SET_INITIAL_DATA, data);
+  },
+  setFormName: function(data) {
+    this.dispatch(constants.SET_FORM_NAME, data);
   }
 };
 

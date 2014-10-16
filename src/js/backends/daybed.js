@@ -1,6 +1,8 @@
 "use strict";
 
-var S = require('string');
+var Daybed = require('daybed.js');
+var slugify = require('../utils').slugify;
+var capitalize = require('../utils').capitalize;
 
 var DaybedSerializer = function() {};
 
@@ -13,7 +15,7 @@ DaybedSerializer.prototype = {
     };
 
     inputData.fields.forEach(function(field) {
-      var deserializerName = "deserialize"+S(field.type).capitalize().s;
+      var deserializerName = "deserialize" + capitalize(field.type);
       if (DaybedSerializer.prototype.hasOwnProperty(deserializerName)) {
         outputData.formElements.push(this[deserializerName](field));
       }
@@ -30,12 +32,12 @@ DaybedSerializer.prototype = {
     };
 
     inputData.formElements.forEach(function(element){
-      var serializerName = "serialize"+S(element.fieldType).capitalize().s;
+      var serializerName = "serialize" + capitalize(element.fieldType);
       var serializer;
       if (DaybedSerializer.prototype.hasOwnProperty(serializerName)) {
         serializer = this[serializerName].bind(this);
       } else {
-        serializer = this.metadataSerializer(element.fieldType);
+        serializer = this.annotationSerializer(element.fieldType);
       }
       outputData.fields.push(serializer(element.data));
     }.bind(this));
@@ -45,19 +47,19 @@ DaybedSerializer.prototype = {
 
   // Serialisation methods.
 
-  metadataSerializer: function(type) {
+  annotationSerializer: function(type) {
     return function(data) {
       return {
-        type: "metadata",
+        type: "annotation",
         label:data.label,
-        metadataType: type
+        annotationType: type
       };
     };
   },
 
   serializeList: function(daybedType, formbuilderType, data) {
     return {
-      name: S(data.label).slugify().s,
+      name: slugify(data.label),
       label: data.label,
       type: daybedType,
       formbuilderType: formbuilderType,
@@ -68,7 +70,7 @@ DaybedSerializer.prototype = {
 
   serializeText: function(type, data) {
     return {
-      name: S(data.label).slugify().s,
+      name: slugify(data.label),
       label: data.label,
       hint: data.description,
       type: type,
@@ -97,12 +99,12 @@ DaybedSerializer.prototype = {
   },
 
   // Deserialisation.
-  deserializeMetadata: function(data) {
+  deserializeAnnotation: function(data) {
     return {
       data: {
         label: data.label
       },
-      fieldType: data.metadataType
+      fieldType: data.annotationType
     };
   },
 
@@ -151,15 +153,52 @@ DaybedSerializer.prototype = {
   }
 };
 
-var DaybedBackend = function() {
-  this.serializer = new DaybedSerializer();
-};
+function serialize(data) {
+  var serializer = new DaybedSerializer();
+  return serializer.serialize(data);
+}
+
+function deserialize(data) {
+  var serializer = new DaybedSerializer();
+  return serializer.deserialize(data);
+}
+
+var DaybedBackend = function() {};
 
 DaybedBackend.prototype = {
+  initialize: function(host, getSession, setSession) {
+    var configureSession = function (session) {
+      this.session = session;
+      setSession(session.token);
+    }.bind(this);
+
+    return Daybed.startSession(host, getSession())
+      .then(configureSession)
+      .catch(function() {
+        // Create the session if the provided one is invalid.
+        return Daybed.startSession(host)
+          .then(configureSession)
+          .catch(function() {
+            console.log("start session failed.", arguments);
+          });
+      });
+  },
+
   store: function(data) {
-    var ser = new DaybedSerializer();
-    console.log('input', JSON.stringify(data));
-    console.log('output', JSON.stringify(ser.serialize(data)));
+    var serialized = serialize(data);
+    console.log("serialized", serialized);
+    return this.session.saveModel(slugify(serialized.title), {
+      definition: serialized
+    });
+  },
+
+  load: function(modelId) {
+    return this.session.loadModel(modelId).then(function(loadedModel) {
+      console.log("loaded model", loadedModel);
+      var deserialized = deserialize(loadedModel._definition);
+      console.log("deserialized", deserialized);
+      return deserialized
+    });
   }
 };
 

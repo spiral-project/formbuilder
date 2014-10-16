@@ -18,27 +18,19 @@ var FormBuilderApp = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("FieldElementsStore")],
 
   getStateFromFlux: function() {
-    var flux = this.getFlux();
-    return {
-      formElements: flux.store("FieldElementsStore").getState().elements,
-      formName: undefined,
-    };
+    return this.getFlux().store("FieldElementsStore").getState();
   },
 
   submitForm: function() {
-    this.props.serializer(this.state);
+    this.props.backend.store(this.state).then(function() {
+      console.log("Saved !")
+    });
   },
 
   addFormElement: function(fieldType) {
     var defaultData = JSON.parse(JSON.stringify(
       Fields[fieldType].defaultData));
     this.getFlux().actions.addFormElement(fieldType, defaultData);
-  },
-
-  setFormName: function(formName) {
-    this.setState({
-      formName: formName,
-    });
   },
 
   render: function() {
@@ -51,8 +43,7 @@ var FormBuilderApp = React.createClass({
         </div>
         <div id="form-container" className="col-xs-7 col-sm-7">
           <FormHeader formName={this.state.formName}
-                      submitForm={this.submitForm}
-                      setFormName={this.setFormName} />
+                      submitForm={this.submitForm} />
           <FormContainer
             elements={this.state.formElements}
             submitForm={this.submitForm} />
