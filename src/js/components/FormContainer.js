@@ -13,8 +13,10 @@ var Fields = require("./Fields");
 var FormContainer = React.createClass({
   mixins: [FluxMixin],
   render: function() {
+    console.log("formcontainer render props", this.props);
     return (
-        <div id="form-elements">{
+        <div id="form-elements">
+        {
           this.props.elements.map(function(element) {
             return <FormElement
                       key={element.id}
@@ -22,7 +24,8 @@ var FormContainer = React.createClass({
                       editor={Fields[element.fieldType].editor}
                       renderer={Fields[element.fieldType].renderer} />;
           })
-        }</div>
+        }
+        </div>
     );
   }
 });

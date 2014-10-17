@@ -17,12 +17,34 @@ var Fields = require("./Fields");
 var FormEditor = React.createClass({
   mixins: [FluxMixin, StoreWatchMixin("FieldElementsStore")],
 
+  componentWillReceiveProps: function() {
+    alert("Everything is wrong");
+  },
+
+  componentDidMount: function() {
+    this.loadForm(this.props.params.formId);
+  },
+
+  componentDidReceiveProps: function() {
+    this.loadForm(this.props.params.formId);
+  },
+
+  loadForm: function(formId) {
+    return this.props.backend.loadForm(formId)
+      .then(function(data) {
+        this.getFlux().actions.setInitialData(data);
+      }.bind(this))
+      .catch(function(error) {
+        console.log("error while loading the form", error);
+      });
+  },
+
   getStateFromFlux: function() {
     return this.getFlux().store("FieldElementsStore").getState();
   },
 
   submitForm: function() {
-    this.props.backend.store(this.state).then(function() {
+    this.props.backend.storeForm(this.state).then(function() {
       console.log("Saved !")
     });
   },
@@ -34,6 +56,7 @@ var FormEditor = React.createClass({
   },
 
   render: function() {
+    console.log("formeditor render state", this.state);
     return (
       <div className="row">
         <div className="col-xs-1 col-sm-1"></div>

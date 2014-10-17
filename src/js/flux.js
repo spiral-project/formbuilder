@@ -8,8 +8,28 @@ var constants = {
   UPDATE_FORM_ELEMENT: "UPDATE_FORM_ELEMENT",
   DELETE_FORM_ELEMENT: "DELETE_FORM_ELEMENT",
   SET_INITIAL_DATA: "SET_INITIAL_DATA",
-  SET_FORM_NAME: "SET_FORM_NAME"
+  SET_FORM_NAME: "SET_FORM_NAME",
+  SET_FORM_LIST: "SET_FORM_LIST"
 };
+
+var FormListStore = Fluxxor.createStore({
+  initialize: function() {
+    this.formList = [];
+
+    this.bindActions(
+      constants.SET_FORM_LIST, this.setFormList
+    );
+  },
+
+  getState: function() {
+    return this.formList;
+  },
+
+  setFormList: function(formList) {
+    this.formList = formList;
+    this.emit("change");
+  }
+});
 
 var FormElementStore = Fluxxor.createStore({
   initialize: function() {
@@ -94,11 +114,15 @@ var actions = {
   },
   setFormName: function(data) {
     this.dispatch(constants.SET_FORM_NAME, data);
+  },
+  setFormList: function(formList) {
+    this.dispatch(constants.SET_FORM_LIST, formList);
   }
 };
 
 var stores = {
-  FieldElementsStore: new FormElementStore()
+  FieldElementsStore: new FormElementStore(),
+  FormListStore: new FormListStore()
 };
 
 var flux = new Fluxxor.Flux(stores, actions);

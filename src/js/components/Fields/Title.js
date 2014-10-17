@@ -8,7 +8,12 @@ var EditorMixin = require("./EditorMixin");
 
 var TitleEditor = React.createClass({
   mixins: [LinkedStateMixin, EditorMixin],
-
+  componentWillReceiveProps: function() {
+    console.log("TitleEditor will receive props", arguments);
+  },
+  componentDidMount: function() {
+    console.log("TitleEditor component did mount", arguments);
+  },
   render: function() {
     return (
       <form onSubmit={this.handleSubmit}
@@ -25,6 +30,7 @@ var TitleEditor = React.createClass({
 
 var TitleRenderer = React.createClass({
   render: function() {
+    console.log("Render Title", this.props);
     return <h2>{this.props.data.label}</h2>;
   }
 });

@@ -186,21 +186,22 @@ DaybedBackend.prototype = {
       });
   },
 
-  store: function(data) {
+  storeForm: function(data) {
     var serialized = serialize(data);
-    console.log("serialized", serialized);
     return this.session.saveModel(slugify(serialized.title), {
       definition: serialized
     });
   },
 
-  load: function(modelId) {
+  loadForm: function(modelId) {
     return this.session.loadModel(modelId).then(function(loadedModel) {
-      console.log("loaded model", loadedModel);
       var deserialized = deserialize(loadedModel._definition);
-      console.log("deserialized", deserialized);
       return deserialized
     });
+  },
+
+  loadFormList: function() {
+    return this.session.getModels();
   }
 };
 
