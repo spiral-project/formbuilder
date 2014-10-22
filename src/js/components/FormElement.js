@@ -12,6 +12,12 @@ var Popover = require('react-bootstrap/Popover');
 var FormElement = React.createClass({
   mixins: [FluxMixin],
 
+  getInitialState: function() {
+    return {
+      deletable: (this.props.deletable === undefined) ? true : this.props.deletable
+    };
+  },
+
   updateFormElement: function(data, hideOverlay) {
     if (hideOverlay === undefined) {
       hideOverlay = true;
@@ -19,7 +25,7 @@ var FormElement = React.createClass({
 
     var element = this.props.element;
     element.data = data;
-    this.getFlux().actions.updateFormElement(element);
+    this.props.updateFormElement(element);
 
     if (hideOverlay) {
       this.refs.overlay.hide();
@@ -27,10 +33,20 @@ var FormElement = React.createClass({
   },
 
   deleteFormElement: function() {
-    this.getFlux().actions.deleteFormElement(this.props.element.id);
+    if (this.state.deletable) {
+      this.getFlux().actions.deleteFormElement(this.props.element.id);
+    }
   },
 
   render: function() {
+    var deletable;
+    if (this.state.deletable) {
+      deletable = <div className="col-md-2">
+        <a className="fa-close fa fa-1x delete-link"
+            onClick={this.deleteFormElement}></a>
+      </div>;
+    }
+
     return (
       <div className="form-element container-fluid">
         <div className="row">
@@ -47,9 +63,7 @@ var FormElement = React.createClass({
               <div>{this.props.renderer({data: this.props.element.data})}</div>
             </OverlayTrigger>
           </div>
-          <div className="col-md-2">
-            <a className="fa-close fa fa-1x delete-link" onClick={this.deleteFormElement}></a>
-          </div>
+          { deletable }
         </div>
       </div>
     );

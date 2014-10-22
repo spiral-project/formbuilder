@@ -3,7 +3,7 @@
 "use strict";
 
 var React = require("react");
-var DaybedBackend = require("./backends/daybed").Backend;
+var DaybedBackend = require("./backends/daybed");
 var flux = require("./flux").flux;
 
 var Router = require("react-router");
@@ -38,6 +38,7 @@ backend.initialize(document.formbuilder.config, getSession, setSession)
       <Routes>
         <Route handler={FormBuilderApp}>
           <Route name="formList"
+                 path="/"
                  handler={FormList} flux={flux} backend={backend} />
           <Route name="formEditor"
                  path="/forms/:formId"

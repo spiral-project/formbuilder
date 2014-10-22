@@ -3,6 +3,7 @@
 "use strict";
 
 var React = require("react");
+var Router = require("react-router");
 var Fluxxor = require("fluxxor");
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -15,17 +16,17 @@ var Fields = require("./Fields");
 
 
 var FormEditor = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin("FieldElementsStore")],
+  mixins: [
+    FluxMixin,
+    Router.Navigation,
+    StoreWatchMixin("FieldElementsStore")
+  ],
 
-  componentWillReceiveProps: function() {
-    alert("Everything is wrong");
+  componentWillReceiveProps: function(newProps) {
+    this.loadForm(newProps.params.formId);
   },
 
   componentDidMount: function() {
-    this.loadForm(this.props.params.formId);
-  },
-
-  componentDidReceiveProps: function() {
     this.loadForm(this.props.params.formId);
   },
 
@@ -44,9 +45,10 @@ var FormEditor = React.createClass({
   },
 
   submitForm: function() {
-    this.props.backend.storeForm(this.state).then(function() {
-      console.log("Saved !")
-    });
+    this.props.backend.storeForm(this.state).then(function(formId) {
+      console.log("Saved !", formId);
+      this.transitionTo('formEditor', {formId: formId});
+    }.bind(this));
   },
 
   addFormElement: function(fieldType) {
@@ -56,7 +58,6 @@ var FormEditor = React.createClass({
   },
 
   render: function() {
-    console.log("formeditor render state", this.state);
     return (
       <div className="row">
         <div className="col-xs-1 col-sm-1"></div>
@@ -65,10 +66,11 @@ var FormEditor = React.createClass({
                      addFormElement={this.addFormElement} />
         </div>
         <div id="form-container" className="col-xs-7 col-sm-7">
-          <FormHeader formName={this.state.formName}
+          <FormHeader formId={this.state.metadata.formId}
                       submitForm={this.submitForm} />
           <FormContainer
             elements={this.state.formElements}
+            metadata={this.state.metadata}
             submitForm={this.submitForm} />
         </div>
       </div>

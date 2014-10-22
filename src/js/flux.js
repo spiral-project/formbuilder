@@ -8,7 +8,7 @@ var constants = {
   UPDATE_FORM_ELEMENT: "UPDATE_FORM_ELEMENT",
   DELETE_FORM_ELEMENT: "DELETE_FORM_ELEMENT",
   SET_INITIAL_DATA: "SET_INITIAL_DATA",
-  SET_FORM_NAME: "SET_FORM_NAME",
+  UPDATE_FORM_METADATA: "UPDATE_FORM_METADATA",
   SET_FORM_LIST: "SET_FORM_LIST"
 };
 
@@ -34,7 +34,11 @@ var FormListStore = Fluxxor.createStore({
 var FormElementStore = Fluxxor.createStore({
   initialize: function() {
     this.elements = [];
-    this.formName;
+    this.metadata = {
+      formName: 'Form title',
+      formDescription: 'A paragraph describing your form.',
+      submitButtonLabel: 'Submit'
+    };
 
     // XXX. Make this evolve, it's a pain.
     this.bindActions(
@@ -42,12 +46,12 @@ var FormElementStore = Fluxxor.createStore({
       constants.UPDATE_FORM_ELEMENT, this.onUpdate,
       constants.DELETE_FORM_ELEMENT, this.onDelete,
       constants.SET_INITIAL_DATA, this.setInitialData,
-      constants.SET_FORM_NAME, this.setFormName
+      constants.UPDATE_FORM_METADATA, this.updateFormMetadata
     );
   },
 
   setInitialData: function(payload) {
-    this.formName = payload.formName;
+    this.metadata = payload.metadata;
     this.elements = payload.formElements;
 
     // The elements in react need to all have an id.
@@ -57,8 +61,8 @@ var FormElementStore = Fluxxor.createStore({
     this.emit("change");
   },
 
-  setFormName: function(payload) {
-    this.formName = payload;
+  updateFormMetadata: function(payload) {
+    this.metadata[payload.name] = payload.label;
     this.emit("change");
   },
 
@@ -91,7 +95,7 @@ var FormElementStore = Fluxxor.createStore({
   getState: function() {
     return {
       formElements: this.elements,
-      formName: this.formName
+      metadata: this.metadata
     };
   }
 });
@@ -112,8 +116,11 @@ var actions = {
   setInitialData: function(data) {
     this.dispatch(constants.SET_INITIAL_DATA, data);
   },
-  setFormName: function(data) {
-    this.dispatch(constants.SET_FORM_NAME, data);
+  updateFormMetadata: function(name, label) {
+    this.dispatch(constants.UPDATE_FORM_METADATA, {
+      name: name,
+      label: label
+    });
   },
   setFormList: function(formList) {
     this.dispatch(constants.SET_FORM_LIST, formList);

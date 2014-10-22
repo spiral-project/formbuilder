@@ -3,30 +3,14 @@
 "use strict";
 
 var React = require("react");
-var Fluxxor = require("fluxxor");
-var FluxMixin = Fluxxor.FluxMixin(React);
 
 var FormHeader = React.createClass({
-  mixins: [FluxMixin],
-
-  getInitialState: function() {
-    return {
-      formName: this.props.formName
-    }
-  },
-
-  setFormName: function(e) {
-    this.getFlux().actions.setFormName(this.refs.formName.getDOMNode().value);
-  },
-
   render: function() {
     return <header>
       <input
         ref="formName"
-        placeholder="Form Name"
         id="formName"
-        type="text"
-        onChange={this.setFormName} value={this.props.formName} />
+        type="text" value={this.props.formId} />
       <button
         className="btn btn-success pull-right"
         onClick={this.props.submitForm} >
