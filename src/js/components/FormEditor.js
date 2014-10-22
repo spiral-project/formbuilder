@@ -11,6 +11,7 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var FieldList = require("./FieldList");
 var FormContainer = require("./FormContainer");
 var FormHeader = require("./FormHeader");
+var FormConfirmation = require("./FormConfirmation");
 
 var Fields = require("./Fields");
 
@@ -22,16 +23,22 @@ var FormEditor = React.createClass({
     StoreWatchMixin("FieldElementsStore")
   ],
 
+  // This is called when the URL changed for the same route.
   componentWillReceiveProps: function(newProps) {
-    this.loadForm(newProps.params.formId);
+    if (newProps.params.formId) {
+      this.loadForm(newProps.params);
+    }
   },
 
+  // This is called when the route loads for the first time.
   componentDidMount: function() {
-    this.loadForm(this.props.params.formId);
+    if (this.props.params.formId) {
+      this.loadForm(this.props.params);
+    }
   },
 
-  loadForm: function(formId) {
-    return this.props.backend.loadForm(formId)
+  loadForm: function(params) {
+    return this.props.backend.loadForm(params.formId, params.hawkToken)
       .then(function(data) {
         this.getFlux().actions.setInitialData(data);
       }.bind(this))
@@ -45,9 +52,17 @@ var FormEditor = React.createClass({
   },
 
   submitForm: function() {
-    this.props.backend.storeForm(this.state).then(function(formId) {
-      console.log("Saved !", formId);
-      this.transitionTo('formEditor', {formId: formId});
+    this.props.backend.storeForm(
+      this.props.params.formId,
+      this.state,
+      this.props.params.hawkToken
+    ).then(function(params) {
+      console.log("Saved !", params);
+      this.setState({
+        'submitted': true,
+        'submittedFormParams': params
+      });
+      //this.transitionTo('infoFormCreated', params);
     }.bind(this));
   },
 
@@ -57,17 +72,38 @@ var FormEditor = React.createClass({
     this.getFlux().actions.addFormElement(fieldType, defaultData);
   },
 
+  getUserLink: function() {
+    if (this.props.params.formId) {
+      return this.makeHref('viewForm', this.props.params);
+    }
+  },
+
+  hideConfirmation: function() {
+    this.setState({
+      'submitted': false
+    });
+  },
+
   render: function() {
+    var confirmation;
+    if (this.state.submitted) {
+      confirmation = <FormConfirmation
+        formData={this.state}
+        hide={this.hideConfirmation} />
+    }
+
     return (
       <div className="row">
+        {confirmation}
         <div className="col-xs-1 col-sm-1"></div>
         <div className="col-xs-3 col-sm-3 ">
           <FieldList fields={Fields}
                      addFormElement={this.addFormElement} />
         </div>
         <div id="form-container" className="col-xs-7 col-sm-7">
-          <FormHeader formId={this.state.metadata.formId}
-                      submitForm={this.submitForm} />
+          <FormHeader
+            userLink={this.getUserLink()}
+            submitForm={this.submitForm} />
           <FormContainer
             elements={this.state.formElements}
             metadata={this.state.metadata}

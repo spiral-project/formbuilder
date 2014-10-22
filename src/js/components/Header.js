@@ -16,9 +16,9 @@ var Header = React.createClass({
         </div>
         <div className="navbar-collapse collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li><Link to="formList">Your forms</Link></li>
-            <li><a href="#">Daybed ?</a></li>
-            <li><a href="#">Our values</a></li>
+            <li><Link to="createForm">Create a new form</Link></li>
+            <li><a href="http://daybed.readthedocs.org/en/latest/#why">Our values</a></li>
+            <li><a href="https://github.com/spiral-project/formbuilder">Fork me !</a></li>
           </ul>
         </div>
       </div>
