@@ -96,7 +96,7 @@ var FormEditor = React.createClass({
       <div className="row">
         {confirmation}
         <div className="col-xs-1 col-sm-1"></div>
-        <div className="col-xs-3 col-sm-3 ">
+        <div className="col-xs-3 col-sm-3 col-lg-2">
           <FieldList fields={Fields}
                      addFormElement={this.addFormElement} />
         </div>
