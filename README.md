@@ -62,6 +62,12 @@ update the data, and the elements will be re-rendered.
                                             |
                                              ——————> | Component2 |
 
+### I want to follow development!
+
+Cool, have a look at [the
+pad](http://pad.spiral-project.org/p/daybed-formbuilder) we're using to track
+what still needs to be done.
+
 ## Credits
 
 The theme was provided by Cocoon Development Ltd, which released the code
