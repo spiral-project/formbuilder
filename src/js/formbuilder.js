@@ -12,7 +12,7 @@ var Route = Router.Route;
 
 var FormBuilderApp = require("./components/FormBuilderApp");
 var FormEditor = require("./components/FormEditor");
-var FormConfirmation = require("./components/FormConfirmation");
+var FormViewer = require("./components/FormViewer");
 
 var backend = new DaybedBackend(document.formbuilder.config);
 
@@ -27,7 +27,7 @@ var routes = (
              handler={FormEditor} flux={flux} backend={backend} />
       <Route name="viewForm"
              path="/show/:formId"
-             handler={FormEditor} flux={flux} backend={backend} />
+             handler={FormViewer} flux={flux} backend={backend} />
     </Route>
   </Routes>);
 

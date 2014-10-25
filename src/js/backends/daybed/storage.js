@@ -29,7 +29,13 @@ DaybedStorage.prototype = {
       .then(function(session){
         var serialized = serialize(data);
         return session.saveModel(formId, {
-          definition: serialized
+          definition: serialized,
+          permissions: {
+            "Everyone": [
+              "read_definition",
+              "create_record"
+            ]
+          }
         }).then(function (form) {
           return {
             formId: form.id,
@@ -40,7 +46,7 @@ DaybedStorage.prototype = {
   },
 
   loadForm: function(formId, hawkToken) {
-    return this.bindSession(hawkToken)
+    return this.bindOrCreateSession(hawkToken)
       .then(function(session){
         return session.getDefinition(formId)
           .then(function(definition) {

@@ -48,7 +48,7 @@ var FormElement = React.createClass({
     }
 
     return (
-      <div className="form-element container-fluid">
+      <div className="form-editor-element container-fluid">
         <div className="row">
           <div className="col-md-10">
             <OverlayTrigger ref="overlay" trigger="click" placement="left"

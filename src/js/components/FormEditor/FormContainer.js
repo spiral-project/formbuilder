@@ -7,7 +7,7 @@ var Fluxxor = require("fluxxor");
 var FluxMixin = Fluxxor.FluxMixin(React);
 
 var FormElement = require("./FormElement");
-var Fields = require("./Fields");
+var Fields = require("../Fields");
 
 
 var FormContainer = React.createClass({
@@ -25,7 +25,7 @@ var FormContainer = React.createClass({
 
   render: function() {
     return (
-        <div id="form-elements">
+        <div id="form-editor-elements">
           <FormElement key="title"
                        element={{data: {label: this.props.metadata.formName}}}
                        updateFormElement={this.updateFormMetadata('formName')}

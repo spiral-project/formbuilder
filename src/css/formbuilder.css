@@ -43,8 +43,11 @@ body {
   list-style: outside none none;
 }
 
-#form-container {
+#form-container, #form-viewer-container {
   background: none repeat scroll 0% 0% #FFF;
+}
+
+#form-container {
   margin: 0;
   padding: 0;
 }
@@ -56,22 +59,26 @@ body {
   height: 65px;
 }
 
-#form-elements {
+#form-editor-elements, #form-viewer-elements {
   padding: 15px;
 }
 
-.form-element {
+#form-viewer-elements {
+  padding-bottom: 30px;
+}
+
+.form-editor-element, .form-viewer-element {
   padding: 20px;
 }
 
-.form-element:hover {
+.form-editor-element:hover {
   background: none repeat scroll 0% 0% #FAFAFA;
 }
 
-.form-element a.delete-link {
+.form-editor-element a.delete-link {
   display: none;
 }
 
-.form-element:hover .delete-link {
+.form-editor-element:hover .delete-link {
   display: inline;
 }

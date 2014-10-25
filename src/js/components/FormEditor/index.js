@@ -13,7 +13,7 @@ var FormContainer = require("./FormContainer");
 var FormHeader = require("./FormHeader");
 var FormConfirmation = require("./FormConfirmation");
 
-var Fields = require("./Fields");
+var Fields = require("../Fields");
 
 
 var FormEditor = React.createClass({
