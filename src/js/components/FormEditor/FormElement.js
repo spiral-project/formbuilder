@@ -49,8 +49,6 @@ var FormElement = React.createClass({
 
     return (
       <div className="form-editor-element container-fluid">
-        <div className="row">
-          <div className="col-md-10">
             <OverlayTrigger ref="overlay" trigger="click" placement="left"
               overlay={
                 <Popover title="Edit element"><div className="field-editor">
@@ -60,11 +58,13 @@ var FormElement = React.createClass({
                   })}
                 </div></Popover>
             }>
+        <div className="row">
+          <div className="col-md-10">
               <div>{this.props.renderer({data: this.props.element.data})}</div>
-            </OverlayTrigger>
           </div>
           { deletable }
         </div>
+            </OverlayTrigger>
       </div>
     );
   }
