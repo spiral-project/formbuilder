@@ -33,7 +33,7 @@ body {
 
 #field-list ul li:hover {
   background: none repeat scroll 0% 0% #FAFAFA;
-  cursor: ;
+  cursor: pointer;
 }
 
 #field-list ul {
@@ -41,6 +41,10 @@ body {
   margin: 0px;
   padding: 0px;
   list-style: outside none none;
+}
+
+#elements li {
+  cursor: pointer;
 }
 
 #form-container, #form-viewer-container {
@@ -81,4 +85,5 @@ body {
 
 .form-editor-element:hover .delete-link {
   display: inline;
+  cursor: pointer;
 }
