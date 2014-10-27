@@ -43,6 +43,10 @@ body {
   list-style: outside none none;
 }
 
+#elements li {
+  cursor: pointer;
+}
+
 #form-container, #form-viewer-container {
   background: none repeat scroll 0% 0% #FFF;
 }
