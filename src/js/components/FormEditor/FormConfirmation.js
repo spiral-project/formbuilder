@@ -44,7 +44,6 @@ var FormConfirmation = React.createClass({
   },
 
   render: function() {
-    console.log("props", this.props);
     var filename = "form-" + this.props.formData.metadata.formName + ".txt";
     var fileContent = "data:text/plain;base64," + btoa(
       TEMPLATE

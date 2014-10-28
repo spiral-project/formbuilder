@@ -8,6 +8,14 @@ var RendererMixin = require("./RendererMixin");
 
 var RadioButtonsRenderer = React.createClass({
   mixins: [RendererMixin],
+
+  handleRadioClick: function(entryName) {
+    return function(e) {
+      this.nextValue = this.refs[entryName].getDOMNode().value;
+      this.updateRecordData(e);
+    }.bind(this);
+  },
+
   render: function() {
     var values = this.props.data.values || [];
     return <form className="form-horizontal" role="form">
@@ -19,10 +27,14 @@ var RadioButtonsRenderer = React.createClass({
         { values.map(function(value, i) {
           return <div key={i} className="radio">
             <label>
-              <input type="radio" /> {value}
+              <input type="radio"
+                     ref={"entry-" + i}
+                     value={value}
+                     name={this.props.data.label}
+                     onChange={this.handleRadioClick("entry-" + i)} /> {value}
             </label>
           </div>;
-          })
+          }.bind(this))
         }
         </div>
       </div>

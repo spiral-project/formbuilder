@@ -3,13 +3,23 @@
 "use strict";
 
 var React = require("react");
+var Fluxxor = require("fluxxor");
+var FluxMixin = Fluxxor.FluxMixin(React);
 
 var Fields = require("../Fields");
 
 var FormContainer = React.createClass({
+  mixins: [FluxMixin],
+
+  updateViewerField: function(label, value) {
+    this.getFlux().actions.updateViewerField(label, value);
+  },
 
   getRenderer: function(element) {
-    return Fields[element.fieldType].renderer({data: element.data});
+    return Fields[element.fieldType].renderer({
+      data: element.data,
+      updateViewerField: this.updateViewerField
+    });
   },
 
   render: function() {

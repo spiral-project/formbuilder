@@ -34,6 +34,7 @@ var TextAreaEditor = React.createClass({
 
 var TextAreaRenderer = React.createClass({
   mixins: [RendererMixin],
+
   render: function() {
     return <form className="form-horizontal" role="form">
       <div className="form-group">
@@ -41,10 +42,11 @@ var TextAreaRenderer = React.createClass({
           {this.props.data.label}{this.required()}
         </label>
         <div className="col-sm-8">
-          <textarea
-                 className="form-control"
-                 id={this.props.data.name || "Label"}
-                 placeholder={this.props.data.description} />
+          <textarea className="form-control"
+                    id={this.props.data.name || "Label"}
+                    placeholder={this.props.data.description}
+                    ref="entry"
+                    onChange={this.updateRecordData} />
         </div>
       </div>
     </form>;

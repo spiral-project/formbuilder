@@ -14,7 +14,7 @@ var FieldList = React.createClass({
       {
         Object.keys(this.props.fields).map(function(name) {
           var field = this.props.fields[name];
-          if (field.renderer) {
+          if (field.renderer && !field.adminOnly) {
             return (
               <li key={name} onClick={ function() {
                   this.props.addFormElement(name);

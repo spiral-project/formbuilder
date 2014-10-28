@@ -55,6 +55,17 @@ DaybedStorage.prototype = {
           return deserialized;
         });
       });
+  },
+
+  storeRecord: function(formId, record) {
+    return this.bindSession()
+      .then(function(session) {
+        var result = {};
+        Object.keys(record).forEach(function(key) {
+          result[slugify(key)] = record[key];
+        });
+        return session.saveRecord(formId, result);
+      });
   }
 };
 

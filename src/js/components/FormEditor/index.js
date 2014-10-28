@@ -57,12 +57,11 @@ var FormEditor = React.createClass({
       this.state,
       this.props.params.hawkToken
     ).then(function(params) {
-      console.log("Saved !", params);
+      console.log("Model saved !", params);
       this.setState({
         'submitted': true,
         'submittedFormParams': params
       });
-      //this.transitionTo('infoFormCreated', params);
     }.bind(this));
   },
 

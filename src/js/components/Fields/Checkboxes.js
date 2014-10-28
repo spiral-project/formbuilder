@@ -44,6 +44,22 @@ var CheckboxesEditor = React.createClass({
 
 var CheckboxesRenderer = React.createClass({
   mixins: [RendererMixin],
+
+  handleCheckboxClick: function() {
+    return function(e) {
+      var values = Object.keys(this.refs).reduce(
+        function(resultList, entryName) {
+          var element = this.refs[entryName].getDOMNode();
+          if (element.checked) {
+            resultList.push(element.value);
+          }
+          return resultList;
+        }.bind(this), []);
+      this.nextValue = values.join(",");
+      this.updateRecordData(e);
+    }.bind(this);
+  },
+
   render: function() {
     var values = this.props.data.values || [];
 
@@ -57,10 +73,14 @@ var CheckboxesRenderer = React.createClass({
         { values.map(function(value, i) {
           return <div key={i} className="checkbox">
             <label>
-              <input type="checkbox" />{value}
+              <input type="checkbox"
+                     ref={"entry-" + i}
+                     value={value}
+                     name={this.props.data.label}
+                     onChange={this.handleCheckboxClick()} />{value}
             </label>
           </div>;
-          })
+          }.bind(this))
         }
         </div>
       </div>

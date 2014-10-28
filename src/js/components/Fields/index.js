@@ -90,6 +90,7 @@ var elements = {
     icon: 'fa-hand-o-right',
     renderer: Submit.Renderer,
     editor: Submit.Editor,
+    adminOnly: true,
     defaultData: {
       label: "Let's go!",
     }

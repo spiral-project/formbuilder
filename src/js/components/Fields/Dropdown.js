@@ -16,7 +16,8 @@ var DropdownRenderer = React.createClass({
           {this.props.data.label}{this.required()}
         </label>
         <div className="col-sm-8">
-        <select className="form-control">
+        <select className="form-control"
+                ref="entry" onChange={this.updateRecordData}>
         { values.map(function(value, i) {
           return <option key={i}>{value}</option>;
         })}

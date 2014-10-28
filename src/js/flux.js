@@ -8,13 +8,15 @@ var constants = {
   UPDATE_FORM_ELEMENT: "UPDATE_FORM_ELEMENT",
   DELETE_FORM_ELEMENT: "DELETE_FORM_ELEMENT",
   SET_INITIAL_DATA: "SET_INITIAL_DATA",
-  UPDATE_FORM_METADATA: "UPDATE_FORM_METADATA"
+  UPDATE_FORM_METADATA: "UPDATE_FORM_METADATA",
+  UPDATE_VIEWER_FIELD: "UPDATE_VIEWER_FIELD"
 };
 
 
 var FormElementStore = Fluxxor.createStore({
   initialize: function() {
     this.elements = [];
+    this.record = {};
     this.metadata = {
       formName: 'Form title',
       formDescription: 'A paragraph describing your form.',
@@ -27,7 +29,8 @@ var FormElementStore = Fluxxor.createStore({
       constants.UPDATE_FORM_ELEMENT, this.onUpdate,
       constants.DELETE_FORM_ELEMENT, this.onDelete,
       constants.SET_INITIAL_DATA, this.setInitialData,
-      constants.UPDATE_FORM_METADATA, this.updateFormMetadata
+      constants.UPDATE_FORM_METADATA, this.updateFormMetadata,
+      constants.UPDATE_VIEWER_FIELD, this.updateViewerField
     );
   },
 
@@ -73,10 +76,16 @@ var FormElementStore = Fluxxor.createStore({
     this.emit("change");
   },
 
+  updateViewerField: function(payload) {
+    this.record[payload.name] = payload.value;
+    this.emit("change");
+  },
+
   getState: function() {
     return {
       formElements: this.elements,
-      metadata: this.metadata
+      metadata: this.metadata,
+      record: this.record
     };
   }
 });
@@ -101,6 +110,12 @@ var actions = {
     this.dispatch(constants.UPDATE_FORM_METADATA, {
       name: name,
       label: label
+    });
+  },
+  updateViewerField: function(name, value) {
+    this.dispatch(constants.UPDATE_VIEWER_FIELD, {
+      name: name,
+      value: value
     });
   }
 };

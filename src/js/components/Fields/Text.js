@@ -9,6 +9,7 @@ var RendererMixin = require("./RendererMixin");
 
 var TextRenderer = React.createClass({
   mixins: [RendererMixin],
+
   render: function() {
     return <form className="form-horizontal" role="form">
       <div className="form-group">
@@ -19,7 +20,9 @@ var TextRenderer = React.createClass({
           <input type="text"
                  className="form-control"
                  id={this.props.data.name || "Label"}
-                 placeholder={this.props.data.description} />
+                 placeholder={this.props.data.description}
+                 ref="entry"
+                 onChange={this.updateRecordData} />
         </div>
       </div>
     </form>;

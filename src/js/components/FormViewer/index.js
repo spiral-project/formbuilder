@@ -9,6 +9,7 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var FormContainer = require("./FormContainer");
+var FormConfirmation = require("./FormConfirmation")
 var SubmitRenderer = require("../Fields/Submit").Renderer;
 
 var Fields = require("../Fields");
@@ -50,11 +51,34 @@ var FormViewer = React.createClass({
   },
 
   submitForm: function() {
+    this.props.backend.storeRecord(
+      this.props.params.formId,
+      this.state.record
+    ).then(function(params) {
+      this.setState({
+        'submitted': true,
+        'submittedFormParams': params
+      });
+    }.bind(this));
+  },
+
+  hideConfirmation: function() {
+    this.setState({
+      'submitted': false
+    });
   },
 
   render: function() {
+    var confirmation;
+    if (this.state.submitted) {
+      confirmation = <FormConfirmation
+        formData={this.state}
+        hide={this.hideConfirmation} />
+    }
+
     return (
       <div className="row">
+        {confirmation}
         <div className="col-xs-3 col-sm-3"></div>
         <div id="form-viewer-container" className="col-xs-7 col-sm-7">
           <h1>{this.state.metadata.formName}</h1>
@@ -63,7 +87,7 @@ var FormViewer = React.createClass({
             <FormContainer
               elements={this.state.formElements} />
             <div className="form-viewer-element">
-              <SubmitRenderer
+              <SubmitRenderer onClick={this.submitForm}
                 data={{label: this.state.metadata.submitButtonLabel}} />
             </div>
           </div>
