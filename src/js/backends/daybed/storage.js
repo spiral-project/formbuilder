@@ -33,7 +33,8 @@ DaybedStorage.prototype = {
           permissions: {
             "Everyone": [
               "read_definition",
-              "create_record"
+              "create_record",
+              "read_all_records"
             ]
           }
         }).then(function (form) {
@@ -46,7 +47,7 @@ DaybedStorage.prototype = {
   },
 
   loadForm: function(formId, hawkToken) {
-    return this.bindOrCreateSession(hawkToken)
+    return this.bindSession(hawkToken)
       .then(function(session){
         return session.getDefinition(formId)
           .then(function(definition) {

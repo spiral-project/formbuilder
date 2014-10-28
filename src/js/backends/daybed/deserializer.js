@@ -38,6 +38,7 @@ DaybedDeserializer.prototype = {
   deserializeChoices: function(data) {
     return {
       data: {
+        name: data.name,
         label: data.label,
         values: data.choices,
         required: data.required
@@ -49,6 +50,7 @@ DaybedDeserializer.prototype = {
   deserializeEnum: function(data) {
     return {
       data: {
+        name: data.name,
         label: data.label,
         values: data.choices,
         required: data.required
@@ -60,6 +62,7 @@ DaybedDeserializer.prototype = {
   deserializeString: function(data) {
     return {
       data: {
+        name: data.name,
         label: data.label,
         description: data.hint,
         required: data.required
@@ -71,6 +74,7 @@ DaybedDeserializer.prototype = {
   deserializeText: function(data) {
     return {
       data: {
+        name: data.name,
         label: data.label,
         description: data.hint,
         required: data.required

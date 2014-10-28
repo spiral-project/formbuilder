@@ -66,6 +66,7 @@ var FormViewer = React.createClass({
     this.setState({
       'submitted': false
     });
+    this.transitionTo('reportReaderForm', {formId: this.props.params.formId});
   },
 
   render: function() {

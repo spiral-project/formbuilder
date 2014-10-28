@@ -29,6 +29,9 @@ var routes = (
       <Route name="reportForm"
              path="/report/:formId/:hawkToken"
              handler={FormReport} flux={flux} backend={backend} />
+      <Route name="reportReaderForm"
+             path="/report/:formId"
+             handler={FormReport} flux={flux} backend={backend} />
       <Route name="viewForm"
              path="/show/:formId"
              handler={FormViewer} flux={flux} backend={backend} />

@@ -12,7 +12,6 @@ var FormConfirmation = React.createClass({
 
   onRequestHide: function() {
     this.props.hide();
-    this.transitionTo('createForm');
   },
 
   render: function() {

@@ -88,3 +88,10 @@ body {
   display: inline;
   cursor: pointer;
 }
+
+.right {
+	text-align: right;
+}
+.center {
+	text-align: center;
+}

@@ -77,6 +77,12 @@ var FormEditor = React.createClass({
     }
   },
 
+  getReportLink: function() {
+    if (this.props.params.formId) {
+      return this.makeHref('reportForm', this.props.params);
+    }
+  },
+
   hideConfirmation: function() {
     this.setState({
       'submitted': false
@@ -102,6 +108,7 @@ var FormEditor = React.createClass({
         <div id="form-container" className="col-xs-7 col-sm-7">
           <FormHeader
             userLink={this.getUserLink()}
+            reportLink={this.getReportLink()}
             submitForm={this.submitForm} />
           <FormContainer
             elements={this.state.formElements}
