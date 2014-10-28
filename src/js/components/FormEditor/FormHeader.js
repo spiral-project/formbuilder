@@ -29,9 +29,14 @@ var FormHeader = React.createClass({
       </OverlayTrigger>;
     }
 
+    var buttonClasses = "btn btn-success pull-right";
+    if (!this.props.formReady) {
+      buttonClasses = buttonClasses + " disabled";
+    }
+
     return <header>
       <button
-        className="btn btn-success pull-right"
+        className={buttonClasses}
         onClick={this.props.submitForm} >
         Save form
       </button>

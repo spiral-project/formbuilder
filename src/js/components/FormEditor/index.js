@@ -107,6 +107,7 @@ var FormEditor = React.createClass({
         </div>
         <div id="form-container" className="col-xs-7 col-sm-7">
           <FormHeader
+            formReady={this.state.formElements.length !== 0}
             userLink={this.getUserLink()}
             reportLink={this.getReportLink()}
             submitForm={this.submitForm} />
