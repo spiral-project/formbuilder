@@ -9,7 +9,7 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var FormContainer = require("./FormContainer");
-var FormConfirmation = require("./FormConfirmation")
+var FormConfirmation = require("./FormConfirmation");
 var SubmitRenderer = require("../Fields/Submit").Renderer;
 
 var Fields = require("../Fields");

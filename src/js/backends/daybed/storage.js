@@ -66,6 +66,13 @@ DaybedStorage.prototype = {
         });
         return session.saveRecord(formId, result);
       });
+  },
+
+  loadRecords: function(formId, hawkToken) {
+    return this.bindSession(hawkToken)
+      .then(function(session){
+        return session.getRecords(formId);
+      });
   }
 };
 
