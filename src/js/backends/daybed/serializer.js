@@ -12,7 +12,7 @@ DaybedSerializer.prototype = {
       title: inputData.metadata.formName,
       description: inputData.metadata.formDescription,
       extra: {
-        submitButtonLabel: inputData.metadata.submitButtonLabel,
+        submitButtonLabel: inputData.metadata.submitButtonLabel
       },
       fields: []
     };
