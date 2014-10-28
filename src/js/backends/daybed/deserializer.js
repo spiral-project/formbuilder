@@ -11,7 +11,7 @@ DaybedDeserializer.prototype = {
       metadata: {
         formName: inputData.title,
         formDescription: inputData.description,
-        submitButtonLabel: inputData.submitButtonLabel || "Submit"
+        submitButtonLabel: inputData.extra ? inputData.extra.submitButtonLabel : "Submit"
       },
       formElements: []
     };
