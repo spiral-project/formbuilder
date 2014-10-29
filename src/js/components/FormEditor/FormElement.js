@@ -28,7 +28,7 @@ var FormElement = React.createClass({
     this.props.updateFormElement(element);
 
     if (hideOverlay) {
-      this.refs.overlay.hide();
+      this.getFlux().actions.toggleFormElement(this.props.element.id);
     }
   },
 
@@ -36,6 +36,10 @@ var FormElement = React.createClass({
     if (this.state.deletable) {
       this.getFlux().actions.deleteFormElement(this.props.element.id);
     }
+  },
+
+  togglePopover: function() {
+    this.getFlux().actions.toggleFormElement(this.props.element.id);
   },
 
   render: function() {
@@ -47,24 +51,32 @@ var FormElement = React.createClass({
       </div>;
     }
 
+    var popover;
+
+    if (this.props.element.currentlyEdited) {
+      popover = <div className="popover left">
+          <div className="arrow"></div>
+          <h3 className="popover-title">Edit form</h3>
+          <div className="popover-content">
+            <div className="field-editor">
+            {this.props.editor({
+              data: this.props.element.data,
+              updateFormElement: this.updateFormElement
+            })}
+            </div>
+          </div>
+        </div>;
+    }
+
     return (
       <div className="form-editor-element container-fluid">
-        <OverlayTrigger ref="overlay" trigger="click" placement="left"
-          overlay={
-            <Popover title="Edit element"><div className="field-editor">
-              {this.props.editor({
-                data: this.props.element.data,
-                updateFormElement: this.updateFormElement
-              })}
-            </div></Popover>
-          }>
-          <div className="row">
-            <div className="col-md-10">
-              <div>{this.props.renderer({data: this.props.element.data})}</div>
-            </div>
-            { deletable }
+        {popover}
+        <div className="row" onClick={this.togglePopover}>
+          <div className="col-md-10">
+            <div>{this.props.renderer({data: this.props.element.data, disabled: true})}</div>
           </div>
-        </OverlayTrigger>
+          {deletable}
+        </div>
       </div>
     );
   }
