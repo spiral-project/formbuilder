@@ -46,6 +46,6 @@
   "devDependencies": {
     "jest-cli": "latest",
     "jsxhint": "latest",
-    "react-tools": "latest"
+    "react-tools": "0.11.2"
   }
 }
