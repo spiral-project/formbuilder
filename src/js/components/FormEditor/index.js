@@ -27,6 +27,8 @@ var FormEditor = React.createClass({
   componentWillReceiveProps: function(newProps) {
     if (newProps.params.formId) {
       this.loadForm(newProps.params);
+    } else {
+      this.getFlux().actions.setInitialData();
     }
   },
 
@@ -34,6 +36,8 @@ var FormEditor = React.createClass({
   componentDidMount: function() {
     if (this.props.params.formId) {
       this.loadForm(this.props.params);
+    } else {
+      this.getFlux().actions.setInitialData();
     }
   },
 
@@ -106,14 +110,14 @@ var FormEditor = React.createClass({
                      addFormElement={this.addFormElement} />
         </div>
         <div id="form-container" className="col-xs-7 col-sm-7">
+          <FormContainer
+            elements={this.state.formElements}
+            metadata={this.state.metadata}
+            submitForm={this.submitForm} />
           <FormHeader
             formReady={this.state.formElements.length !== 0}
             userLink={this.getUserLink()}
             reportLink={this.getReportLink()}
-            submitForm={this.submitForm} />
-          <FormContainer
-            elements={this.state.formElements}
-            metadata={this.state.metadata}
             submitForm={this.submitForm} />
         </div>
       </div>

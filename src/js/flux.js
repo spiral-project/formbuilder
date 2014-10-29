@@ -17,11 +17,7 @@ var FormElementStore = Fluxxor.createStore({
   initialize: function() {
     this.elements = [];
     this.record = {};
-    this.metadata = {
-      formName: 'Form title',
-      formDescription: 'A paragraph describing your form.',
-      submitButtonLabel: 'Submit'
-    };
+    this.metadata = {};
 
     // XXX. Make this evolve, it's a pain.
     this.bindActions(
@@ -35,8 +31,19 @@ var FormElementStore = Fluxxor.createStore({
   },
 
   setInitialData: function(payload) {
+    if (payload === undefined) {
+      payload = {
+        metadata: {
+          formName: 'Form title',
+          formDescription: 'A paragraph describing your form.',
+          submitButtonLabel: 'Submit'
+        },
+        formElements: []
+      };
+    }
     this.metadata = payload.metadata;
     this.elements = payload.formElements;
+    this.record = {};
 
     // The elements in react need to all have an id.
     this.elements.forEach(function(element, id) {

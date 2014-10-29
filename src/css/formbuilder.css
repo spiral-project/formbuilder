@@ -71,13 +71,13 @@ body {
   padding-bottom: 30px;
 }
 
-.form-editor-element, .form-viewer-element {
-  padding: 20px;
-}
-
 .form-editor-element:hover {
   background: none repeat scroll 0% 0% #FAFAFA;
   cursor: pointer;
+}
+
+.form-editor-element .row {
+	padding: 20px;
 }
 
 .form-editor-element a.delete-link {

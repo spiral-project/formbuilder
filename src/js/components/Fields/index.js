@@ -84,16 +84,6 @@ var elements = {
       values: ['Option 1', 'Option 2'],
       required: false
     }
-  },
-  'submit': {
-    name: 'Submit Form',
-    icon: 'fa-hand-o-right',
-    renderer: Submit.Renderer,
-    editor: Submit.Editor,
-    adminOnly: true,
-    defaultData: {
-      label: "Let's go!",
-    }
   }
 };
 

@@ -10,7 +10,7 @@ var SubmitRenderer = React.createClass({
   mixins: [RendererMixin],
 
   render: function() {
-    return <button type="button" className="btn btn-success pull-right"
+    return <button type="button" className="btn pull-right"
                    onClick={this.props.onClick}>
       {this.props.data.label}
     </button>;

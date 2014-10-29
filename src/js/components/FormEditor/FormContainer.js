@@ -8,6 +8,7 @@ var FluxMixin = Fluxxor.FluxMixin(React);
 
 var FormElement = require("./FormElement");
 var Fields = require("../Fields");
+var Submit = require("../Fields/Submit");
 
 
 var FormContainer = React.createClass({
@@ -54,8 +55,8 @@ var FormContainer = React.createClass({
           <FormElement key="submit"
                        element={{data: {label: this.props.metadata.submitButtonLabel}}}
                        updateFormElement={this.updateFormMetadata('submitButtonLabel')}
-                       editor={Fields['submit'].editor}
-                       renderer={Fields['submit'].renderer}
+                       editor={Submit.Editor}
+                       renderer={Submit.Renderer}
                        deletable={false} />
         </div>
     );

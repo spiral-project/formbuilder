@@ -58,8 +58,6 @@ var FormReport = React.createClass({
   render: function() {
     var result;
 
-    console.log(this.state);
-
     if (! this.state.loaded) {
       return <div className="center">Loading...</div>;
     }
