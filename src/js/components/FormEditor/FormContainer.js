@@ -12,9 +12,6 @@ var Submit = require("../Fields/Submit");
 
 var Sortable = require("react-components/sortable");
 
-console.log(Sortable);
-
-
 var FormContainer = React.createClass({
   mixins: [FluxMixin],
 

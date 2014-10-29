@@ -32,7 +32,7 @@ var FormElementStore = Fluxxor.createStore({
       constants.UPDATE_FORM_ELEMENT, this.onUpdate,
       constants.REORDER_FORM_ELEMENTS, this.reorderFormElements,
       constants.DELETE_FORM_ELEMENT, this.onDelete,
-      constants.TOGGLE_FORM_ELEMENT, this.toggleFormElement,
+      constants.TOGGLE_FORM_ELEMENT, this.setEditorVisibility,
       constants.SET_INITIAL_DATA, this.setInitialData,
       constants.UPDATE_FORM_METADATA, this.updateFormMetadata,
       constants.UPDATE_VIEWER_FIELD, this.updateViewerField
@@ -90,8 +90,10 @@ var FormElementStore = Fluxxor.createStore({
     this.emit("change");
   },
 
+  // The payload contains an elementsOrder array property
+  // with the list of elements ids in the new order.
   reorderFormElements: function(payload) {
-    var elements = []
+    var elements = [];
     payload.elementsOrder.forEach(function(id) {
       var element = this.elements.filter(function(el) {
         return el.id === id;
@@ -109,18 +111,18 @@ var FormElementStore = Fluxxor.createStore({
     this.emit("change");
   },
 
-  toggleFormElement: function(id) {
+  // The payload contains the element id and the isVisible state.
+  setEditorVisibility: function(payload) {
     Object.keys(this.metadata.editStatus).forEach(function(key) {
-      if (key === id) {
-        var status = this.metadata.editStatus[id];
-        this.metadata.editStatus[id] = status ? false : true;
+      if (key === payload.id) {
+        this.metadata.editStatus[payload.id] = payload.isVisible;
       } else {
         this.metadata.editStatus[key] = false;
       }
     }.bind(this));
     this.elements = this.elements.map(function(el) {
-      if (el.id === id) {
-        el.currentlyEdited = el.currentlyEdited ? false : true;
+      if (el.id === payload.id) {
+        el.currentlyEdited = payload.isVisible;
       } else {
         el.currentlyEdited = false;
       }
@@ -159,8 +161,11 @@ var actions = {
   deleteFormElement: function(id) {
     this.dispatch(constants.DELETE_FORM_ELEMENT, id);
   },
-  toggleFormElement: function(id) {
-    this.dispatch(constants.TOGGLE_FORM_ELEMENT, id);
+  setEditorVisibility: function(id, isVisible) {
+    this.dispatch(constants.TOGGLE_FORM_ELEMENT, {
+      id: id,
+      isVisible: isVisible
+    });
   },
   setInitialData: function(data) {
     this.dispatch(constants.SET_INITIAL_DATA, data);
