@@ -145,7 +145,7 @@ describe("Daybed", function() {
 
     it("should be able to serialize metadata information", function() {
       var serialized = serializer.metadataSerializer("myType")({
-        label: "Multi line text",
+        label: "Multi line text"
       });
 
       expect(serialized).toEqual({
@@ -157,26 +157,28 @@ describe("Daybed", function() {
 
     it("should be able to do a roundtrip", function() {
       var inputData = {
-        "formName":"mushrooms",
-        "formElements":[
-          {"fieldType":"title","data":{"label":"Mushrooms"}},
-          {"fieldType":"paragraph","data":{"label":"Some explanation text"}},
-          {"fieldType":"singlelinetext","data":{
-            "label":"Label","description":"description","required":false}
+        "formName": "mushrooms",
+        "formElements": [
+          {"fieldType": "title", "data": {"label": "Mushrooms"}},
+          {"fieldType": "paragraph", "data": {"label": "Some explanation text"}},
+          {"fieldType": "singlelinetext", "data": {
+            "label": "Label", "description": "description", "required": false}
           },
-          {"fieldType":"multilinetext","data":{
-            "label":"Label","description":"description","required":false}
+          {"fieldType": "multilinetext", "data": {
+            "label": "Label", "description": "description", "required": false}
           },
-          {"fieldType":"dropdown","data":{
-            "label":"Label","values":["Option 1","Option 2"],"required":false}
+          {"fieldType": "dropdown", "data": {
+            "label": "Label", "values": ["Option 1", "Option 2"], "required": false}
           },
-          {"fieldType":"checkboxes","data":{
-            "label":"Label","values":["Option 1","Option 2"],"required":false}
+          {"fieldType": "checkboxes", "data": {
+            "label": "Label",
+            "values": ["Option 1", "Option 2"],
+            "required": false}
           },
-          {"fieldType":"radiobuttons","data":{
-            "label":"Label","values":["Option 1","Option 2"],"required":false}
+          {"fieldType": "radiobuttons", "data": {
+            "label": "Label", "values": ["Option 1", "Option 2"], "required": false}
           },
-          {"fieldType":"submit","data":{"label":"Let's go!"}}]
+          {"fieldType": "submit", "data": {"label": "Let's go!"}}]
       };
 
       expect(serializer.deserialize(serializer.serialize(inputData)))

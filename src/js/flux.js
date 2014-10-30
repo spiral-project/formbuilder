@@ -1,7 +1,6 @@
 "use strict";
 
 var Fluxxor = require("fluxxor");
-var randomBytes = require("crypto").randomBytes;
 
 var constants = {
   ADD_FORM_ELEMENT: "ADD_FORM_ELEMENT",
@@ -61,7 +60,7 @@ var FormElementStore = Fluxxor.createStore({
 
     // The elements in react need to all have an id.
     this.elements.forEach(function(element, id) {
-      element.id = id
+      element.id = id;
     });
     this.emit("change");
   },

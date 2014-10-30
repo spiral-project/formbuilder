@@ -12,8 +12,6 @@ var FormContainer = require("./FormContainer");
 var FormConfirmation = require("./FormConfirmation");
 var SubmitRenderer = require("../Fields/Submit").Renderer;
 
-var Fields = require("../Fields");
-
 
 var FormViewer = React.createClass({
   mixins: [
@@ -74,7 +72,7 @@ var FormViewer = React.createClass({
     if (this.state.submitted) {
       confirmation = <FormConfirmation
         formData={this.state}
-        hide={this.hideConfirmation} />
+        hide={this.hideConfirmation} />;
     }
 
     return (

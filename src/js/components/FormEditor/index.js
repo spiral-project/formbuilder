@@ -98,7 +98,7 @@ var FormEditor = React.createClass({
     if (this.state.submitted) {
       confirmation = <FormConfirmation
         formData={this.state}
-        hide={this.hideConfirmation} />
+        hide={this.hideConfirmation} />;
     }
 
     return (

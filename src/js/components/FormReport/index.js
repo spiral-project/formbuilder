@@ -4,9 +4,6 @@
 
 var React = require("react");
 var Router = require("react-router");
-var Fluxxor = require("fluxxor");
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 
 var FormReport = React.createClass({
@@ -76,7 +73,7 @@ var FormReport = React.createClass({
         <thead>
           <tr>{
             headers.map(function(value, i) {
-              return <th key={i}>{value}</th>
+              return <th key={i}>{value}</th>;
             })
           }</tr>
         </thead>

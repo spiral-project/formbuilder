@@ -9,7 +9,6 @@ var Dropdown = require("./Dropdown");
 var RadioButtons = require("./RadioButtons");
 var Title = require("./Title");
 var Paragraph = require("./Paragraph");
-var Submit = require("./Submit");
 
 var elements = {
   'title': {
@@ -18,7 +17,7 @@ var elements = {
     renderer: Title.Renderer,
     editor: Title.Editor,
     defaultData: {
-      label: 'Title',
+      label: 'Title'
     }
   },
   'paragraph': {
@@ -27,7 +26,7 @@ var elements = {
     renderer: Paragraph.Renderer,
     editor: Paragraph.Editor,
     defaultData: {
-      label: 'Some explanation text',
+      label: 'Some explanation text'
     }
   },
   'singlelinetext': {
