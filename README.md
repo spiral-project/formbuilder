@@ -1,6 +1,6 @@
 # Daybed Formbuilder
 
-The orginal motivation behind daybed was to replace Google Forms, and for
+The orginal motivation behind daybed is to replace Google Forms, and for
 that, appart from the storage and validation service (what Daybed is), we
 are in need of a form builder.
 
