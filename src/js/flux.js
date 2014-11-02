@@ -6,7 +6,9 @@ var randomBytes = require("crypto").randomBytes;
 var constants = {
   ADD_FORM_ELEMENT: "ADD_FORM_ELEMENT",
   UPDATE_FORM_ELEMENT: "UPDATE_FORM_ELEMENT",
+  REORDER_FORM_ELEMENTS: "REORDER_FORM_ELEMENTS",
   DELETE_FORM_ELEMENT: "DELETE_FORM_ELEMENT",
+  TOGGLE_FORM_ELEMENT: "TOGGLE_FORM_ELEMENT",
   SET_INITIAL_DATA: "SET_INITIAL_DATA",
   UPDATE_FORM_METADATA: "UPDATE_FORM_METADATA",
   UPDATE_VIEWER_FIELD: "UPDATE_VIEWER_FIELD"
@@ -18,12 +20,19 @@ var FormElementStore = Fluxxor.createStore({
     this.elements = [];
     this.record = {};
     this.metadata = {};
+    this.metadata.editStatus = {
+      "title": false,
+      "description": false,
+      "submit": false
+    };
 
     // XXX. Make this evolve, it's a pain.
     this.bindActions(
       constants.ADD_FORM_ELEMENT, this.onAdd,
       constants.UPDATE_FORM_ELEMENT, this.onUpdate,
+      constants.REORDER_FORM_ELEMENTS, this.reorderFormElements,
       constants.DELETE_FORM_ELEMENT, this.onDelete,
+      constants.TOGGLE_FORM_ELEMENT, this.setEditorVisibility,
       constants.SET_INITIAL_DATA, this.setInitialData,
       constants.UPDATE_FORM_METADATA, this.updateFormMetadata,
       constants.UPDATE_VIEWER_FIELD, this.updateViewerField
@@ -42,6 +51,11 @@ var FormElementStore = Fluxxor.createStore({
       };
     }
     this.metadata = payload.metadata;
+    this.metadata.editStatus = {
+      "title": false,
+      "description": false,
+      "submit": false
+    };
     this.elements = payload.formElements;
     this.record = {};
 
@@ -76,9 +90,43 @@ var FormElementStore = Fluxxor.createStore({
     this.emit("change");
   },
 
+  // The payload contains an elementsOrder array property
+  // with the list of elements ids in the new order.
+  reorderFormElements: function(payload) {
+    var elements = [];
+    payload.elementsOrder.forEach(function(id) {
+      var element = this.elements.filter(function(el) {
+        return el.id === id;
+      })[0];
+      elements.push(element);
+    }.bind(this));
+    this.elements = elements;
+    this.emit("change");
+  },
+
   onDelete: function(id) {
     this.elements = this.elements.filter(function(el) {
       return el.id !== id;
+    });
+    this.emit("change");
+  },
+
+  // The payload contains the element id and the isVisible state.
+  setEditorVisibility: function(payload) {
+    Object.keys(this.metadata.editStatus).forEach(function(key) {
+      if (key === payload.id) {
+        this.metadata.editStatus[payload.id] = payload.isVisible;
+      } else {
+        this.metadata.editStatus[key] = false;
+      }
+    }.bind(this));
+    this.elements = this.elements.map(function(el) {
+      if (el.id === payload.id) {
+        el.currentlyEdited = payload.isVisible;
+      } else {
+        el.currentlyEdited = false;
+      }
+      return el;
     });
     this.emit("change");
   },
@@ -107,8 +155,17 @@ var actions = {
   updateFormElement: function(element) {
     this.dispatch(constants.UPDATE_FORM_ELEMENT, {element: element});
   },
+  reorderFormElements: function(elementsOrder) {
+    this.dispatch(constants.REORDER_FORM_ELEMENTS, {elementsOrder: elementsOrder});
+  },
   deleteFormElement: function(id) {
     this.dispatch(constants.DELETE_FORM_ELEMENT, id);
+  },
+  setEditorVisibility: function(id, isVisible) {
+    this.dispatch(constants.TOGGLE_FORM_ELEMENT, {
+      id: id,
+      isVisible: isVisible
+    });
   },
   setInitialData: function(data) {
     this.dispatch(constants.SET_INITIAL_DATA, data);

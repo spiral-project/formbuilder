@@ -38,12 +38,12 @@ var TextAreaRenderer = React.createClass({
   render: function() {
     return <form className="form-horizontal" role="form">
       <div className="form-group">
-        <label htmlFor="label" className="col-sm-4 control-label">
+        <label htmlFor={this.props.data.name} className="col-sm-4 control-label">
           {this.props.data.label}{this.required()}
         </label>
         <div className="col-sm-8">
           <textarea className="form-control"
-                    id={this.props.data.name || "Label"}
+                    id={this.props.data.name}
                     placeholder={this.props.data.description}
                     ref="entry"
                     onChange={this.updateRecordData} />

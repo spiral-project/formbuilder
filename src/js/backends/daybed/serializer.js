@@ -3,10 +3,11 @@
 var slugify = require('../../utils').slugify;
 var capitalize = require('../../utils').capitalize;
 
-var DaybedSerializer = function() {};
+var DaybedSerializer = function() {
+  this.fieldsName = [];
+};
 
 DaybedSerializer.prototype = {
-
   serialize: function(inputData) {
     var outputData = {
       title: inputData.metadata.formName,
@@ -31,6 +32,21 @@ DaybedSerializer.prototype = {
     return outputData;
   },
 
+  getName: function(label, tries) {
+    // Make sure we don't create two fields with the same name
+    var candidate = slugify(label);
+    if (tries === undefined) {
+      tries = 0;
+    } else {
+      candidate = candidate + "-" + tries;
+    }
+    if (this.fieldsName.indexOf(candidate) !== -1) {
+      return this.getName(label, ++tries);
+    }
+    this.fieldsName.push(candidate);
+    return candidate;
+  },
+
   // Serialisation methods.
 
   annotationSerializer: function(type) {
@@ -45,7 +61,7 @@ DaybedSerializer.prototype = {
 
   serializeList: function(daybedType, formbuilderType, data) {
     return {
-      name: slugify(data.label),
+      name: this.getName(data.label),
       label: data.label,
       type: daybedType,
       formbuilderType: formbuilderType,
@@ -56,7 +72,7 @@ DaybedSerializer.prototype = {
 
   serializeText: function(type, data) {
     return {
-      name: slugify(data.label),
+      name: this.getName(data.label),
       label: data.label,
       hint: data.description,
       type: type,

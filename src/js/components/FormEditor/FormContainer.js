@@ -10,6 +10,7 @@ var FormElement = require("./FormElement");
 var Fields = require("../Fields");
 var Submit = require("../Fields/Submit");
 
+var Sortable = require("react-components/sortable");
 
 var FormContainer = React.createClass({
   mixins: [FluxMixin],
@@ -24,36 +25,51 @@ var FormContainer = React.createClass({
     }.bind(this);
   },
 
+  handleReorder: function(elements) {
+    this.getFlux().actions.reorderFormElements(
+      elements.map(function(element) {
+        return element._store.props.key;
+      })
+    );
+  },
+
   render: function() {
     return (
         <div id="form-editor-elements">
           <FormElement key="title"
-                       element={{data: {label: this.props.metadata.formName}}}
+                       element={{data: {label: this.props.metadata.formName},
+                                 id: "title",
+                                 currentlyEdited: this.props.metadata.editStatus.title}}
                        updateFormElement={this.updateFormMetadata('formName')}
                        editor={Fields['title'].editor}
                        renderer={Fields['title'].renderer}
                        deletable={false} />
 
           <FormElement key="description"
-                       element={{data: {label: this.props.metadata.formDescription}}}
+                       element={{data: {label: this.props.metadata.formDescription},
+                                 id: "description",
+                                 currentlyEdited: this.props.metadata.editStatus.description}}
                        updateFormElement={this.updateFormMetadata('formDescription')}
                        editor={Fields['paragraph'].editor}
                        renderer={Fields['paragraph'].renderer}
                        deletable={false} />
-
-          {
-            this.props.elements.map(function(element) {
-              return <FormElement
-                        key={element.id}
-                        element={element}
-                        updateFormElement={this.updateFormElement}
-                        editor={Fields[element.fieldType].editor}
-                        renderer={Fields[element.fieldType].renderer} />;
-            }.bind(this))
-          }
+          <Sortable components={
+                this.props.elements.map(function(element) {
+                  return <FormElement
+                            draggable={true}
+                            key={element.id}
+                            element={element}
+                            updateFormElement={this.updateFormElement}
+                            editor={Fields[element.fieldType].editor}
+                            renderer={Fields[element.fieldType].renderer} />;
+                }.bind(this))
+              } onReorder={this.handleReorder}
+                verify={() => true} />
 
           <FormElement key="submit"
-                       element={{data: {label: this.props.metadata.submitButtonLabel}}}
+                       element={{data: {label: this.props.metadata.submitButtonLabel},
+                                 id: "submit",
+                                 currentlyEdited: this.props.metadata.editStatus.submit}}
                        updateFormElement={this.updateFormMetadata('submitButtonLabel')}
                        editor={Submit.Editor}
                        renderer={Submit.Renderer}

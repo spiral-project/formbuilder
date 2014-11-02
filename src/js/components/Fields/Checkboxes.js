@@ -65,7 +65,7 @@ var CheckboxesRenderer = React.createClass({
 
     return <form className="form-horizontal" role="form">
       <div className="form-group">
-        <label htmlFor="label" className="col-sm-4 control-label">
+        <label className="col-sm-4 control-label">
           {this.props.data.label}{this.required()}
 
         </label>

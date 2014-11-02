@@ -12,11 +12,11 @@ var DropdownRenderer = React.createClass({
     var values = this.props.data.values || [];
     return <form className="form-horizontal" role="form">
       <div className="form-group">
-        <label htmlFor="label" className="col-sm-4 control-label">
+        <label htmlFor={this.props.data.name} className="col-sm-4 control-label">
           {this.props.data.label}{this.required()}
         </label>
         <div className="col-sm-8">
-        <select className="form-control"
+        <select className="form-control" id={this.props.data.name}
                 ref="entry" onChange={this.updateRecordData}>
         { values.map(function(value, i) {
           return <option key={i}>{value}</option>;
