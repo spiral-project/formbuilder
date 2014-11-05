@@ -10,7 +10,8 @@ var constants = {
   SET_EDITOR_VISIBILITY: "SET_EDITOR_VISIBILITY",
   SET_INITIAL_DATA: "SET_INITIAL_DATA",
   UPDATE_FORM_METADATA: "UPDATE_FORM_METADATA",
-  UPDATE_VIEWER_FIELD: "UPDATE_VIEWER_FIELD"
+  UPDATE_VIEWER_FIELD: "UPDATE_VIEWER_FIELD",
+  UPDATE_FORM_STATUS: "UPDATE_FORM_STATUS"
 };
 
 
@@ -34,11 +35,13 @@ var FormElementStore = Fluxxor.createStore({
       constants.SET_EDITOR_VISIBILITY, this.setEditorVisibility,
       constants.SET_INITIAL_DATA, this.setInitialData,
       constants.UPDATE_FORM_METADATA, this.updateFormMetadata,
-      constants.UPDATE_VIEWER_FIELD, this.updateViewerField
+      constants.UPDATE_VIEWER_FIELD, this.updateViewerField,
+      constants.UPDATE_FORM_STATUS, this.updateFormStatus
     );
   },
 
   setInitialData: function(payload) {
+    this.formStatus = "saved";
     if (payload === undefined) {
       payload = {
         metadata: {
@@ -48,6 +51,7 @@ var FormElementStore = Fluxxor.createStore({
         },
         formElements: []
       };
+      this.formStatus = "new";
     }
     this.metadata = payload.metadata;
     this.metadata.editStatus = {
@@ -70,12 +74,18 @@ var FormElementStore = Fluxxor.createStore({
     this.emit("change");
   },
 
+  updateFormStatus: function(status) {
+    console.log(status);
+    this.formStatus = status;
+  },
+
   onAdd: function(payload){
     this.elements.push({
       id: this.elements.length,
       fieldType: payload.fieldType,
       data: payload.defaultData
     });
+    this.formStatus = "new";
     this.emit("change");
   },
 
@@ -139,7 +149,8 @@ var FormElementStore = Fluxxor.createStore({
     return {
       formElements: this.elements,
       metadata: this.metadata,
-      record: this.record
+      record: this.record,
+      formStatus: this.formStatus
     };
   }
 });
@@ -180,6 +191,9 @@ var actions = {
       name: name,
       value: value
     });
+  },
+  updateFormStatus: function(status) {
+    this.dispatch(constants.UPDATE_FORM_STATUS, status);
   }
 };
 
