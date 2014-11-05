@@ -7,7 +7,7 @@ var constants = {
   UPDATE_FORM_ELEMENT: "UPDATE_FORM_ELEMENT",
   REORDER_FORM_ELEMENTS: "REORDER_FORM_ELEMENTS",
   DELETE_FORM_ELEMENT: "DELETE_FORM_ELEMENT",
-  TOGGLE_FORM_ELEMENT: "TOGGLE_FORM_ELEMENT",
+  SET_EDITOR_VISIBILITY: "SET_EDITOR_VISIBILITY",
   SET_INITIAL_DATA: "SET_INITIAL_DATA",
   UPDATE_FORM_METADATA: "UPDATE_FORM_METADATA",
   UPDATE_VIEWER_FIELD: "UPDATE_VIEWER_FIELD"
@@ -31,7 +31,7 @@ var FormElementStore = Fluxxor.createStore({
       constants.UPDATE_FORM_ELEMENT, this.onUpdate,
       constants.REORDER_FORM_ELEMENTS, this.reorderFormElements,
       constants.DELETE_FORM_ELEMENT, this.onDelete,
-      constants.TOGGLE_FORM_ELEMENT, this.setEditorVisibility,
+      constants.SET_EDITOR_VISIBILITY, this.setEditorVisibility,
       constants.SET_INITIAL_DATA, this.setInitialData,
       constants.UPDATE_FORM_METADATA, this.updateFormMetadata,
       constants.UPDATE_VIEWER_FIELD, this.updateViewerField
@@ -161,7 +161,7 @@ var actions = {
     this.dispatch(constants.DELETE_FORM_ELEMENT, id);
   },
   setEditorVisibility: function(id, isVisible) {
-    this.dispatch(constants.TOGGLE_FORM_ELEMENT, {
+    this.dispatch(constants.SET_EDITOR_VISIBILITY, {
       id: id,
       isVisible: isVisible
     });
