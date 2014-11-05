@@ -24,7 +24,6 @@ DaybedStorage.prototype = {
   },
 
   storeForm: function(formId, data, hawkToken) {
-    var self = this;
     return this.bindOrCreateSession(hawkToken)
       .then(function(session){
         var serialized = serialize(data);

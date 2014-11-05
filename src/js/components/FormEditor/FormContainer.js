@@ -41,8 +41,8 @@ var FormContainer = React.createClass({
                                  id: "title",
                                  currentlyEdited: this.props.metadata.editStatus.title}}
                        updateFormElement={this.updateFormMetadata('formName')}
-                       editor={Fields['title'].editor}
-                       renderer={Fields['title'].renderer}
+                       editor={Fields.title.editor}
+                       renderer={Fields.title.renderer}
                        deletable={false} />
 
           <FormElement key="description"
@@ -50,8 +50,8 @@ var FormContainer = React.createClass({
                                  id: "description",
                                  currentlyEdited: this.props.metadata.editStatus.description}}
                        updateFormElement={this.updateFormMetadata('formDescription')}
-                       editor={Fields['paragraph'].editor}
-                       renderer={Fields['paragraph'].renderer}
+                       editor={Fields.paragraph.editor}
+                       renderer={Fields.paragraph.renderer}
                        deletable={false} />
           <Sortable components={
                 this.props.elements.map(function(element) {

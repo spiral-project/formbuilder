@@ -53,7 +53,7 @@ DaybedSerializer.prototype = {
     return function(data) {
       return {
         type: "annotation",
-        label:data.label,
+        label: data.label,
         annotationType: type
       };
     };

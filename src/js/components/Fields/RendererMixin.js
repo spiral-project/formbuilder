@@ -7,7 +7,7 @@ var RendererMixin = {
     return {"value": this.props.data.value || ""};
   },
 
-  updateRecordData: function (e) {
+  updateRecordData: function() {
     if (this.props.updateViewerField) {
       var state = this.state;
       state.value = this.nextValue || this.refs.entry.getDOMNode().value;

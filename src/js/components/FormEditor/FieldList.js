@@ -18,8 +18,8 @@ var FieldList = React.createClass({
               <li key={name} onClick={ function() {
                 this.props.addFormElement(name);
               }.bind(this)}>
-              <i className={this.props.fields[name].icon + " fa fa-1x"}></i>
-              &nbsp;&nbsp;{this.props.fields[name].name}
+              <i className={field.icon + " fa fa-1x"}></i>
+              &nbsp;&nbsp;{field.name}
             </li>);
         }.bind(this))
       }</ul></ul>;

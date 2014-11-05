@@ -28,7 +28,7 @@ var FormElement = React.createClass({
     this.props.updateFormElement(element);
 
     if (hideOverlay) {
-      this.getFlux().actions.setElementVisibility(this.props.element.id, false);
+      this.getFlux().actions.setEditorVisibility(this.props.element.id, false);
     }
   },
 
@@ -39,7 +39,7 @@ var FormElement = React.createClass({
   },
 
   togglePopover: function() {
-    this.getFlux().actions.setElementVisibility(
+    this.getFlux().actions.setEditorVisibility(
       this.props.element.id,
       !this.props.element.currentlyEdited
     );

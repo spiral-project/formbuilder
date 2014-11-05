@@ -8,7 +8,8 @@
     "dist": "gulp dist",
     "lint": "jsxhint -c .jshintrc src/js",
     "start": "gulp",
-    "test": "jest --config jest-config.json && npm run lint"
+    "test": "jest --config jest-config.json && npm run lint",
+    "outdated": "npm outdated --depth 0"
   },
   "repository": {
     "type": "git",
@@ -27,27 +28,27 @@
   },
   "homepage": "https://github.com/spiral-project/formbuilder",
   "dependencies": {
-    "browserify": "^6.0.2",
-    "daybed.js": "0.1.4",
+    "browserify": "6.2.0",
+    "daybed.js": "0.1.5",
     "fluxxor": "1.5.0",
     "gulp": "^3.8.*",
-    "gulp-gh-pages": "^0.3.*",
+    "gulp-gh-pages": "^0.4.*",
     "gulp-rename": "1.2.0",
-    "gulp-uglify": "^0.3.*",
-    "gulp-webserver": "^0.8.3",
-    "react": "^0.11.2",
+    "gulp-uglify": "1.0.1",
+    "gulp-webserver": "0.8.4",
+    "react": "^0.12.*",
     "react-bootstrap": "^0.12.*",
     "react-components": "^0.1.*",
     "react-router-bootstrap": "0.5.0",
-    "reactify": "^0.13.*",
-    "string": "2.1.0",
-    "vinyl-source-stream": "^0.1.*",
+    "reactify": "^0.14.*",
+    "string": "2.2.0",
+    "vinyl-source-stream": "^1.0.*",
     "underscore": "1.7.0",
-    "watchify": "^1.0.6"
+    "watchify": "^2.1.0"
   },
   "devDependencies": {
     "jest-cli": "latest",
     "jsxhint": "latest",
-    "react-tools": "0.11.2"
+    "react-tools": "latest"
   }
 }
