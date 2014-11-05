@@ -39878,7 +39878,7 @@ DaybedSerializer.prototype = {
     return function(data) {
       return {
         type: "annotation",
-        label:data.label,
+        label: data.label,
         annotationType: type
       };
     };
@@ -39960,7 +39960,6 @@ DaybedStorage.prototype = {
   },
 
   storeForm: function(formId, data, hawkToken) {
-    var self = this;
     return this.bindOrCreateSession(hawkToken)
       .then(function(session){
         var serialized = serialize(data);
@@ -40277,7 +40276,7 @@ var RendererMixin = {
     return {"value": this.props.data.value || ""};
   },
 
-  updateRecordData: function (e) {
+  updateRecordData: function() {
     if (this.props.updateViewerField) {
       var state = this.state;
       state.value = this.nextValue || this.refs.entry.getDOMNode().value;
@@ -40469,7 +40468,6 @@ var Dropdown = require("./Dropdown");
 var RadioButtons = require("./RadioButtons");
 var Title = require("./Title");
 var Paragraph = require("./Paragraph");
-var Submit = require("./Submit");
 
 var elements = {
   'title': {
@@ -40478,7 +40476,7 @@ var elements = {
     renderer: Title.Renderer,
     editor: Title.Editor,
     defaultData: {
-      label: 'Title',
+      label: 'Title'
     }
   },
   'paragraph': {
@@ -40487,7 +40485,7 @@ var elements = {
     renderer: Paragraph.Renderer,
     editor: Paragraph.Editor,
     defaultData: {
-      label: 'Some explanation text',
+      label: 'Some explanation text'
     }
   },
   'singlelinetext': {
@@ -40549,14 +40547,13 @@ var elements = {
 
 module.exports = elements;
 
-},{"./Checkboxes":348,"./Dropdown":349,"./Paragraph":351,"./RadioButtons":352,"./Submit":354,"./Text":355,"./TextArea":356,"./Title":357}],359:[function(require,module,exports){
+},{"./Checkboxes":348,"./Dropdown":349,"./Paragraph":351,"./RadioButtons":352,"./Text":355,"./TextArea":356,"./Title":357}],359:[function(require,module,exports){
 /** @jsx React.DOM */
 
 "use strict";
 
 var React = require("react");
 
-var FormEditor = require("./FormEditor");
 var Header = require("./Header");
 
 
@@ -40573,7 +40570,7 @@ var FormBuilderApp = React.createClass({displayName: 'FormBuilderApp',
 
 module.exports = FormBuilderApp;
 
-},{"./FormEditor":365,"./Header":370,"react":"react"}],360:[function(require,module,exports){
+},{"./Header":370,"react":"react"}],360:[function(require,module,exports){
 /** @jsx React.DOM */
 
 "use strict";
@@ -40594,8 +40591,8 @@ var FieldList = React.createClass({displayName: 'FieldList',
               React.DOM.li({key: name, onClick:  function() {
                 this.props.addFormElement(name);
               }.bind(this)}, 
-              React.DOM.i({className: this.props.fields[name].icon + " fa fa-1x"}), 
-              "  ", this.props.fields[name].name
+              React.DOM.i({className: field.icon + " fa fa-1x"}), 
+              "  ", field.name
             ));
         }.bind(this))
       ));
@@ -40726,8 +40723,8 @@ var FormContainer = React.createClass({displayName: 'FormContainer',
                                  id: "title",
                                  currentlyEdited: this.props.metadata.editStatus.title}, 
                        updateFormElement: this.updateFormMetadata('formName'), 
-                       editor: Fields['title'].editor, 
-                       renderer: Fields['title'].renderer, 
+                       editor: Fields.title.editor, 
+                       renderer: Fields.title.renderer, 
                        deletable: false}), 
 
           FormElement({key: "description", 
@@ -40735,8 +40732,8 @@ var FormContainer = React.createClass({displayName: 'FormContainer',
                                  id: "description",
                                  currentlyEdited: this.props.metadata.editStatus.description}, 
                        updateFormElement: this.updateFormMetadata('formDescription'), 
-                       editor: Fields['paragraph'].editor, 
-                       renderer: Fields['paragraph'].renderer, 
+                       editor: Fields.paragraph.editor, 
+                       renderer: Fields.paragraph.renderer, 
                        deletable: false}), 
           Sortable({components: 
                 this.props.elements.map(function(element) {
@@ -40797,7 +40794,7 @@ var FormElement = React.createClass({displayName: 'FormElement',
     this.props.updateFormElement(element);
 
     if (hideOverlay) {
-      this.getFlux().actions.setElementVisibility(this.props.element.id, false);
+      this.getFlux().actions.setEditorVisibility(this.props.element.id, false);
     }
   },
 
@@ -40808,7 +40805,7 @@ var FormElement = React.createClass({displayName: 'FormElement',
   },
 
   togglePopover: function() {
-    this.getFlux().actions.setElementVisibility(
+    this.getFlux().actions.setEditorVisibility(
       this.props.element.id,
       !this.props.element.currentlyEdited
     );
@@ -41008,7 +41005,7 @@ var FormEditor = React.createClass({displayName: 'FormEditor',
     if (this.state.submitted) {
       confirmation = FormConfirmation({
         formData: this.state, 
-        hide: this.hideConfirmation})
+        hide: this.hideConfirmation});
     }
 
     return (
@@ -41044,9 +41041,6 @@ module.exports = FormEditor;
 
 var React = require("react");
 var Router = require("react-router");
-var Fluxxor = require("fluxxor");
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 
 var FormReport = React.createClass({displayName: 'FormReport',
@@ -41116,7 +41110,7 @@ var FormReport = React.createClass({displayName: 'FormReport',
         React.DOM.thead(null, 
           React.DOM.tr(null, 
             headers.map(function(value, i) {
-              return React.DOM.th({key: i}, value)
+              return React.DOM.th({key: i}, value);
             })
           )
         ), 
@@ -41165,7 +41159,7 @@ var FormReport = React.createClass({displayName: 'FormReport',
 
 module.exports = FormReport;
 
-},{"fluxxor":62,"react":"react","react-router":150}],367:[function(require,module,exports){
+},{"react":"react","react-router":150}],367:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require("react");
@@ -41255,8 +41249,6 @@ var FormContainer = require("./FormContainer");
 var FormConfirmation = require("./FormConfirmation");
 var SubmitRenderer = require("../Fields/Submit").Renderer;
 
-var Fields = require("../Fields");
-
 
 var FormViewer = React.createClass({displayName: 'FormViewer',
   mixins: [
@@ -41317,7 +41309,7 @@ var FormViewer = React.createClass({displayName: 'FormViewer',
     if (this.state.submitted) {
       confirmation = FormConfirmation({
         formData: this.state, 
-        hide: this.hideConfirmation})
+        hide: this.hideConfirmation});
     }
 
     return (
@@ -41343,7 +41335,7 @@ var FormViewer = React.createClass({displayName: 'FormViewer',
 
 module.exports = FormViewer;
 
-},{"../Fields":358,"../Fields/Submit":354,"./FormConfirmation":367,"./FormContainer":368,"fluxxor":62,"react":"react","react-router":150}],370:[function(require,module,exports){
+},{"../Fields/Submit":354,"./FormConfirmation":367,"./FormContainer":368,"fluxxor":62,"react":"react","react-router":150}],370:[function(require,module,exports){
 /** @jsx React.DOM */
 
 "use strict";
@@ -41378,14 +41370,13 @@ module.exports = Header;
 "use strict";
 
 var Fluxxor = require("fluxxor");
-var randomBytes = require("crypto").randomBytes;
 
 var constants = {
   ADD_FORM_ELEMENT: "ADD_FORM_ELEMENT",
   UPDATE_FORM_ELEMENT: "UPDATE_FORM_ELEMENT",
   REORDER_FORM_ELEMENTS: "REORDER_FORM_ELEMENTS",
   DELETE_FORM_ELEMENT: "DELETE_FORM_ELEMENT",
-  TOGGLE_FORM_ELEMENT: "TOGGLE_FORM_ELEMENT",
+  SET_EDITOR_VISIBILITY: "SET_EDITOR_VISIBILITY",
   SET_INITIAL_DATA: "SET_INITIAL_DATA",
   UPDATE_FORM_METADATA: "UPDATE_FORM_METADATA",
   UPDATE_VIEWER_FIELD: "UPDATE_VIEWER_FIELD"
@@ -41409,7 +41400,7 @@ var FormElementStore = Fluxxor.createStore({
       constants.UPDATE_FORM_ELEMENT, this.onUpdate,
       constants.REORDER_FORM_ELEMENTS, this.reorderFormElements,
       constants.DELETE_FORM_ELEMENT, this.onDelete,
-      constants.TOGGLE_FORM_ELEMENT, this.setEditorVisibility,
+      constants.SET_EDITOR_VISIBILITY, this.setEditorVisibility,
       constants.SET_INITIAL_DATA, this.setInitialData,
       constants.UPDATE_FORM_METADATA, this.updateFormMetadata,
       constants.UPDATE_VIEWER_FIELD, this.updateViewerField
@@ -41438,7 +41429,7 @@ var FormElementStore = Fluxxor.createStore({
 
     // The elements in react need to all have an id.
     this.elements.forEach(function(element, id) {
-      element.id = id
+      element.id = id;
     });
     this.emit("change");
   },
@@ -41539,7 +41530,7 @@ var actions = {
     this.dispatch(constants.DELETE_FORM_ELEMENT, id);
   },
   setEditorVisibility: function(id, isVisible) {
-    this.dispatch(constants.TOGGLE_FORM_ELEMENT, {
+    this.dispatch(constants.SET_EDITOR_VISIBILITY, {
       id: id,
       isVisible: isVisible
     });
@@ -41572,7 +41563,7 @@ module.exports = {
   actions: actions
 };
 
-},{"crypto":13,"fluxxor":62}],372:[function(require,module,exports){
+},{"fluxxor":62}],372:[function(require,module,exports){
 var S = require('string');
 
 function slugify(text) {
