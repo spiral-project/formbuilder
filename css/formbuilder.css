@@ -71,9 +71,20 @@ body {
   padding-bottom: 30px;
 }
 
+.form-editor-element {
+	position: relative;
+}
+
 .form-editor-element:hover {
   background: none repeat scroll 0% 0% #FAFAFA;
   cursor: pointer;
+}
+
+.form-editor-element .popover {
+	display: block !important;
+	min-height: 150px;
+	top: -40px;
+	left: -205px;
 }
 
 .form-editor-element .row {
@@ -94,4 +105,12 @@ body {
 }
 .center {
 	text-align: center;
+}
+
+ol {
+	list-style-type: none;
+}
+
+ol li {
+	margin: 5px;
 }
