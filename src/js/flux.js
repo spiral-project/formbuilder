@@ -75,8 +75,8 @@ var FormElementStore = Fluxxor.createStore({
   },
 
   updateFormStatus: function(status) {
-    console.log(status);
     this.formStatus = status;
+    this.emit("change");
   },
 
   onAdd: function(payload){
