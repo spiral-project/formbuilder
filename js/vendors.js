@@ -4871,7 +4871,6 @@ function getPosition(elem, offsetParent) {
   var offset,
       parentOffset = {top: 0, left: 0};
 
-  // Fixed elements are offset from window (parentOffset = {top:0, left: 0}, because it is its only offset parent
   if (getComputedStyles(elem).position === 'fixed' ) {
     // We assume that getBoundingClientRect is available when computed position is fixed
     offset = elem.getBoundingClientRect();
@@ -4924,6 +4923,7 @@ module.exports = {
   getPosition: getPosition,
   offsetParent: offsetParent
 };
+
 },{}],59:[function(require,module,exports){
 /**
  * Merge helper
