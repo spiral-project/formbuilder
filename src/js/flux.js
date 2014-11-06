@@ -105,7 +105,7 @@ var FormElementStore = Fluxxor.createStore({
     var elements = [];
     payload.elementsOrder.forEach(function(id) {
       var element = this.elements.filter(function(el) {
-        return el.id === id;
+        return el.id === parseInt(id, 10);
       })[0];
       elements.push(element);
     }.bind(this));
