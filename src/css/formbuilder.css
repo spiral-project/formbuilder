@@ -8,6 +8,13 @@ body {
   background-color: #ededeb;
 }
 
+ .vertical-center {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  font: 0/0 a;
+}
+
 #field-list {
     list-style: outside none none;
     margin: 0px;
