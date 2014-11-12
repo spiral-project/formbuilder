@@ -24,7 +24,8 @@ var opt = {
 
   config: {
     dev: "src/config/dev.js",
-    prod: "src/config/prod.js"
+    prod: "src/config/prod.js",
+    cname: "CNAME"
   },
 
   cssAssets: [
@@ -156,6 +157,11 @@ gulp.task("config-prod", function() {
     .pipe(gulp.dest(opt.outputFolder + "/js/"));
 });
 
+gulp.task("cname", function() {
+  return gulp.src(opt.config.cname)
+    .pipe(gulp.dest(opt.outputFolder));
+});
+
 
 /**
  * Watch task
@@ -177,7 +183,7 @@ gulp.task("dist", ["assets", "js", "config-prod"], function() {
 /**
  * Deploy to gh-pages
  */
-gulp.task("deploy", ["dist"], function() {
+gulp.task("deploy", ["dist", "cname"], function() {
   gulp.src("./build/**/*")
     .pipe(deploy("git@github.com:spiral-project/formbuilder.git"));
 });
