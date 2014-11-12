@@ -3,30 +3,38 @@
 "use strict";
 
 var React = require("react");
-var OverlayTrigger = require("react-bootstrap/OverlayTrigger");
-var Tooltip = require("react-bootstrap/Tooltip");
+
+var TEMPLATE = (
+  "{{formName}}\n" +
+  "---------------------\n" +
+  "\n" +
+  "  * User Link: {{userlink}}\n" +
+  "  * Admin Link: {{adminlink}}"
+);
 
 var FormHeader = React.createClass({
+
   render: function() {
-    var userLink, reportLink;
+    var userLink, reportLink, downloadButton;
     if (this.props.userLink) {
-      userLink = <OverlayTrigger placement="bottom" overlay={
-        <Tooltip><strong>Share this URL</strong> to display the online form.</Tooltip>
-        }>
-        <a href={this.props.userLink}>
+      userLink = <a href={this.props.userLink} title="Share this URL to display the online form.">
           <i className="fa-link fa fa-1x"></i> {this.props.userLink}
-        </a>
-      </OverlayTrigger>;
+        </a>;
 
     }
     if (this.props.reportLink) {
-      reportLink = <OverlayTrigger placement="bottom" overlay={
-        <Tooltip><strong>Share this URL</strong> to display the form answers.</Tooltip>
-        }>
-        <a href={this.props.reportLink}>
+      reportLink = <a href={this.props.reportLink} title="Share this URL to display the form answers.">
           <i className="fa-link fa fa-1x"></i> {this.props.reportLink}
-        </a>
-      </OverlayTrigger>;
+        </a>;
+
+      var filename = "form-" + this.props.metadata.formName + ".txt";
+      var fileContent = "data:text/plain;base64," + btoa(
+        TEMPLATE
+          .replace("{{userlink}}", this.props.userLink)
+          .replace("{{adminlink}}", this.props.reportLink)
+          .replace("{{formName}}", this.props.metadata.formName)
+      );
+      downloadButton = <a download={filename} href={fileContent} className="btn btn-primary pull-right">Download</a>;
     }
 
     var buttonClasses = "btn btn-success pull-right";
@@ -34,12 +42,21 @@ var FormHeader = React.createClass({
       buttonClasses = buttonClasses + " disabled";
     }
 
+    var saveButtonValue = "Save form";
+
+    if (this.props.formStatus === "saved") {
+      saveButtonValue = <div><i className="fa fa-check"></i> Saved</div>;
+    } else if (this.props.formStatus == "pending") {
+      saveButtonValue = <div><i className="fa fa-refresh spin"></i> Save form</div>;
+    }
+
     return <header>
       <button
         className={buttonClasses}
         onClick={this.props.submitForm} >
-        Save form
+        {saveButtonValue}
       </button>
+      {downloadButton}
       <div>{userLink}</div>
       <div>{reportLink}</div>
     </header>;

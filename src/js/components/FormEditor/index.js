@@ -11,7 +11,6 @@ var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var FieldList = require("./FieldList");
 var FormContainer = require("./FormContainer");
 var FormHeader = require("./FormHeader");
-var FormConfirmation = require("./FormConfirmation");
 
 var Fields = require("../Fields");
 
@@ -23,22 +22,22 @@ var FormEditor = React.createClass({
     StoreWatchMixin("FieldElementsStore")
   ],
 
-  // This is called when the URL changed for the same route.
-  componentWillReceiveProps: function(newProps) {
-    if (newProps.params.formId) {
-      this.loadForm(newProps.params);
+  loadFromProps: function(props) {
+    if (props.params.formId) {
+      this.loadForm(props.params);
     } else {
       this.getFlux().actions.setInitialData();
     }
   },
 
+  // This is called when the URL changed for the same route.
+  componentWillReceiveProps: function(newProps) {
+    this.loadFromProps(newProps);
+  },
+
   // This is called when the route loads for the first time.
   componentDidMount: function() {
-    if (this.props.params.formId) {
-      this.loadForm(this.props.params);
-    } else {
-      this.getFlux().actions.setInitialData();
-    }
+    this.loadFromProps(this.props);
   },
 
   loadForm: function(params) {
@@ -56,16 +55,15 @@ var FormEditor = React.createClass({
   },
 
   submitForm: function() {
+    this.getFlux().actions.updateFormStatus("pending");
     this.props.backend.storeForm(
       this.props.params.formId,
       this.state,
       this.props.params.hawkToken
     ).then(function(params) {
       console.log("Model saved !", params);
-      this.setState({
-        'submitted': true,
-        'submittedFormParams': params
-      });
+      this.getFlux().actions.updateFormStatus("saved");
+      this.transitionTo('editForm', params);
     }.bind(this));
   },
 
@@ -87,19 +85,8 @@ var FormEditor = React.createClass({
     }
   },
 
-  hideConfirmation: function() {
-    this.setState({
-      'submitted': false
-    });
-  },
-
   render: function() {
     var confirmation;
-    if (this.state.submitted) {
-      confirmation = <FormConfirmation
-        formData={this.state}
-        hide={this.hideConfirmation} />;
-    }
 
     return (
       <div className="row">
@@ -115,7 +102,9 @@ var FormEditor = React.createClass({
             metadata={this.state.metadata}
             submitForm={this.submitForm} />
           <FormHeader
+            formStatus={this.state.formStatus}
             formReady={this.state.formElements.length !== 0}
+            metadata={this.state.metadata}
             userLink={this.getUserLink()}
             reportLink={this.getReportLink()}
             submitForm={this.submitForm} />

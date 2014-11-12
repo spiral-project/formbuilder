@@ -27,8 +27,9 @@ var FormContainer = React.createClass({
 
   handleReorder: function(elements) {
     this.getFlux().actions.reorderFormElements(
+      // Flux is expecting ids, and elements are objects here.
       elements.map(function(element) {
-        return element._store.props.key;
+        return element.key;
       })
     );
   },
@@ -54,7 +55,7 @@ var FormContainer = React.createClass({
                        renderer={Fields.paragraph.renderer}
                        deletable={false} />
           <Sortable components={
-                this.props.elements.map(function(element) {
+                this.props.elements.map(function(element, i) {
                   return <FormElement
                             draggable={true}
                             key={element.id}
