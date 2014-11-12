@@ -14,14 +14,18 @@ var FormBuilderApp = require("./components/FormBuilderApp");
 var FormEditor = require("./components/FormEditor");
 var FormViewer = require("./components/FormViewer");
 var FormReport = require("./components/FormReport");
+var Welcome = require("./components/Welcome");
 
 var backend = new DaybedBackend(document.formbuilder.config);
 
 var routes = (
   <Routes>
     <Route handler={FormBuilderApp}>
-      <Route name="createForm"
+      <Route name="welcome"
              path="/"
+             handler={Welcome} />
+      <Route name="createForm"
+             path="/new"
              handler={FormEditor} flux={flux} backend={backend} />
       <Route name="editForm"
              path="/edit/:formId/:hawkToken"
@@ -33,7 +37,7 @@ var routes = (
              path="/report/:formId"
              handler={FormReport} flux={flux} backend={backend} />
       <Route name="viewForm"
-             path="/show/:formId"
+             path="/:formId/"
              handler={FormViewer} flux={flux} backend={backend} />
     </Route>
   </Routes>);
