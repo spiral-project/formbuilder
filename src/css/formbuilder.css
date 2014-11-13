@@ -8,11 +8,9 @@ body {
   background-color: #ededeb;
 }
 
- .vertical-center {
-  height: 100%;
-  width: 100%;
-  text-align: center;
-  font: 0/0 a;
+.jumbotron {
+  margin-top: -20px;
+  background-color: #fff;
 }
 
 #field-list {
