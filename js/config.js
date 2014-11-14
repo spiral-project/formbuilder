@@ -1,6 +1,1 @@
-var formbuilder = formbuilder || {};
-formbuilder.config = {
-  "daybedHost": "https://daybed.io"
-};
-
-document.formbuilder = formbuilder;
+var formbuilder=formbuilder||{};formbuilder.config={daybedHost:"https://daybed.io"},document.formbuilder=formbuilder;

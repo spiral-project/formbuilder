@@ -8,11 +8,6 @@ body {
   background-color: #ededeb;
 }
 
-.jumbotron {
-  margin-top: -20px;
-  background-color: #fff;
-}
-
 #field-list {
     list-style: outside none none;
     margin: 0px;
