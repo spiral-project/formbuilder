@@ -22,7 +22,7 @@ var Welcome = React.createClass({
              This is the <strong>daybed formbuilder</strong>, a tool to help
              you create online forms easily.
           </p>
-          <p><Button className="btn-primary btn-lg" onClick={this.onClick} bsStyle="primary">Interested? Create a new one!</Button></p>
+          <p><Button className="btn-primary btn-lg" onClick={this.onClick} bsStyle="primary"><i className="fa fa-check-square-o"></i> Interested? Create a new one!</Button></p>
           </div>
         </Jumbotron>
         <div className="container">
