@@ -11,6 +11,7 @@ var Fields = require("../Fields");
 var Submit = require("../Fields/Submit");
 
 var Sortable = require("react-components/sortable");
+var Alert = require("react-bootstrap/Alert");
 
 var FormContainer = React.createClass({
   mixins: [FluxMixin],
@@ -35,8 +36,18 @@ var FormContainer = React.createClass({
   },
 
   render: function() {
+    var panel;
+    if (this.props.elements.length === 0) {
+      panel = <Alert bsStyle="warning">
+          <h4>A little help?</h4>
+          <p>You're about to create a new form. Click the components on the
+          left to populate your form, and click on them to edit their content.
+          </p>
+        </Alert>
+    }
     return (
         <div id="form-editor-elements">
+          { panel }
           <FormElement key="title"
                        element={{data: {label: this.props.metadata.formName},
                                  id: "title",
