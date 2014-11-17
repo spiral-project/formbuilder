@@ -65,7 +65,7 @@ var FormContainer = React.createClass({
                             renderer={Fields[element.fieldType].renderer} />;
                 }.bind(this))
               } onReorder={this.handleReorder}
-                verify={() => true} />
+                verify={function() { return true; } } />
 
           <FormElement key="submit"
                        element={{data: {label: this.props.metadata.submitButtonLabel},

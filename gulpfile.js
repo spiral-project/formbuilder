@@ -6,8 +6,7 @@ var gulp = require("gulp");
 var browserify = require('browserify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream');
-//var uglify = require('gulp-uglify'); Deactivate uglify for now since we
-//cannot deploy with it.
+var uglify = require('gulp-uglify');
 var webserver = require("gulp-webserver");
 var deploy = require("gulp-gh-pages");
 var rename = require("gulp-rename");
@@ -176,7 +175,7 @@ gulp.task("watch", ["assets","js:vendors", "config-dev", "watchify"],
 
 gulp.task("dist", ["assets", "js", "config-prod"], function() {
   return gulp.src(opt.outputFolder + "/js/*.js")
-    //.pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest(opt.outputFolder + "/js"));
 });
 
