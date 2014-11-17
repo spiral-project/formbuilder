@@ -17,15 +17,15 @@ var FormHeader = React.createClass({
   render: function() {
     var userLink, reportLink, downloadButton;
     if (this.props.userLink) {
-      userLink = <a href={this.props.userLink} title="Share this URL to display the online form.">
+      userLink = <div><a href={this.props.userLink} title="Share this URL to display the online form.">
           <i className="fa-link fa fa-1x"></i> {this.props.userLink}
-        </a>;
+        </a></div>;
 
     }
     if (this.props.reportLink) {
-      reportLink = <a href={this.props.reportLink} title="Share this URL to display the form answers.">
+      reportLink = <div><a href={this.props.reportLink} title="Share this URL to display the form answers.">
           <i className="fa-link fa fa-1x"></i> {this.props.reportLink}
-        </a>;
+        </a></div>;
 
       var filename = "form-" + this.props.metadata.formName + ".txt";
       var fileContent = "data:text/plain;base64," + btoa(
@@ -57,8 +57,8 @@ var FormHeader = React.createClass({
         {saveButtonValue}
       </button>
       {downloadButton}
-      <div>{userLink}</div>
-      <div>{reportLink}</div>
+      {userLink}
+      {reportLink}
     </header>;
   }
 });

@@ -3,12 +3,14 @@
 "use strict";
 
 var React = require("react");
+var Affix = require("react-bootstrap/Affix");
 
 var FieldList = React.createClass({
 
   render: function() {
 
-    return <ul id="field-list">
+    return <Affix offset={0} id="field-list">
+      <ul>
       <li className="optionTitle">Elements</li>
       <ul id="elements">
       {
@@ -22,7 +24,7 @@ var FieldList = React.createClass({
               &nbsp;&nbsp;{field.name}
             </li>);
         }.bind(this))
-      }</ul></ul>;
+      }</ul></ul></Affix>;
   }
 });
 

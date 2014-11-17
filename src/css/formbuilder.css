@@ -8,6 +8,32 @@ body {
   background-color: #ededeb;
 }
 
+.jumbotron {
+  margin-top: -20px;
+  background-color: #fff;
+}
+
+#field-list.affix-top {
+  position: static;
+}
+
+@media (min-width: 768px) {
+  #field-list.affix, #field-list.affix-top {
+    width:186px;
+  }
+}
+@media (min-width: 970px) {
+  #field-list.affix, #field-list.affix-top {
+    width:243px;
+  }
+}
+@media (min-width: 1200px) {
+  #field-list.affix, #field-list.affix-top {
+    width:291px;
+  }
+}
+
+
 #field-list {
     list-style: outside none none;
     margin: 0px;
