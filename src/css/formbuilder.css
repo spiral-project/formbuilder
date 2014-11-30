@@ -115,7 +115,6 @@ body {
 
 .form-editor-element .popover {
 	display: block !important;
-	min-height: 150px;
 	top: -40px;
 	left: -205px;
 }
