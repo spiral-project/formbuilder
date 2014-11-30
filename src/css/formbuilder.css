@@ -29,10 +29,13 @@ body {
 }
 @media (min-width: 1200px) {
   #field-list.affix, #field-list.affix-top {
-    width:291px;
+    width:200px;
   }
 }
 
+.row {
+  margin-right: 0px;
+}
 
 #field-list {
     list-style: outside none none;
