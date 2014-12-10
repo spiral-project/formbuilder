@@ -25,6 +25,7 @@ var FormEditor = React.createClass({
   loadFromProps: function(props) {
     if (props.params.formId) {
       this.loadForm(props.params);
+      this.getFlux().actions.setFormId(props.params.formId);
     } else {
       this.getFlux().actions.setInitialData();
     }
@@ -61,7 +62,6 @@ var FormEditor = React.createClass({
       this.state,
       this.props.params.hawkToken
     ).then(function(params) {
-      console.log("Model saved !", params);
       this.getFlux().actions.updateFormStatus("saved");
       this.transitionTo('editForm', params);
     }.bind(this));

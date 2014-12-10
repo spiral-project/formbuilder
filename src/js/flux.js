@@ -11,7 +11,8 @@ var constants = {
   SET_INITIAL_DATA: "SET_INITIAL_DATA",
   UPDATE_FORM_METADATA: "UPDATE_FORM_METADATA",
   UPDATE_VIEWER_FIELD: "UPDATE_VIEWER_FIELD",
-  UPDATE_FORM_STATUS: "UPDATE_FORM_STATUS"
+  UPDATE_FORM_STATUS: "UPDATE_FORM_STATUS",
+  SET_FORM_ID: "SET_FORM_ID"
 };
 
 
@@ -20,6 +21,7 @@ var FormElementStore = Fluxxor.createStore({
     this.elements = [];
     this.record = {};
     this.metadata = {};
+    this.formId = null;
     this.metadata.editStatus = {
       "title": false,
       "description": false,
@@ -36,7 +38,8 @@ var FormElementStore = Fluxxor.createStore({
       constants.SET_INITIAL_DATA, this.setInitialData,
       constants.UPDATE_FORM_METADATA, this.updateFormMetadata,
       constants.UPDATE_VIEWER_FIELD, this.updateViewerField,
-      constants.UPDATE_FORM_STATUS, this.updateFormStatus
+      constants.UPDATE_FORM_STATUS, this.updateFormStatus,
+      constants.SET_FORM_ID, this.setFormId
     );
   },
 
@@ -145,6 +148,11 @@ var FormElementStore = Fluxxor.createStore({
     this.emit("change");
   },
 
+  setFormId: function(formId) {
+    this.formId = formId;
+    // We don't emit here onpurpose.
+  },
+
   getState: function() {
     return {
       formElements: this.elements,
@@ -194,6 +202,9 @@ var actions = {
   },
   updateFormStatus: function(status) {
     this.dispatch(constants.UPDATE_FORM_STATUS, status);
+  },
+  setFormId: function(formId) {
+    this.dispatch(constants.SET_FORM_ID, formId);
   }
 };
 
