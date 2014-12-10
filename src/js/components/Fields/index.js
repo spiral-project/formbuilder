@@ -11,24 +11,6 @@ var Title = require("./Title");
 var Paragraph = require("./Paragraph");
 
 var elements = {
-  'title': {
-    name: 'Title',
-    icon: 'fa-font',
-    renderer: Title.Renderer,
-    editor: Title.Editor,
-    defaultData: {
-      label: 'Title'
-    }
-  },
-  'paragraph': {
-    name: 'Paragraph of text',
-    icon: 'fa-paragraph',
-    renderer: Paragraph.Renderer,
-    editor: Paragraph.Editor,
-    defaultData: {
-      label: 'Some explanation text'
-    }
-  },
   'singlelinetext': {
     name: 'Single-line text-box',
     icon: 'fa-text-width',
@@ -82,6 +64,24 @@ var elements = {
       label: 'Label',
       values: ['Option 1', 'Option 2'],
       required: false
+    }
+  },
+  'title': {
+    name: 'Title',
+    icon: 'fa-font',
+    renderer: Title.Renderer,
+    editor: Title.Editor,
+    defaultData: {
+      label: 'Title'
+    }
+  },
+  'paragraph': {
+    name: 'Paragraph of text',
+    icon: 'fa-paragraph',
+    renderer: Paragraph.Renderer,
+    editor: Paragraph.Editor,
+    defaultData: {
+      label: 'Some explanation text'
     }
   }
 };
